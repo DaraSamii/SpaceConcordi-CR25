@@ -1,0 +1,34 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      decomposeParDict;
+}
+
+// Exported by SnappyHexMesh GUI add-on for Blender v1.8
+// Source file: C:\Users\pdh24\Desktop\Concordia Classes\Rockets\blend\CR-25 medium mesh.blend
+// Export date: 2024-08-18 14:58:02.437950
+
+numberOfSubdomains 4;
+
+method          scotch;
+// method          simple;
+
+simpleCoeffs
+{
+    n               (1 1 4);
+    delta           0.001;
+}
+
+hierarchicalCoeffs
+{
+    n               (1 1 4);
+    delta           0.001;
+    order           xyz;
+}
+
+manualCoeffs
+{
+    dataFile        "cellDecomposition";
+}

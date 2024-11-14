@@ -1,0 +1,142 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # Run from this directory
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+# Get application name
+application=$(getApplication)
+
+runApplication star3ToFoam prostar/nacaAirfoil
+
+sed -i -e 's/symmetry\([)]*;\)/empty\1/' constant/polyMesh/boundary
+
+runApplication $application
+
+mkdir -p logs
+#------------------------------------------------------------------------------
+blockMesh | tee log.blockMesh;
+surfaceFeatures | tee ./logs/log.surfaceFeatures;
+snappyHexMesh -overwrite  | tee ./logs/log.snappyHexMesh;
+decomposePar -copyZero  | tee ./logs/log.decomposePar;
+mpirun -np 4 foamRun -parallel | tee ./logs/log.foamRun;
+
+Speed steps
+
+NAVIGATE TO FILE LOCATION not in the folder
+to copy
+scp -r CR-25_updated p_hoffm@speed.encs.concordia.ca:/speed-scratch/p_hoffm/
+
+ssh to speed 
+ssh p_hoffm@speed.encs.concordia.ca
+
+removing on speed through putty
+[speed-submit] [/speed-scratch/p_hoffm] > rm -rf CR-25_updated/
+
+
+to run the script 
+[speed-submit] [/speed-scratch/p_hoffm] > sbatch open.sh
+job xxxxx submitted 
+
+to edit the script
+> nano open.sh
+
+
+to retrieve data from speed
+
+ scp -r file-name /home/p/p_hoffm/
+
+
+to copy open.sh around
+ cp /speed-scratch/p_hoffm/CR-25_updated/open.sh /speed-scratch/p_hoffm/
+            location of file currently            where you want to copy too   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+script:
+
+#!/encs/bin/tcsh
+
+#SBATCH --mem=20G
+#SBATCH --ntasks-per-node=4
+#SBATCH --ntasks=4
+#SBATCH --mail-type=ALL
+#SBTACH --mail-user pdh2409@gmail.com
+
+
+module load OpenFOAM/11.0/default
+
+echo $FOAM_RUN
+
+blockMesh;
+surfaceFeatures;
+decomposePar -copyZero;
+mpirun -np 4 snappyHexMesh -parallel -overwrite;
+mpirun -np 4 foamRun;
+reconstructPar;
+
+
+to follow live calculations do tail -f slurm.xxxxx.log
+
+
+
+
+
+to have more cpus or gpus email rt-ex-hpc@encs.concordia.ca
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+check available modules
+> module avail
+
+> module load OpenFOAM/11.0/default
+
+to verify 
+> module list

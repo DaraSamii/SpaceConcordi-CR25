@@ -1,0 +1,38 @@
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    object      createBafflesDict;
+}
+
+// Exported by SnappyHexMesh GUI add-on for Blender v1.8
+// Source file: C:\Users\pdh24\Desktop\Concordia Classes\Rockets\blend\CR-25 medium mesh.blend
+// Export date: 2024-08-18 14:58:02.437950
+
+internalFacesOnly true;
+
+baffles
+{
+    rocket
+    {
+        type faceZone;
+        zoneName rocket;
+
+        patches
+        {
+            owner
+            {
+                name rocket;
+                type patch;
+            }
+
+            neighbour
+            {
+                name rocket_2;
+                type patch;
+            }
+        }
+    }
+
+
+}

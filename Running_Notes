@@ -1,0 +1,30 @@
+nacaAirfoil
+~~~~~~~~~~~
+* large domain with airfoil section near centre
+* extremely non-orthogonal, highly skew mesh refined around the airfoil
+* running at Mach 1.78
+* limited corrected 0.5 on all laplacianSchemes because the mesh is so poor
+* run to t = 0.02 with nextWrite; change to stopAt endTime to continue running
+* deltaT can be increased later in the run to 2e-07
+
+
+rocket mesh pointing in -x direction in solidworks
+
+1)	blockMesh
+
+2)	surfaceFeatures
+
+3)	decomposePar -copyZero
+
+4)	mpirun -np 4 snappyHexMesh -parallel -overwrite
+
+5)	touch CR-25.foam
+
+6)	foamRun
+
+blockMesh; 
+surfaceFeatures;
+decomposePar -copyZero; 
+mpirun -np 4 snappyHexMesh -parallel -overwrite;  
+mpirun -np 4 foamRun -parallel;
+reconstructPar;
