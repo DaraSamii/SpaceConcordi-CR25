@@ -19,7 +19,7 @@ FoamFile
 
 castellatedMesh true;
 snap            true;
-addLayers       false;
+addLayers       true;
 
 mergePatchFaces false;  // Avoid face merging to increase layer coverage
 
@@ -38,7 +38,7 @@ geometry
 castellatedMeshControls
 {
     maxLocalCells   100000;
-    maxGlobalCells  10000000;
+    maxGlobalCells  1000000;
     minRefinementCells 10;
     maxLoadUnbalance 0.1;
     nCellsBetweenLevels 4;
@@ -62,7 +62,7 @@ castellatedMeshControls
     {
         rocket
         {
-            level (1 2);
+            level (1 3);
             patchInfo { type wall; }
             
         }
@@ -146,6 +146,7 @@ addLayersControls
 
     }
 }
+
 
 meshQualityControls
 {

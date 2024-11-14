@@ -2,70 +2,68 @@
 cd ${0%/*} || exit 1    # Run from this directory
 
 # Source tutorial run functions
-. $WM_PROJECT_DIR/bin/tools/RunFunctions
+#. $WM_PROJECT_DIR/bin/tools/RunFunctions
 
 # Get application name
-application=$(getApplication)
+#application=$(getApplication)
 
-runApplication star3ToFoam prostar/nacaAirfoil
+#runApplication star3ToFoam prostar/nacaAirfoil
 
-sed -i -e 's/symmetry\([)]*;\)/empty\1/' constant/polyMesh/boundary
+#sed -i -e 's/symmetry\([)]*;\)/empty\1/' constant/polyMesh/boundary
 
-runApplication $application
+#runApplication $application
 
 mkdir -p logs
 #------------------------------------------------------------------------------
+# Step 1: Generate base mesh
 blockMesh | tee log.blockMesh;
+
+# Step 2: Extract surface features
 surfaceFeatures | tee ./logs/log.surfaceFeatures;
-snappyHexMesh -overwrite  | tee ./logs/log.snappyHexMesh;
-decomposePar -copyZero  | tee ./logs/log.decomposePar;
-mpirun -np 4 foamRun -parallel | tee ./logs/log.foamRun;
 
-Speed steps
+# Step 3: Decompose the domain for parallel processing
+decomposePar -copyZero | tee ./logs/log.decomposePar;
 
-NAVIGATE TO FILE LOCATION not in the folder
-to copy
-scp -r CR-25_updated p_hoffm@speed.encs.concordia.ca:/speed-scratch/p_hoffm/
+# Step 4: Run snappyHexMesh in parallel on 4 cores
+mpirun -np 4 snappyHexMesh -overwrite -parallel | tee ./logs/log.snappyHexMesh;
 
-ssh to speed 
-ssh p_hoffm@speed.encs.concordia.ca
+# Optional Step 5: Reconstruct the final mesh (combine into single mesh)
+reconstructParMesh -constant | tee ./logs/log.reconstructParMesh;
 
-removing on speed through putty
-[speed-submit] [/speed-scratch/p_hoffm] > rm -rf CR-25_updated/
+#Speed steps
 
+#NAVIGATE TO FILE LOCATION not in the folder
+#to copy
+#scp -r CR-25_updated p_hoffm@speed.encs.concordia.ca:/speed-scratch/p_hoffm/
 
-to run the script 
-[speed-submit] [/speed-scratch/p_hoffm] > sbatch open.sh
-job xxxxx submitted 
+#ssh to speed 
+#ssh p_hoffm@speed.encs.concordia.ca
 
-to edit the script
-> nano open.sh
+#removing on speed through putty
+#[speed-submit] [/speed-scratch/p_hoffm] > rm -rf CR-25_updated/
 
 
-to retrieve data from speed
+#to run the script 
+#[speed-submit] [/speed-scratch/p_hoffm] > sbatch open.sh
+#job xxxxx submitted 
 
- scp -r file-name /home/p/p_hoffm/
-
-
-to copy open.sh around
- cp /speed-scratch/p_hoffm/CR-25_updated/open.sh /speed-scratch/p_hoffm/
-            location of file currently            where you want to copy too   
+#to edit the script
+#> nano open.sh
 
 
+#to retrieve data from speed
+
+# scp -r file-name /home/p/p_hoffm/
 
 
-
-
-
-
+#to copy open.sh around
+# cp /speed-scratch/p_hoffm/CR-25_updated/open.sh /speed-scratch/p_hoffm/
+#            location of file currently            where you want to copy too   
 
 
 
 
-
-
-
-script:
+#script:
 
 #!/encs/bin/tcsh
 
@@ -76,25 +74,25 @@ script:
 #SBTACH --mail-user pdh2409@gmail.com
 
 
-module load OpenFOAM/11.0/default
+#module load OpenFOAM/11.0/default
 
-echo $FOAM_RUN
+#echo $FOAM_RUN
 
-blockMesh;
-surfaceFeatures;
-decomposePar -copyZero;
-mpirun -np 4 snappyHexMesh -parallel -overwrite;
-mpirun -np 4 foamRun;
-reconstructPar;
-
-
-to follow live calculations do tail -f slurm.xxxxx.log
+#blockMesh;
+#surfaceFeatures;
+#decomposePar -copyZero;
+#mpirun -np 4 snappyHexMesh -parallel -overwrite;
+#mpirun -np 4 foamRun;
+#reconstructPar;
 
 
+#to follow live calculations do tail -f slurm.xxxxx.log
 
 
 
-to have more cpus or gpus email rt-ex-hpc@encs.concordia.ca
+
+
+#to have more cpus or gpus email rt-ex-hpc@encs.concordia.ca
 
 
 
