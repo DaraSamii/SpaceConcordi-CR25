@@ -12,21 +12,38 @@ FoamFile
 
 convertToMeters 1;
 
+// **Define Parameters for Mesh Dimensions**
+xMin -6.04;
+xMax  9.04;
+
+yMin -4.04;
+yMax  4.04;
+
+zMin -4.04;
+zMax  4.04;
+
+// **Define Number of Cells**
+cellSize 0.1;  // Adjust cell size as needed
+
+nx #calc "round(($xMax - $xMin) / $cellSize)";
+ny #calc "round(($yMax - $yMin) / $cellSize)";
+nz #calc "round(($zMax - $zMin) / $cellSize)";
+
 vertices
 (
-    ( -3.04 -3.04 -3.04 )
-    ( 9.04 -3.04 -3.04 )
-    ( 9.04 3.04 -3.04 )
-    ( -3.04 3.04 -3.04 )
-    ( -3.04 -3.04 3.04 )
-    ( 9.04 -3.04 3.04 ) 
-    ( 9.04 3.04 3.04 ) 
-    ( -3.04 3.04 3.04 ) 
+    ($xMin $yMin $zMin)    // Vertex 0
+    ($xMax $yMin $zMin)    // Vertex 1
+    ($xMax $yMax $zMin)    // Vertex 2
+    ($xMin $yMax $zMin)    // Vertex 3
+    ($xMin $yMin $zMax)    // Vertex 4
+    ($xMax $yMin $zMax)    // Vertex 5
+    ($xMax $yMax $zMax)    // Vertex 6
+    ($xMin $yMax $zMax)    // Vertex 7
 );
 
 blocks
 (
-    hex (0 1 2 3 4 5 6 7) (151 76 76) simpleGrading (1 1 1)
+    hex (0 1 2 3 4 5 6 7) (150 75 75) simpleGrading (1 1 1)
 );
 
 edges

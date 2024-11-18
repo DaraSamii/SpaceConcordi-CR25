@@ -10,25 +10,28 @@ FoamFile
 // Source file: C:\Users\pdh24\Desktop\Concordia Classes\Rockets\blend\CR-25 medium mesh.blend
 // Export date: 2024-08-18 14:58:02.437950
 
-numberOfSubdomains 4;
+numberOfSubdomains 9;
 
-method          scotch;
+//method          scotch;
 // method          simple;
+method hierarchical;
 
-simpleCoeffs
+/*simpleCoeffs
 {
     n               (1 1 4);
     delta           0.001;
-}
-
-hierarchicalCoeffs
-{
-    n               (1 1 4);
-    delta           0.001;
-    order           xyz;
 }
 
 manualCoeffs
 {
     dataFile        "cellDecomposition";
 }
+*/
+hierarchicalCoeffs
+{
+    n               (3 3 3);
+    delta           0.001;
+    order           xyz;
+}
+
+

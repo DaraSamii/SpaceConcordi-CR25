@@ -24,13 +24,17 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         0.016;  
+endTime         1000;  
 
-deltaT          0.00001;	
+deltaT          1;	
 
-writeControl    runTime;
+//writeControl    runTime;
 
-writeInterval   0.001;	
+//writeInterval   0.001;	
+
+writeControl    timeStep;
+
+writeInterval   10;
 
 purgeWrite      0;
 
@@ -70,6 +74,41 @@ functions
         lRef        1;
         Aref        1;
     }
+
+    solverInfo
+    {
+        type            solverInfo;  // Function to print solver residuals
+        libs            ("libutilityFunctionObjects.so");
+    
+        log             false;  // Enable logging of residuals
+    
+        fields
+        (
+            U
+            p
+            k
+            epsilon
+            nut
+            T
+        );
+    }
+    
+    // yPlus calculation for wall boundary monitoring
+    yPlus1
+    {
+        type            yPlus;
+        libs            ("libfieldFunctionObjects.so");
+        
+        writePrecision  8;
+        writeToFile     true;
+        enabled         true;
+        log             true;
+        executeControl  timeStep;
+        executeInterval 10;  // Calculate yPlus every 10 time steps
+        writeControl    timeStep;
+        writeInterval   10;
+    }
+    
 }
 
 // ************************************************************************* //

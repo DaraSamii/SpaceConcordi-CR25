@@ -28,7 +28,7 @@ decomposePar -copyZero | tee ./logs/log.decomposePar;
 mpirun -np 4 snappyHexMesh -overwrite -parallel | tee ./logs/log.snappyHexMesh;
 
 # Optional Step 5: Reconstruct the final mesh (combine into single mesh)
-reconstructParMesh -constant | tee ./logs/log.reconstructParMesh;
+reconstructPar -constant | tee ./logs/log.reconstructPar;
 
 #Speed steps
 
@@ -104,37 +104,10 @@ reconstructParMesh -constant | tee ./logs/log.reconstructParMesh;
 
 
 
+#check available modules
+#> module avail
 
+#> module load OpenFOAM/11.0/default
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-check available modules
-> module avail
-
-> module load OpenFOAM/11.0/default
-
-to verify 
-> module list
+#to verify 
+#> module list
