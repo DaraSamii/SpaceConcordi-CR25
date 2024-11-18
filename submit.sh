@@ -12,7 +12,10 @@
 module load openfoam/11
 
 
-foamCleanTutorials
+# Source tutorial clean functions
+. $WM_PROJECT_DIR/bin/tools/CleanFunctions
+
+cleanCase
 
 mkdir -p logs
 #------------------------------------------------------------------------------
