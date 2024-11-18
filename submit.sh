@@ -9,6 +9,8 @@
 #SBATCH --mail-type=ALL
 #SBATCH --account=def-tembelym
 #SBATCH --output=submit.out
+module purge
+
 module load openfoam/11
 
 
