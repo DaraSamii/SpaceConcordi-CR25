@@ -16,7 +16,7 @@ FoamFile
 
 ddtSchemes
 {
-    default         SteadyState;
+    default         Euler;
 }
 
 gradSchemes
@@ -35,6 +35,9 @@ divSchemes
     div(phi,(p|rho))    Gauss limitedLinear 1;
     div(phi,k)          Gauss upwind;
     div(phi,epsilon)    Gauss upwind;
+
+    div(phi,U)      bounded Gauss linear;
+    div(div(phi,U)) Gauss linear;
 
     div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
 }

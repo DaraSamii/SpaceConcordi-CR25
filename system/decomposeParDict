@@ -1,37 +1,29 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  11
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
 FoamFile
 {
-    version     2.0;
-    format      ascii;
-    class       dictionary;
-    object      decomposeParDict;
+    version         2;
+    format          ascii;
+    class           dictionary;
+    object          decomposeParDict;
 }
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-// Exported by SnappyHexMesh GUI add-on for Blender v1.8
-// Source file: C:\Users\pdh24\Desktop\Concordia Classes\Rockets\blend\CR-25 medium mesh.blend
-// Export date: 2024-08-18 14:58:02.437950
+numberOfSubdomains 4;
 
-numberOfSubdomains 9;
+method          hierarchical;
 
-//method          scotch;
-// method          simple;
-method hierarchical;
-
-/*simpleCoeffs
-{
-    n               (1 1 4);
-    delta           0.001;
-}
-
-manualCoeffs
-{
-    dataFile        "cellDecomposition";
-}
-*/
 hierarchicalCoeffs
 {
-    n               (3 3 3);
+    n               ( 2 2 1 );
     delta           0.001;
     order           xyz;
 }
 
 
+// ************************************************************************* //

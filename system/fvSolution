@@ -40,6 +40,15 @@ solvers
         $p;
         tolerance       1e-10;
     }
+    Phi
+    {
+        solver          GAMG;
+        smoother        DIC;
+
+        tolerance       1e-06;
+        relTol          0.01;
+    }
+
 }
 
 PIMPLE
@@ -49,6 +58,11 @@ PIMPLE
     nNonOrthogonalCorrectors 0;
 
     transonic            yes;
+}
+
+potentialFlow
+{
+    nNonOrthogonalCorrectors 2;
 }
 
 

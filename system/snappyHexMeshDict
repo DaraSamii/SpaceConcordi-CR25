@@ -145,11 +145,11 @@ addLayersControls
     {
         rocket
         {
-            nSurfaceLayers 7;
+            nSurfaceLayers 11;
             //Local parameters
             expansionRatio 1.1;
-            finalLayerThickness 0.3;
-            minThickness 0.01;
+            finalLayerThickness 0.1;
+            minThickness 0.001;
         }
     }
 }

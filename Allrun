@@ -1,4 +1,26 @@
-#!/bin/sh
+#!/bin/bash
+#SBATCH --job-name=CR25
+#SBATCH --mem=32G
+#SBATCH --nodes=1
+#SBATCH --ntasks=27
+#SBATCH --cpus-per-task=1
+#SBATCH --time=7:0:0    
+#SBATCH --mail-user=darasamii@gmail.com
+#SBATCH --mail-type=ALL
+#SBATCH --account=def-tembelym
+#SBATCH --output=submit.out
+
+
+
+# Source the OpenFOAM environment (modify as needed)
+if module avail openfoam/11 &>/dev/null; then
+    module load openfoam/11
+    echo "OpenFOAM v2312 module loaded successfully."
+else
+    op11
+    echo "Using OpenFOAM op11."
+fi
+
 cd ${0%/*} || exit 1    # Run from this directory
 
 # Source tutorial run functions
@@ -8,16 +30,42 @@ cd ${0%/*} || exit 1    # Run from this directory
 . $WM_PROJECT_DIR/bin/tools/CleanFunctions
 
 cleanCase
-# Get application name
-#application=$(getApplication)
 
-#runApplication star3ToFoam prostar/nacaAirfoil
+rm -f ./0/*.gz
 
-#sed -i -e 's/symmetry\([)]*;\)/empty\1/' constant/polyMesh/boundary
+# Remove and recreate logs directory
+if [ -d "logs" ]; then
+    echo "Removing existing logs directory..."
+    rm -r logs
+fi
+mkdir -p logs
+echo "Logs directory created."
 
-#runApplication $application
+# Touch foam.foam for ParaView compatibility
+touch foam.foam
+
+
+cd ${0%/*} || exit 1    # Run from this directory
 
 mkdir -p logs
+
+
+if module avail openfoam/11 &>/dev/null; then
+    numProcs=27  # Server
+    divs="(3 3 3)"  # Adjust for server
+else
+    numProcs=4  # Local machine
+    divs="(2 2 1)"  # Adjust for local machine
+fi
+
+# ============================
+# Modify decomposeParDict
+# ============================
+
+echo "Updating decomposeParDict for $numProcs processors..."
+foamDictionary system/decomposeParDict -entry "numberOfSubdomains" -set "$numProcs"
+foamDictionary system/decomposeParDict -entry "hierarchicalCoeffs/n" -set "$divs"
+
 #------------------------------------------------------------------------------
 # Step 1: Generate base mesh
 blockMesh | tee log.blockMesh;
@@ -34,8 +82,11 @@ mpirun -np 4 snappyHexMesh -overwrite -parallel | tee ./logs/log.snappyHexMesh;
 # Optional Step 5: Reconstruct the final mesh (combine into single mesh)
 reconstructPar -constant | tee ./logs/log.reconstructPar;
 
-#Speed steps
 
+rm -r processor*
+
+#Speed steps
+decomposePar | tee ./logs/log.decomposePar2;
 #NAVIGATE TO FILE LOCATION not in the folder
 #to copy
 #scp -r CR-25_updated p_hoffm@speed.encs.concordia.ca:/speed-scratch/p_hoffm/

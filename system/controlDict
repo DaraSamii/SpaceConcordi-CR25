@@ -24,9 +24,9 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         1000;  
+endTime         1;  
 
-deltaT          1;	
+deltaT          0.0001;	
 
 //writeControl    runTime;
 
@@ -52,6 +52,10 @@ runTimeModifiable true;
 
 functions
 {
+
+    #includeFunc residuals
+
+    
     forces
     {
         type            forceCoeffs;
@@ -75,23 +79,6 @@ functions
         Aref        1;
     }
 
-    solverInfo
-    {
-        type            solverInfo;  // Function to print solver residuals
-        libs            ("libutilityFunctionObjects.so");
-    
-        log             false;  // Enable logging of residuals
-    
-        fields
-        (
-            U
-            p
-            k
-            epsilon
-            nut
-            T
-        );
-    }
     
     // yPlus calculation for wall boundary monitoring
     yPlus1
