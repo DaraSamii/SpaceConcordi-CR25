@@ -85,11 +85,15 @@ reconstructPar -constant | tee ./logs/log.reconstructPar;
 
 rm -r processor*
 
+
+renumberMesh -overwrite 2>&1 | tee logs/log.renumberMesh
+
+
 #Speed steps
 decomposePar | tee ./logs/log.decomposePar2;
 
 
-mpirun -np $numProcs simpleFoam -parallel | tee ./logs/log.simpleFoam;
+mpirun -np $numProcs foamRun -parallel | tee ./logs/log.foamRun;
 
 #NAVIGATE TO FILE LOCATION not in the folder
 #to copy
