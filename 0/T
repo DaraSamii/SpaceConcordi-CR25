@@ -2,13 +2,14 @@
   =========                 |
   \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
    \\    /   O peration     | Website:  https://openfoam.org
-    \\  /    A nd           | Version:  11
+    \\  /    A nd           | Version:  12
      \\/     M anipulation  |
 \*---------------------------------------------------------------------------*/
 FoamFile
 {
     format      ascii;
     class       volScalarField;
+    location    "0";
     object      T;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -24,25 +25,15 @@ boundaryField
         type            fixedValue;
         value           uniform 300;
     }
-
     outlet
     {
         type            zeroGradient;
-	value           uniform 300;
     }
-
     sides
     {
         type            zeroGradient;
- 	value           uniform 300;
-    }
-
-    rocket
-    {
-        type            zeroGradient;
- 	value           uniform 300;
-
     }
 }
+
 
 // ************************************************************************* //

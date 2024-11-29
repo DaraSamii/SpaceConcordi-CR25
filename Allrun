@@ -13,9 +13,9 @@
 
 
 # Source the OpenFOAM environment (modify as needed)
-if module avail openfoam/11 &>/dev/null; then
-    module load openfoam/11
-    echo "OpenFOAM v2312 module loaded successfully."
+if module avail openfoam/12 &>/dev/null; then
+    module load openfoam/12
+    echo "OpenFOAM v12 module loaded successfully."
 else
     op11
     echo "Using OpenFOAM op11."
@@ -31,8 +31,9 @@ cd ${0%/*} || exit 1    # Run from this directory
 
 cleanCase
 
-rm -f ./0/*.gz
+rm -rf ./0/
 
+cp -r ./0.org ./0
 # Remove and recreate logs directory
 if [ -d "logs" ]; then
     echo "Removing existing logs directory..."
@@ -68,19 +69,19 @@ foamDictionary system/decomposeParDict -entry "hierarchicalCoeffs/n" -set "$divs
 
 #------------------------------------------------------------------------------
 # Step 1: Generate base mesh
-blockMesh | tee log.blockMesh;
+blockMesh 2>&1 | tee log.blockMesh;
 
 # Step 2: Extract surface features
-surfaceFeatures | tee ./logs/log.surfaceFeatures;
+surfaceFeatures 2>&1  | tee ./logs/log.surfaceFeatures;
 
 # Step 3: Decompose the domain for parallel processing
-decomposePar -copyZero | tee ./logs/log.decomposePar;
+decomposePar -copyZero 2>&1  | tee ./logs/log.decomposePar;
 
 # Step 4: Run snappyHexMesh in parallel on 4 cores
-mpirun -np 4 snappyHexMesh -overwrite -parallel | tee ./logs/log.snappyHexMesh;
+mpirun -np $numProcs snappyHexMesh -overwrite -parallel 2>&1  | tee ./logs/log.snappyHexMesh;
 
 # Optional Step 5: Reconstruct the final mesh (combine into single mesh)
-reconstructPar -constant | tee ./logs/log.reconstructPar;
+reconstructPar -constant 2>&1  | tee ./logs/log.reconstructPar;
 
 
 rm -r processor*
@@ -90,87 +91,7 @@ renumberMesh -overwrite 2>&1 | tee logs/log.renumberMesh
 
 
 #Speed steps
-decomposePar | tee ./logs/log.decomposePar2;
+decomposePar 2>&1  | tee ./logs/log.decomposePar2;
 
 
-mpirun -np $numProcs foamRun -parallel | tee ./logs/log.foamRun;
-
-#NAVIGATE TO FILE LOCATION not in the folder
-#to copy
-#scp -r CR-25_updated p_hoffm@speed.encs.concordia.ca:/speed-scratch/p_hoffm/
-
-#ssh to speed 
-#ssh p_hoffm@speed.encs.concordia.ca
-
-#removing on speed through putty
-#[speed-submit] [/speed-scratch/p_hoffm] > rm -rf CR-25_updated/
-
-
-#to run the script 
-#[speed-submit] [/speed-scratch/p_hoffm] > sbatch open.sh
-#job xxxxx submitted 
-
-#to edit the script
-#> nano open.sh
-
-
-#to retrieve data from speed
-
-# scp -r file-name /home/p/p_hoffm/
-
-
-#to copy open.sh around
-# cp /speed-scratch/p_hoffm/CR-25_updated/open.sh /speed-scratch/p_hoffm/
-#            location of file currently            where you want to copy too   
-
-
-
-
-#script:
-
-#!/encs/bin/tcsh
-
-#SBATCH --mem=20G
-#SBATCH --ntasks-per-node=4
-#SBATCH --ntasks=4
-#SBATCH --mail-type=ALL
-#SBTACH --mail-user pdh2409@gmail.com
-
-
-#module load OpenFOAM/11.0/default
-
-#echo $FOAM_RUN
-
-#blockMesh;
-#surfaceFeatures;
-#decomposePar -copyZero;
-#mpirun -np 4 snappyHexMesh -parallel -overwrite;
-#mpirun -np 4 foamRun;
-#reconstructPar;
-
-
-#to follow live calculations do tail -f slurm.xxxxx.log
-
-
-
-
-
-#to have more cpus or gpus email rt-ex-hpc@encs.concordia.ca
-
-
-
-
-
-
-
-
-
-
-
-#check available modules
-#> module avail
-
-#> module load OpenFOAM/11.0/default
-
-#to verify 
-#> module list
+mpirun -np $numProcs foamRun -parallel 2>&1  | tee ./logs/log.foamRun;
