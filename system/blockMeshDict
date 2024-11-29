@@ -23,7 +23,7 @@ zMin -4.04;
 zMax  4.04;
 
 // **Define Number of Cells**
-cellSize 0.1;  // Adjust cell size as needed
+cellSize 0.05;  // Adjust cell size as needed
 
 nx #calc "round(($xMax - $xMin) / $cellSize)";
 ny #calc "round(($yMax - $yMin) / $cellSize)";

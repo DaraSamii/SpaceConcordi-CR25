@@ -10,20 +10,20 @@ FoamFile
     format      ascii;
     class       volScalarField;
     location    "0";
-    object      k;
+    object      omega;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 2 -2 0 0 0 0];
+dimensions      [0 0 -1 0 0 0 0];
 
-internalField   uniform 1;
+internalField   uniform 10;
 
 boundaryField
 {
     inlet
     {
         type            fixedValue;
-        value           uniform 1;
+        value           uniform 10;
     }
     outlet
     {
@@ -31,14 +31,14 @@ boundaryField
     }
     sides
     {
-        type            freestream;
-        freestreamValue uniform 1;
-        value           uniform 1;
+        type            inletOutlet;
+        inletValue      uniform 10;
+        value           uniform 10;
     }
     rocket
     {
-        type            kqRWallFunction;
-        value           uniform 1;
+        type            omegaWallFunction;
+        value           uniform 1;  // Suitable value for wall function
     }
 }
 

@@ -16,13 +16,13 @@ FoamFile
 
 thermoType
 {
-    type            hePsiThermo;
-    mixture         pureMixture;
-    transport       const;
-    thermo          hConst;
+    type hePsiThermo;
+    mixture pureMixture;
+    transport const;
+    thermo hConst;
     equationOfState perfectGas;
-    specie          specie;
-    energy          sensibleInternalEnergy;
+    specie specie;
+    energy sensibleInternalEnergy;
 }
 
 mixture

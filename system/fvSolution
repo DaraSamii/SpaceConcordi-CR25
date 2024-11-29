@@ -16,46 +16,69 @@ FoamFile
 
 solvers
 {
-    "rho.*"
+    "(p|rho)"
     {
-        solver          diagonal;
+        solver GAMG;
+        tolerance 1e-8;
+        relTol 0.1;
+        smoother GaussSeidel;
+        nPreSweeps 2;
+        nPostSweeps 2;
+        cacheAgglomeration true;
+        agglomerator faceAreaPair;
+        mergeLevels 1;
     }
 
-    "p.*"
+
+    "(p|rho)Final"
     {
-        solver          PBiCGStab;
-        preconditioner  DILU;
-        tolerance       1e-12;
+        $p;
         relTol          0;
     }
 
-    "(U|e).*"
+    "(U|e|k|nuTilda|omega|epsilon|h|)"
     {
-        $p;
-        tolerance       1e-9;
-    }
-
-    "(k|epsilon).*"
-    {
-        $p;
-        tolerance       1e-10;
-    }
-    Phi
-    {
-        solver          GAMG;
-        smoother        DIC;
-
-        tolerance       1e-06;
+        solver          smoothSolver;
+        smoother         GaussSeidel;
+        tolerance       1e-6;
         relTol          0.01;
     }
 
+    "(U|e|k|nuTilda|h|epsilon|omega)Final"
+    {
+        $U;
+        relTol          0;
+    }
+
+
+    "rho(U|E)"
+    {
+        solver          PBiCG;
+        preconditioner  DILU;
+        tolerance       1e-6;
+        relTol          0.05;
+    }
 }
+
+
+SIMPLE
+{
+    residualControl
+    {
+        p               1e-4;
+        U               1e-4;
+        "(k|omega|e)"   1e-4;
+    }
+
+    nNonOrthogonalCorrectors 0;
+}
+
 
 PIMPLE
 {
-    nOuterCorrectors 1;
-    nCorrectors      2;
-    nNonOrthogonalCorrectors 0;
+    nOuterCorrectors 2;
+    nCorrectors      3;
+    nNonOrthogonalCorrectors 1;
 
     transonic            yes;
 }

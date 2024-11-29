@@ -86,9 +86,10 @@ reconstructPar -constant 2>&1  | tee ./logs/log.reconstructPar;
 
 rm -r processor*
 
-
+./
 renumberMesh -overwrite 2>&1 | tee logs/log.renumberMesh
 
+checkMesh  2>&1 | tee logs/log.checkMesh
 
 #Speed steps
 decomposePar 2>&1  | tee ./logs/log.decomposePar2;

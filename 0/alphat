@@ -35,6 +35,12 @@ boundaryField
         type            calculated;
         value           uniform 0;
     }
+    rocket
+    {
+        type            compressible::alphatWallFunction;
+        Prt             0.85;
+        value           uniform 0;
+    }
 }
 
 

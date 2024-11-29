@@ -39,6 +39,10 @@ boundaryField
         supersonic      false;
         value           uniform 100000;
     }
+    rocket
+    {
+        type            zeroGradient;
+    }
 }
 
 

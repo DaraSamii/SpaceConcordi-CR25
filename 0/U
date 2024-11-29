@@ -39,6 +39,10 @@ boundaryField
         freestreamValue uniform (600 148.16 0);
         value           uniform (600 148.16 0);
     }
+    rocket
+    {
+        type            noSlip;
+    }
 }
 
 

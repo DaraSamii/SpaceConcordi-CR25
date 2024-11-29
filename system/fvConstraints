@@ -9,21 +9,9 @@ FoamFile
 {
     format      ascii;
     class       dictionary;
-    location    "constant";
-    object      momentumTransport;
+    object      fvConstraints;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-simulationType  RAS;
-
-RAS
-{
-    RASModel        kOmegaSST;
-
-    turbulence      on;
-
-    printCoeffs     on;
-}
-
-
-// ************************************************************************* //
+#includeConstraint limitPressure(minFactor=0.1, maxFactor=2)
+#includeConstraint limitTemperature(min=101, max=1000)
