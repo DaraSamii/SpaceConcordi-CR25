@@ -87,6 +87,10 @@ rm -r processor*
 
 #Speed steps
 decomposePar | tee ./logs/log.decomposePar2;
+
+
+mpirun -np $numProcs simpleFoam -parallel | tee ./logs/log.simpleFoam;
+
 #NAVIGATE TO FILE LOCATION not in the folder
 #to copy
 #scp -r CR-25_updated p_hoffm@speed.encs.concordia.ca:/speed-scratch/p_hoffm/

@@ -14,9 +14,17 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+crankNicolsonCoeff  0.5;
+
 ddtSchemes
 {
-    default         Euler;
+    default         CrankNicolson $crankNicolsonCoeff; // Replace <coeff> with your desired blending factor, e.g., 0.5
+    ddt(rho)        CrankNicolson $crankNicolsonCoeff;
+    ddt(U)          CrankNicolson $crankNicolsonCoeff;
+    ddt(h)          CrankNicolson $crankNicolsonCoeff;
+    ddt(e)          CrankNicolson $crankNicolsonCoeff;
+    ddt(T)          CrankNicolson $crankNicolsonCoeff;
+    ddt(phi)        CrankNicolson $crankNicolsonCoeff;
 }
 
 gradSchemes
