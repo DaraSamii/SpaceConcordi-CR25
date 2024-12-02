@@ -13,6 +13,7 @@ FoamFile
     object      controlDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+#include "./parameters.cs";
 
 application     foamRun;
 
@@ -26,13 +27,13 @@ stopAt          endTime;
 
 endTime         1;  
 
-deltaT         1e-06;
+deltaT         $deltaT;
 
-maxDeltaT          1e-;	
+maxDeltaT          $maxDeltaT;	
 
 writeControl    runTime;
 
-writeInterval   0.0001;
+writeInterval   $maxDeltaT;
 
 purgeWrite      0;
 
@@ -47,11 +48,9 @@ timeFormat      general;
 timePrecision   10;	
 
 runTimeModifiable true;
-
 adjustTimeStep  true;
 
-maxCo   0.5;
-
+maxCo   $maxCo;
 
 functions
 {
@@ -77,7 +76,7 @@ functions
         liftDir     (0 1 0);
         dragDir     (1 0 0);
         pitchAxis   (0 0 1);
-        magUInf     618.022;
+        magUInf     #calc "sqrt(pow($Ux,2) + pow($Uy,2) + pow($Uz,2))";
         lRef        1;
         Aref        1;
     }
@@ -93,10 +92,10 @@ functions
         writeToFile     true;
         enabled         true;
         log             true;
-        executeControl  timeStep;
-        executeInterval 10;  // Calculate yPlus every 10 time steps
-        writeControl    timeStep;
-        writeInterval   10;
+        executeControl  runTime;
+        executeInterval $maxDeltaT;  // Calculate yPlus every 10 time steps
+        writeControl    runTime;
+        writeInterval   $$maxDeltaT;
     }
     
 }

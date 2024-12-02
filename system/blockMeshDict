@@ -10,20 +10,11 @@ FoamFile
 // Source file: C:\Users\pdh24\Desktop\Concordia Classes\Rockets\blend\CR-25 medium mesh.blend
 // Export date: 2024-08-17 23:51:38.113671
 
+
+#include "parameters.cs"
+
 convertToMeters 1;
 
-// **Define Parameters for Mesh Dimensions**
-xMin -6.04;
-xMax  9.04;
-
-yMin -4.04;
-yMax  4.04;
-
-zMin -4.04;
-zMax  4.04;
-
-// **Define Number of Cells**
-cellSize 0.05;  // Adjust cell size as needed
 
 nx #calc "round(($xMax - $xMin) / $cellSize)";
 ny #calc "round(($yMax - $yMin) / $cellSize)";
@@ -52,13 +43,11 @@ edges
 
 boundary
 (
-    
 inlet
     {
         type patch;
         faces
         (
-
             (0 4 7 3)
             
         );
@@ -69,9 +58,7 @@ outlet
         type patch;
         faces
         (
-           
             (2 6 5 1)
-            
         );
     }
 

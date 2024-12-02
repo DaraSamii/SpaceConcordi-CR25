@@ -31,9 +31,11 @@ cd ${0%/*} || exit 1    # Run from this directory
 
 cleanCase
 
-rm -rf ./0/
+rm -f ./0/*.gz
 
 cp -r ./0.org ./0
+
+rm -r /processor*/
 # Remove and recreate logs directory
 if [ -d "logs" ]; then
     echo "Removing existing logs directory..."
@@ -85,11 +87,6 @@ reconstructPar -constant 2>&1  | tee ./logs/log.reconstructPar;
 
 
 rm -r processor*
-
-./
-renumberMesh -overwrite 2>&1 | tee logs/log.renumberMesh
-
-checkMesh  2>&1 | tee logs/log.checkMesh
 
 #Speed steps
 decomposePar 2>&1  | tee ./logs/log.decomposePar2;

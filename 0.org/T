@@ -13,34 +13,36 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+#include "../system/parameters.cs"
+
 dimensions      [0 0 0 1 0 0 0];
 
-internalField   uniform 300;
+internalField   uniform $T;
 
 boundaryField
 {
     inlet
     {
         type            fixedValue;
-        value           uniform 300;
+        value           uniform $T;
     }
 
     outlet
     {
         type            zeroGradient;
-	value           uniform 300;
+	value           uniform $T;
     }
 
     sides
     {
-        type            zeroGradient;
- 	value           uniform 300;
+    type            zeroGradient;
+    value           uniform $T;
     }
 
     rocket
     {
-        type            zeroGradient;
- 	value           uniform 300;
+    type            zeroGradient;
+    value           uniform $T;
 
     }
 }
