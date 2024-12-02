@@ -15,7 +15,7 @@ cellSize 0.1;  // Adjust cell size as needed
 
 Ux 600;
 Uy 148.16;
-
+Uz 0;
 P 100000;
 T 300;
 

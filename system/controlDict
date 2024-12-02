@@ -13,7 +13,7 @@ FoamFile
     object      controlDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-#include "./parameters.cs";
+#include "parameters.cs"
 
 application     foamRun;
 
@@ -48,6 +48,7 @@ timeFormat      general;
 timePrecision   10;	
 
 runTimeModifiable true;
+
 adjustTimeStep  true;
 
 maxCo   $maxCo;
@@ -85,6 +86,7 @@ functions
     // yPlus calculation for wall boundary monitoring
     yPlus1
     {
+
         type            yPlus;
         libs            ("libfieldFunctionObjects.so");
         
@@ -95,7 +97,7 @@ functions
         executeControl  runTime;
         executeInterval $maxDeltaT;  // Calculate yPlus every 10 time steps
         writeControl    runTime;
-        writeInterval   $$maxDeltaT;
+        writeInterval   $maxDeltaT;
     }
     
 }

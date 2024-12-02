@@ -10,8 +10,17 @@ FoamFile
 // Source file: C:\Users\pdh24\Desktop\Concordia Classes\Rockets\blend\CR-25 medium mesh.blend
 // Export date: 2024-08-17 23:51:38.113671
 
+xMin -7;
+xMax  10;
 
-#include "parameters.cs"
+yMin -6;
+yMax  6;
+
+zMin -6;
+zMax  6;
+
+// **Define Number of Cells**
+cellSize 0.1;  // Adjust cell size as needed
 
 convertToMeters 1;
 
