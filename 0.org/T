@@ -11,7 +11,7 @@ FoamFile
     class       volScalarField;
     object      T;
 }
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+//* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 #include "../system/parameters.cs"
 
