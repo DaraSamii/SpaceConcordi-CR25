@@ -27,47 +27,64 @@ ddtSchemes
     ddt(phi)        CrankNicolson $crankNicolsonCoeff;
 }
 
+/*
+ddtSchemes
+{
+    default         CrankNicolson;//backward;
+    //default         steadyState;
+}*/
+
 gradSchemes
 {
-    default         Gauss linear;
-
-    limited         cellLimited Gauss linear 1;
-    grad(U)         $limited;
-    grad(k)         $limited;
-    grad(omega)     $limited;
+    default         Gauss linear limited 0.5;
 }
 
 divSchemes
 {
-    default             none;
+    default         none;
 
-    div(phi,U)          Gauss linearUpwind limited;
+    //div(phi,U)      Gauss LUST grad(U);
+    //div(phi,e)      Gauss LUST grad(e);
+    div(phi,U)      Gauss limitedLinearV 1;
+    div(phi,e)      Gauss limitedLinear 1;
+    
+    div(phi,K)      Gauss limitedLinear 1;
+    div(phiv,p)     Gauss limitedLinear 1;
+    div(phid,p)     Gauss limitedLinear 1;
 
-    turbulence          Gauss linearUpwind limited;
-    energy              Gauss linearUpwind limited;
+    div(phi,h)      Gauss upwind;          // Enthalpy divergence scheme
+    div(phi,k)      Gauss limitedLinear 1;
+    div(phi,B)      Gauss limitedLinear 1;
+    div(phi,nuTilda) Gauss limitedLinear 1;
+    div(B)          Gauss linear;
 
-    div(phi,k)          $turbulence;
-    div(phi,omega)      $turbulence;
-
-    div(phi,e)          $energy;
-    div(phi,K)          $energy;
-    div(phi,Ekp)        $energy;
-    div(phi,(p|rho))    $energy;
-    div(phid,p)     Gauss linear;
-
-    div((phi|interpolate(rho)),p) Gauss upwind;
+    // Divergence of the stress tensor for compressible flow
+    div(tauMC)      Gauss linear;
+    // Convective term for kinetic energy in compressible flows
+    div(phi,Ekp)    Gauss upwind;
 
     div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
+
+    div(phi,omega)  Gauss upwind;        // Specific dissipation rate
+}
+
+gradSchemes
+{
+    default         Gauss linear;
+    grad(U)         Gauss linear limited 0.5;  // Limiting gradients for stability
 }
 
 laplacianSchemes
 {
-    default         Gauss linear corrected;
+    default         Gauss linear limited corrected 0.5;
 }
 
 interpolationSchemes
 {
     default         linear;
+    reconstruct(rho) vanAlbada;
+    reconstruct(U) vanAlbadaV;
+    reconstruct(T) vanAlbada;
 }
 
 snGradSchemes
@@ -77,7 +94,7 @@ snGradSchemes
 
 wallDist
 {
-    method meshWave;
+    method          meshWave;
 }
 
 

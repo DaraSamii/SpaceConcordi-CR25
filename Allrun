@@ -17,7 +17,8 @@ if module avail openfoam/12 &>/dev/null; then
     module load openfoam/12
     echo "OpenFOAM v12 module loaded successfully."
 else
-    op11
+    op2406
+    #op11
     echo "Using OpenFOAM op11."
 fi
 
@@ -54,11 +55,9 @@ mkdir -p logs
 
 
 if module avail openfoam/11 &>/dev/null; then
-    numProcs=27  # Server
-    divs="(3 3 3)"  # Adjust for server
+    numProcs=32  # Server
 else
     numProcs=4  # Local machine
-    divs="(2 2 1)"  # Adjust for local machine
 fi
 
 # ============================
@@ -67,11 +66,10 @@ fi
 
 echo "Updating decomposeParDict for $numProcs processors..."
 foamDictionary system/decomposeParDict -entry "numberOfSubdomains" -set "$numProcs"
-foamDictionary system/decomposeParDict -entry "hierarchicalCoeffs/n" -set "$divs"
 
 #------------------------------------------------------------------------------
 # Step 1: Generate base mesh
-blockMesh 2>&1 | tee log.blockMesh;
+blockMesh 2>&1 | tee ./logs/log.blockMesh;
 
 # Step 2: Extract surface features
 surfaceFeatures 2>&1  | tee ./logs/log.surfaceFeatures;
@@ -83,7 +81,8 @@ decomposePar -copyZero 2>&1  | tee ./logs/log.decomposePar;
 mpirun -np $numProcs snappyHexMesh -overwrite -parallel 2>&1  | tee ./logs/log.snappyHexMesh;
 
 # Optional Step 5: Reconstruct the final mesh (combine into single mesh)
-reconstructPar -constant 2>&1  | tee ./logs/log.reconstructPar;
+#reconstructPar -constant 2>&1  | tee ./logs/log.reconstructPar;
+reconstructParMesh -constant 2>&1  | tee ./logs/log.reconstructPar;
 
 
 rm -r processor*
@@ -94,4 +93,16 @@ renumberMesh -overwrite 2>&1 | tee logs/log.renumberMesh;
 decomposePar 2>&1  | tee ./logs/log.decomposePar2;
 
 
-mpirun -np $numProcs foamRun -parallel 2>&1  | tee ./logs/log.foamRun;
+echo "Checking the mesh quality..."
+mpirun -np $numProcs checkMesh -allGeometry -allTopology -parallel 2>&1 | tee logs/log.checkMesh
+
+# Step 5: Create foam.foam for visualization
+echo "Creating foam.foam for visualization..."
+for d in processor*; do touch "$d/foam.foam"; done
+
+
+# Step 6: Run the solver in parallel
+echo "Running rhoPimpleFoam in parallel..."
+mpirun -np $numProcs sonicFoam -parallel 2>&1 | tee logs/log.sonicFoam
+
+#mpirun -np $numProcs foamRun -parallel 2>&1  | tee ./logs/log.foamRun;

@@ -24,7 +24,7 @@ FoamFile
 
 castellatedMesh true;
 snap            true;
-addLayers       true;
+addLayers       false;
 
 mergePatchFaces false;  // Avoid face merging to increase layer coverage
 
@@ -49,7 +49,7 @@ castellatedMeshControls
     nCellsBetweenLevels 4;
     locationInMesh (-1 0 0);
     allowFreeStandingZoneFaces true;
-    resolveFeatureAngle 30;
+    resolveFeatureAngle 130;
     // useLeakClosure true; // OpenFOAM.com option
     handleSnapProblems true;
     useTopologicalSnapDetection true;
@@ -58,7 +58,7 @@ castellatedMeshControls
     (
         {
             file "rocket.eMesh";
-            level 5;
+            level 6;
         }
 
     );
@@ -67,7 +67,7 @@ castellatedMeshControls
     {
         rocket
         {
-            level (3 6);
+            level (4 6);
             patchInfo { type wall; }
             
         }
@@ -108,53 +108,59 @@ snapControls
 addLayersControls
 {
     // Layer sizing
-    relativeSizes true;
-    expansionRatio 1.1;
-    finalLayerThickness $finalLayerThickness;
-    minThickness $minThickness;
-    nGrow 0;
+    relativeSizes        true;            // Interpret thickness as fraction of local cell size
+    expansionRatio       1.1;            // Growth of each subsequent layer
+    firstLayerThickness  $firstLayerThickness; 
+    minThickness         1e-08;          // Absolute min thickness (in case local cells are extremely small)
+    nGrow                0;
 
     // Mesh dependencies
-    featureAngle 85;
-    mergePatchFacesAngle 45; // OpenFOAM.com option
-    layerTerminationAngle 45; // OpenFOAM.com option
-    maxFaceThicknessRatio 0.5;
-    disableWallEdges false;
+    featureAngle         130;            // Detect sharp edges above this angle
+    mergePatchFacesAngle 45;             // (OpenFOAM.com) Merge patch faces below 45° difference
+    layerTerminationAngle 45;            // (OpenFOAM.com) If layers need > 45° to inflate, they terminate
+    maxFaceThicknessRatio 0.5;           // Max ratio of layer thickness to adjacent cell thickness
+    disableWallEdges     false;          // Keep inflation on edges
 
-    // Mesh displacement iterations
-    nSmoothSurfaceNormals 2;
-    nSmoothThickness 10;
-    nSmoothNormals 3;
-    nSmoothDisplacement 12;
-    nMedialAxisIter 1000;
+    // Mesh displacement iterations for layer addition
+    nSmoothSurfaceNormals 2; 
+    nSmoothThickness     10;
+    nSmoothNormals       3;
+    nSmoothDisplacement  30;
+    nMedialAxisIter      1000;
 
-    // Medial axis analysis
-    minMedianAxisAngle 90;
-    maxThicknessToMedialRatio 0.5;
-    slipFeatureAngle 30;
-    nRelaxIter 15;
+    // Medial axis analysis 
+    minMedianAxisAngle   90;
+    minMedialAxisAngle   90;
 
-    // OpenFOAM.com displacement motion solver
-    // meshShrinker displacementMotionSolver;
-    // solver displacementLaplacian;
-    // displacementLaplacianCoeffs { diffusivity quadratic inverseDistance ("wall.*"); }
+    // Allow somewhat larger layers relative to medial axis:
+    maxThicknessToMedialRatio 0.8;       // Loosened from 0.5 to 0.8
 
-    // Mesh shrinking overall settings
+    slipFeatureAngle     30;
+    nRelaxIter           15;
+
+    // If using displacement-based solver (commented out by default)
+    //meshShrinker        displacementMotionSolver;
+    //solver              displacementLaplacian;
+    //displacementLaplacianCoeffs
+    //{
+    //    diffusivity     quadratic inverseDistance ("wall.*");
+    //}
+
+    // Overall layering iteration/relaxation
     nBufferCellsNoExtrude 0;
-    nLayerIter 50;
-    nRelaxedIter 20;
-    nOuterIter 1000; // OpenFOAM.com option, 1=single pass layer addition
-    additionalReporting true;
+    nLayerIter            50;            // Max attempts per pass
+    nRelaxedIter          20;            // Relax iteration attempts
+    nOuterIter            1000;          // (OpenFOAM.com) # of passes; can be reduced to ~5–10 if runtime is an issue
+    additionalReporting   true;
 
     layers
     {
         rocket
         {
-            nSurfaceLayers 11;
-            //Local parameters
-            expansionRatio 1.1;
-            finalLayerThickness $finalLayerThickness;
-            minThickness $minThickness;
+            nSurfaceLayers    5;         // # of inflation layers on the "rocket" patch
+            expansionRatio    1.1;       // (Local override) can match global or differ
+            firstLayerThickness $firstLayerThickness;
+            //minThickness     $minThickness;
         }
     }
 }
@@ -163,11 +169,11 @@ addLayersControls
 meshQualityControls
 {
     // Maximum non-orthogonality allowed. Reduced for better stability.
-    maxNonOrtho 60;
+    maxNonOrtho 75;
 
     // Max skewness allowed. Adjusted for internal and boundary mesh quality.
-    maxBoundarySkewness 15;
-    maxInternalSkewness 3;
+    maxBoundarySkewness 20;
+    maxInternalSkewness 4;
 
     // Max concaveness allowed. Tighter to improve numerical stability.
     maxConcave 70;
@@ -183,21 +189,25 @@ meshQualityControls
     minTetQuality 1e-12;
 
     // Minimum face twist. Ensures cells are not overly twisted.
-    minTwist 0.03;
+    minTwist 0.01;
 
     // Minimum normalized cell determinant. Eliminates degenerate cells.
-    minDeterminant 0.002;
+    minDeterminant 0.001;
 
     // Minimum face weight (0 -> 0.5). Slightly stricter for better interpolation.
-    minFaceWeight 0.05;
+    minFaceWeight 0.01;
 
     // Minimum volume ratio (0 -> 1). Ensures balanced cell sizes.
-    minVolRatio 0.02;
+    minVolRatio 0.001;
+
+    minArea -1;
+
+    minTriangleTwist -1;
 
     // Advanced settings
 
     // Number of error distribution iterations. Slightly increased for smoother results.
-    nSmoothScale 5;
+    nSmoothScale 8;
 
     // Amount to scale back displacement at error points. Retained for balance.
     errorReduction 0.75;

@@ -24,7 +24,7 @@ deltaT 1e-06;
 maxDeltaT 1e-05;
 
 
-finalLayerThickness 1e-3;
+firstLayerThickness 0.1;
 minThickness    1e-5;
 
-refinementRegionsLevels ((0.3 4) (0.6 3) (1.2 2));
+refinementRegionsLevels ((0.3 4) (0.6 3) (1.2 2) (2.4 1));

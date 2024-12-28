@@ -1,0 +1,339 @@
+FoamFile
+{
+    version         2;
+    format          ascii;
+    class           dictionary;
+    object          snappyHexMeshDict;
+}
+
+
+
+
+// Exported by SnappyHexMesh GUI add-on for Blender v1.8
+// Source file: C:\Users\pdh24\Desktop\Concordia Classes\Rockets\blend\CR-25 medium mesh.blend
+// Export date: 2024-08-18 19:03:03.953247
+
+// Details about SnappyHexMesh parameters can be found in annotated caseDicts:
+// - For openfoam.org (development version), see
+//   https://github.com/OpenFOAM/OpenFOAM-dev/blob/master/etc/caseDicts/annotated/snappyHexMeshDict
+// - For openfoam.com (development version), see
+//   https://develop.openfoam.com/Development/openfoam/-/blob/master/etc/caseDicts/annotated/snappyHexMeshDict
+// See also links in https://openfoamwiki.net/index.php/SnappyHexMesh
+
+#include "parameters.cs";
+
+castellatedMesh false;
+snap            false;
+addLayers       true;
+
+mergePatchFaces false;  // Avoid face merging to increase layer coverage
+
+geometry
+{
+    rocket
+    {
+        type triSurfaceMesh;
+        file "rocket.stl";
+        // Min Bounds = [ 9.50825e-07 -7.36521e-02 -1.24298e-01]
+        // Max Bounds = [ 3.23994e+00  1.41840e-01  1.24298e-01]
+        // Area = 1.14863e+00
+    }
+}
+
+castellatedMeshControls
+{
+    maxLocalCells   100000;
+    maxGlobalCells  5000000;
+    minRefinementCells 10;
+    maxLoadUnbalance 0.1;
+    nCellsBetweenLevels 4;
+    locationInMesh (-1 0 0);
+    allowFreeStandingZoneFaces true;
+    resolveFeatureAngle 130;
+    // useLeakClosure true; // OpenFOAM.com option
+    handleSnapProblems true;
+    useTopologicalSnapDetection true;
+
+    features
+    (
+        {
+            file "rocket.eMesh";
+            level 6;
+        }
+
+    );
+
+    refinementSurfaces
+    {
+        rocket
+        {
+            level (4 6);
+            patchInfo { type wall; }
+            
+        }
+
+    }
+
+    refinementRegions
+    {
+        rocket
+        {
+            mode distance;
+            levels $refinementRegionsLevels;
+        }
+
+    }
+}
+
+snapControls
+{
+    nSmoothPatch 3;
+    nSmoothInternal 1; // OpenFOAM.com option
+    tolerance 2.0;
+    nSolveIter 30;
+    nRelaxIter 4;
+    nFeatureSnapIter 4;
+    implicitFeatureSnap false;
+    explicitFeatureSnap true;
+    multiRegionFeatureSnap true;
+    nFaceSplitInterval -1; // OpenFOAM.com option
+    releasePoints false;  // multi-region related option
+    stringFeatures true;
+    avoidDiagonal false;
+    strictRegionSnap false;
+    concaveAngle 45;
+    minAreaRatio 0.3;
+}
+
+addLayersControls
+{
+    // If 'true', thickness parameters (firstLayerThickness, minThickness, etc.)
+    // are interpreted as a fraction of the local background cell size.
+    // If 'false', they're treated as absolute distances in SI units (meters).
+    relativeSizes false;
+
+    // The fraction by which each subsequent layer grows
+    expansionRatio 1.2;
+
+    // The thickness of your first boundary-layer cell, relative to local cell size
+    // if relativeSizes = true; or absolute thickness if relativeSizes = false.
+    firstLayerThickness 1e-07;
+
+    // If snappy can't achieve at least this fraction/absolute thickness,
+    // it won't add a layer. (Again depends on 'relativeSizes'.)
+    minThickness 1e-7;
+
+    // If initial layer insertion fails on a cell, snappy tries to grow from
+    // neighboring cells up to nGrow layers away. Helps fill small misses.
+    nGrow 5;
+
+    // Controls how snappy identifies 'sharp' features to preserve or refine
+    featureAngle 130;
+
+    // (OpenFOAM.com) merges patch faces that meet at < this angle
+    mergePatchFacesAngle 5;
+
+    // (OpenFOAM.com) stops layering if extruded faces bend more than this angle
+    layerTerminationAngle 5;
+
+    // Ensures the new layer face thickness doesn't exceed some fraction of
+    // the underlying cell face thickness. Helps control extreme aspect ratios.
+    maxFaceThicknessRatio 0.5;
+
+    // If set to 'true', snappy won't add layers at edges. 
+    // Setting to 'false' tries to add them if possible.
+    disableWallEdges false;
+
+    // Smoothing of surface normals before and after layer addition
+    nSmoothSurfaceNormals 2;
+    nSmoothNormals 3;
+
+    // Number of iterations to smooth out the layer thickness distribution
+    nSmoothThickness 10;
+
+    // Number of iterations to smooth the displacement vector field
+    // used for layer extrusion
+    nSmoothDisplacement 30;
+
+    // (Advanced) Max iterations for medial axis analysis. 
+    // The medial axis helps ensure layers don't overlap or blow up near tight curvatures.
+    nMedialAxisIter 1000;
+
+    // Minimum angles used in the medial axis analysis
+    minMedianAxisAngle 90;
+    minMedialAxisAngle 90;
+
+    // Allows layers to be up to this fraction of the local distance to the medial axis
+    maxThicknessToMedialRatio 0.8;
+
+    // Another angle for advanced slip features
+    slipFeatureAngle 30;
+
+    // After failing or partial layering, tries relaxing constraints up to these iterations
+    nRelaxIter 15;
+
+    // The main layering loop tries up to nLayerIter times to inflate layers each pass
+    nLayerIter 50;
+
+    // Additional 'relaxed' passes (some parameters are eased) up to nRelaxedIter times
+    nRelaxedIter 20;
+
+    // (OpenFOAM.com) The outer layering loop can repeat up to nOuterIter passes 
+    // if layers keep failing. A high number helps, but increases runtime.
+    nOuterIter 1000;
+
+    // More verbose printouts in the log (helpful for debugging)
+    additionalReporting true;
+
+    // If > 0, snappy sets aside these cells from extrusion
+    nBufferCellsNoExtrude 0;
+
+    // Patch-specific layer settings go inside 'layers {}'
+    layers
+    {
+        // For patch named "rocket" (must match your STL patch or region name)
+        rocket
+        {
+            // Target number of layers on this patch
+            nSurfaceLayers 5;
+
+            // Optionally, you can override the global defaults (expansionRatio, etc.)
+            expansionRatio 1.2;
+            firstLayerThickness 0.001;
+        }
+    }
+}
+
+
+meshQualityControls
+{
+    // 1. Non-Orthogonality
+    maxNonOrtho 85;
+    /*
+      The maximum allowed angle deviation from orthogonality 
+      between cell faces and lines drawn from face centers to the cell center. 
+      Lower = stricter, meaning faces must be nearly orthogonal.
+
+      Non-orthogonality > ~70–80 can cause solver instability. 
+      A limit of 75 is somewhat lenient but still commonly used.
+    */
+
+    // 2. Skewness
+    maxBoundarySkewness 20;
+    maxInternalSkewness 4;
+    /*
+      Skewness measures how far a cell face is from being "centered" 
+      relative to the cell centroid. High skewness indicates thin/slanted cells 
+      that can degrade simulation accuracy and stability.
+
+      - "maxInternalSkewness" is typically kept lower (e.g., 4) 
+        because internal cells strongly affect the solution. 
+      - "maxBoundarySkewness" is sometimes allowed to be higher (e.g., 20) 
+        because boundary cells are more likely to be oddly shaped, 
+        especially at sharp edges, and you might accept that to keep layers.
+
+      If you get "highly skew faces" in the log, consider lowering these values.
+    */
+
+    // 3. Concavity
+    maxConcave 80;
+    /*
+      Controls how "concave" a cell face can be. 
+      A concavity angle measures how "inward" the face bends. 
+      High concavity can cause negative volumes in some calculations.
+      70 degrees is a moderate tolerance.
+    */
+
+    // 4. Flatness
+    minFlatness 0.6;
+    /*
+      "Flatness" compares projected face area to actual face area. 
+      If the face is very warped or "puckered," the projected area is smaller.
+      A higher minFlatness (e.g., 0.6) demands less warping.
+    */
+
+    // 5. Minimum Volume
+    minVol 1e-30;
+    /*
+      The smallest allowable volume for a cell. 
+      Setting it very low (1e-30) avoids failing on extremely tiny cells, 
+      but can risk very small sliver cells. 
+      Typically, you'd pick a value relative to your domain scale.
+    */
+
+    // 6. Tetrahedral Quality
+    minTetQuality 1e-15;
+    /*
+      For cells shaped like tetrahedra (in polyhedral meshes, 
+      a "tet decomposition" of each cell is tested), 
+      this sets a minimum quality measure. 
+      A stricter value (e.g., 1e-15) tries to eliminate near-degenerate tets.
+    */
+
+    // 7. Face Twist
+    minTwist 0.01;
+    /*
+      A measure of how twisted a cell face can be. 
+      If a face is too twisted, it may indicate poor connectivity or shaping. 
+      0.01 is a small lower limit, meaning you don't want extremely twisted faces.
+    */
+
+    // 8. Determinant
+    minDeterminant 0.001;
+    /*
+      The determinant relates to the cell shape matrix. 
+      Very low or negative values indicate highly distorted cells 
+      (or reversed volumes). 
+      0.001 is a typical cutoff to avoid extremely poor or inverted cells.
+    */
+
+    // 9. Face Weight
+    minFaceWeight 0.001;
+    /*
+      Another measure of face interpolation weights, 
+      ensuring that no cell face is "unbalanced" in how it connects 
+      to neighboring cells. 
+      If faceWeight is too small, it suggests large interpolation errors 
+      or poor geometric connectivity.
+    */
+
+    // 10. Volume Ratio
+    minVolRatio 0.001;
+    /*
+      Ratio of cell volume to its neighbor's volume. 
+      Ensures you don't have one cell that's 1000x smaller than its neighbor, 
+      which can cause numerical issues. 
+      0.001 means any cell must be at least 0.1% of its neighbor’s volume.
+    */
+
+    // 11. minArea, minTriangleTwist
+    minArea -1;
+    minTriangleTwist -1;
+    /*
+      Both are set to -1, effectively disabling these checks 
+      (or ignoring them if the code interprets -1 as "no minimum").
+      If needed, you can set actual positive thresholds 
+      to control minimum face area or triangular face twist quality.
+    */
+
+    // 12. Error Distribution Smoothing
+    nSmoothScale 8;
+    /*
+      Number of smoothing iterations for error distribution 
+      during mesh corrections (e.g., snapping, layering). 
+      Higher = smoother transitions but more runtime.
+    */
+
+    // 13. Error Reduction
+    errorReduction 0.6;
+    /*
+      Factor by which the displacement is scaled at error points 
+      in each smoothing iteration. 
+      0.75 tries to reduce high distortion more aggressively 
+      without completely removing the displacements.
+    */
+}
+
+writeFlags      ( scalarLevels layerSets layerFields );
+
+mergeTolerance  1e-06;
