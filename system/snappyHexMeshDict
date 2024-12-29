@@ -57,7 +57,7 @@ castellatedMeshControls
     features
     (
         {
-            file "rocket.eMesh";
+            file "RocketV2.eMesh";
             level 8;
         }
 
