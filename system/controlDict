@@ -99,7 +99,74 @@ functions
         writeControl    runTime;
         writeInterval   $maxDeltaT;
     }
+
+
+    MachNo
+    {
+        // Mandatory entries
+        type            MachNo;
+        libs            ("libfieldFunctionObjects.so");
     
+        // Field to use for Mach number calculation
+        field           U;               // Velocity field
+        rho             rho;             // Density field for compressible flows
+        p               p;               // Pressure field for compressible flows
+    
+        // Optional (inherited) entries
+        region          region0;         // Ensure the correct region
+        enabled         true;            // Enable the function
+        log             true;            // Write logs for debugging
+    
+        // Execution control
+        timeStart       0;               // Start from the beginning of the simulation
+        timeEnd         3;               // End at simulation stop time
+        executeControl  $writeControl;         // Trigger function based on simulation time
+        executeInterval $writeInterval;            // Execute every 0.01 seconds of simulation time
+    
+        // Write control
+        writeControl    $writeControl;         // Save results based on runTime
+        writeInterval   $writeInterval;            // Write every 0.01 seconds of simulation time
+    }
+    
+    
+    Co1
+    {
+        // Mandatory entries (unmodifiable)
+        type            CourantNo;
+        libs            (fieldFunctionObjects);
+    
+        // Optional entries (runtime modifiable)
+        rho             rho;
+    
+        // Optional (inherited) entries
+        region          region0;
+        enabled         true;
+        log             true;
+        timeStart       0;
+        timeEnd         3;
+        executeControl  $writeControl;         // Trigger function based on simulation time
+        executeInterval $writeInterval;            // Execute every 0.01 seconds of simulation time
+    
+        // Write control
+        writeControl    $writeControl;         // Save results based on runTime
+        writeInterval   $writeInterval;            // Write every 0.01 seconds of simulation time
+    }
+    
+    solverInfo
+    {
+        type            solverInfo;  // Function to print solver residuals
+        libs            ("libutilityFunctionObjects.so");
+    
+        log             false;  // Enable logging of residuals
+    
+        fields
+        (
+            U
+            p
+            k
+            omega
+        );
+    }
 }
 
 // ************************************************************************* //
