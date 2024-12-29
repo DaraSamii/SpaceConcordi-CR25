@@ -33,7 +33,7 @@ geometry
     rocket
     {
         type triSurfaceMesh;
-        file "rocket.stl";
+        file "RocketV2.stl";
         // Min Bounds = [ 9.50825e-07 -7.36521e-02 -1.24298e-01]
         // Max Bounds = [ 3.23994e+00  1.41840e-01  1.24298e-01]
         // Area = 1.14863e+00

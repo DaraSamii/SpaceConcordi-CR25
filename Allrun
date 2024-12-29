@@ -72,7 +72,7 @@ foamDictionary system/decomposeParDict -entry "numberOfSubdomains" -set "$numPro
 blockMesh 2>&1 | tee ./logs/log.blockMesh;
 
 # Step 2: Extract surface features
-surfaceFeatures 2>&1  | tee ./logs/log.surfaceFeatures;
+#surfaceFeatureExtract 2>&1  | tee ./logs/log.surfaceFeatures;
 
 # Step 3: Decompose the domain for parallel processing
 decomposePar -copyZero 2>&1  | tee ./logs/log.decomposePar;

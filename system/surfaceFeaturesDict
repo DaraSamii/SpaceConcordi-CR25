@@ -14,7 +14,7 @@ FoamFile
 
 surfaces
 (
-    "rocket.stl"
+    "RocketV2.stl"
 );
 
 includedAngle 150;
