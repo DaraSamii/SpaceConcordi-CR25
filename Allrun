@@ -13,8 +13,8 @@
 
 
 # Source the OpenFOAM environment (modify as needed)
-if module avail openfoam/12 &>/dev/null; then
-    module load openfoam/12
+if module avail openfoam/v2406 &>/dev/null; then
+    module load openfoam/v2406
     echo "OpenFOAM v12 module loaded successfully."
 else
     op2406
