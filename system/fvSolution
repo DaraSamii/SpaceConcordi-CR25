@@ -70,6 +70,14 @@ potentialFlow
     nNonOrthogonalCorrectors 2;
 }
 
+cellDisplacement
+{
+    solver          GAMG;
+    smoother        GaussSeidel;
+    tolerance       1e-7;
+    relTol          0.01;
+}
+
 relaxationFactors
 {
     fields

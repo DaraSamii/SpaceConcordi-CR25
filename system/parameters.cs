@@ -20,7 +20,7 @@ P 100000;
 T 300;
 
 maxCo 0.5;
-deltaT 1e-06;
+deltaT 2e-07;
 maxDeltaT 1e-05;
 
 

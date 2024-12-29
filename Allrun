@@ -2,7 +2,7 @@
 #SBATCH --job-name=CR25
 #SBATCH --mem=32G
 #SBATCH --nodes=1
-#SBATCH --ntasks=27
+#SBATCH --ntasks=36
 #SBATCH --cpus-per-task=1
 #SBATCH --time=7:0:0    
 #SBATCH --mail-user=darasamii@gmail.com
@@ -32,7 +32,7 @@ cd ${0%/*} || exit 1    # Run from this directory
 
 cleanCase
 
-rm -f ./0/*.gz
+rm -r ./0
 
 cp -r ./0.org ./0
 
@@ -55,7 +55,7 @@ mkdir -p logs
 
 
 if module avail openfoam/11 &>/dev/null; then
-    numProcs=32  # Server
+    numProcs=36  # Server
 else
     numProcs=4  # Local machine
 fi

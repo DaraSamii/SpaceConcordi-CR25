@@ -47,6 +47,8 @@ timeFormat      general;
 
 timePrecision   10;	
 
+writeCompression on;
+
 runTimeModifiable true;
 
 adjustTimeStep  true;
@@ -95,7 +97,7 @@ functions
         enabled         true;
         log             true;
         executeControl  runTime;
-        executeInterval $maxDeltaT;  // Calculate yPlus every 10 time steps
+        executeInterval $deltaT;  // Calculate yPlus every 10 time steps
         writeControl    runTime;
         writeInterval   $maxDeltaT;
     }

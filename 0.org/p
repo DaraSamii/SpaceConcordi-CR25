@@ -10,6 +10,7 @@ FoamFile
     format      ascii;
     class       volScalarField;
     object      p;
+    location    "0";
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -25,17 +26,20 @@ boundaryField
     inlet
     {
         type            zeroGradient;
-	value           uniform $P;
+	    value           uniform $P;
     }
 
     outlet
     {
-        type            waveTransmissive;
+        type            waveTransmissive; 
+        psi             thermo:psi;
+        lInf            0.1;
+        gamma           1.4;
         field           p;
-        gamma           1.3;
-        fieldInf        $P;
-        lInf            1;
-        value           uniform $P;
+        phi             phi;
+        rho             rho;
+        fieldInf        101325;  // Far-field atmospheric pressure
+        value           uniform 101325; 
     }
 
     sides
@@ -47,7 +51,7 @@ boundaryField
     rocket
     {
         type            zeroGradient;
-	value           uniform $$P;
+	value           uniform $P;
     }
 }
 

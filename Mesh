@@ -16,7 +16,7 @@ rm -r processor*
 decomposePar -copyZero 2>&1  | tee ./logs/log.decomposePar;
 
 # Step 4: Run snappyHexMesh in parallel on 4 cores
-mpirun -np 4 snappyHexMesh -dict ./system/snappyHexMeshDictLayer -overwrite -parallel 2>&1  | tee ./logs/log.snappyHexMesh;
+mpirun -np 36 snappyHexMesh -dict ./system/snappyHexMeshDictLayer -overwrite -parallel 2>&1  | tee ./logs/log.snappyHexMesh;
 
 # Optional Step 5: Reconstruct the final mesh (combine into single mesh)
 #reconstructPar -constant 2>&1  | tee ./logs/log.reconstructPar;

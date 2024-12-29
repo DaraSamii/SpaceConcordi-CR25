@@ -110,14 +110,14 @@ addLayersControls
     // If 'true', thickness parameters (firstLayerThickness, minThickness, etc.)
     // are interpreted as a fraction of the local background cell size.
     // If 'false', they're treated as absolute distances in SI units (meters).
-    relativeSizes false;
+    relativeSizes true;
 
     // The fraction by which each subsequent layer grows
     expansionRatio 1.2;
 
     // The thickness of your first boundary-layer cell, relative to local cell size
     // if relativeSizes = true; or absolute thickness if relativeSizes = false.
-    firstLayerThickness 1e-07;
+    firstLayerThickness 0.01;
 
     // If snappy can't achieve at least this fraction/absolute thickness,
     // it won't add a layer. (Again depends on 'relativeSizes'.)
@@ -125,16 +125,16 @@ addLayersControls
 
     // If initial layer insertion fails on a cell, snappy tries to grow from
     // neighboring cells up to nGrow layers away. Helps fill small misses.
-    nGrow 5;
+    nGrow 0;
 
     // Controls how snappy identifies 'sharp' features to preserve or refine
     featureAngle 130;
 
     // (OpenFOAM.com) merges patch faces that meet at < this angle
-    mergePatchFacesAngle 5;
+    mergePatchFacesAngle 45;
 
     // (OpenFOAM.com) stops layering if extruded faces bend more than this angle
-    layerTerminationAngle 5;
+    layerTerminationAngle 45;
 
     // Ensures the new layer face thickness doesn't exceed some fraction of
     // the underlying cell face thickness. Helps control extreme aspect ratios.
@@ -153,7 +153,7 @@ addLayersControls
 
     // Number of iterations to smooth the displacement vector field
     // used for layer extrusion
-    nSmoothDisplacement 30;
+    nSmoothDisplacement 12;
 
     // (Advanced) Max iterations for medial axis analysis. 
     // The medial axis helps ensure layers don't overlap or blow up near tight curvatures.
@@ -164,23 +164,23 @@ addLayersControls
     minMedialAxisAngle 90;
 
     // Allows layers to be up to this fraction of the local distance to the medial axis
-    maxThicknessToMedialRatio 0.8;
+    maxThicknessToMedialRatio 0.5;
 
     // Another angle for advanced slip features
     slipFeatureAngle 30;
 
     // After failing or partial layering, tries relaxing constraints up to these iterations
-    nRelaxIter 15;
+    nRelaxIter 4;
 
     // The main layering loop tries up to nLayerIter times to inflate layers each pass
-    nLayerIter 50;
+    nLayerIter 5;
 
     // Additional 'relaxed' passes (some parameters are eased) up to nRelaxedIter times
-    nRelaxedIter 20;
+    nRelaxedIter 4;
 
     // (OpenFOAM.com) The outer layering loop can repeat up to nOuterIter passes 
     // if layers keep failing. A high number helps, but increases runtime.
-    nOuterIter 1000;
+    nOuterIter 10;
 
     // More verbose printouts in the log (helpful for debugging)
     additionalReporting true;
@@ -195,11 +195,11 @@ addLayersControls
         rocket
         {
             // Target number of layers on this patch
-            nSurfaceLayers 5;
+            nSurfaceLayers 8;
 
             // Optionally, you can override the global defaults (expansionRatio, etc.)
-            expansionRatio 1.2;
-            firstLayerThickness 0.001;
+            expansionRatio 1.1;
+            firstLayerThickness 0.05;
         }
     }
 }
@@ -208,7 +208,7 @@ addLayersControls
 meshQualityControls
 {
     // 1. Non-Orthogonality
-    maxNonOrtho 85;
+    maxNonOrtho 95;
     /*
       The maximum allowed angle deviation from orthogonality 
       between cell faces and lines drawn from face centers to the cell center. 
@@ -271,7 +271,7 @@ meshQualityControls
     */
 
     // 7. Face Twist
-    minTwist 0.01;
+    minTwist 0.001;
     /*
       A measure of how twisted a cell face can be. 
       If a face is too twisted, it may indicate poor connectivity or shaping. 
@@ -279,7 +279,7 @@ meshQualityControls
     */
 
     // 8. Determinant
-    minDeterminant 0.001;
+    minDeterminant 0.0001;
     /*
       The determinant relates to the cell shape matrix. 
       Very low or negative values indicate highly distorted cells 
@@ -317,7 +317,7 @@ meshQualityControls
     */
 
     // 12. Error Distribution Smoothing
-    nSmoothScale 8;
+    nSmoothScale 12;
     /*
       Number of smoothing iterations for error distribution 
       during mesh corrections (e.g., snapping, layering). 
@@ -325,13 +325,22 @@ meshQualityControls
     */
 
     // 13. Error Reduction
-    errorReduction 0.6;
+    errorReduction 0.75;
     /*
       Factor by which the displacement is scaled at error points 
       in each smoothing iteration. 
       0.75 tries to reduce high distortion more aggressively 
       without completely removing the displacements.
     */
+
+    relaxed
+    {
+          maxNonOrtho 110;
+          minVolRatio 0.0001;
+          minFaceWeight 0.0001;
+          minDeterminant 0.00001;
+          
+    }
 }
 
 writeFlags      ( scalarLevels layerSets layerFields );
