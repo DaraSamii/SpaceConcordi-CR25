@@ -58,8 +58,8 @@ SIMPLE
 
 PIMPLE
 {
-    nOuterCorrectors 2;
-    nCorrectors      3;
+    nOuterCorrectors 1;
+    nCorrectors      1;
     nNonOrthogonalCorrectors 1;
 
     transonic            yes;

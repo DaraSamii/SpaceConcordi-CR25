@@ -16,7 +16,7 @@ FoamFile
 #include "../system/parameters.cs"
 dimensions      [0 1 -1 0 0 0 0];
 
-internalField   uniform ($Ux $Uy 0);
+internalField   uniform ($Ux $Uy $Uz);
 
 boundaryField
 {
@@ -32,7 +32,9 @@ boundaryField
 
     outlet
     {
-        type            zeroGradient;
+        type            inletOutlet;
+        inletValue      uniform ($Ux $Uy $Uz);
+        value           uniform ($Ux $Uy $Uz);
     }
 
     sides

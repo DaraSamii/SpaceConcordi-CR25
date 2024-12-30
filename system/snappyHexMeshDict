@@ -58,7 +58,7 @@ castellatedMeshControls
     (
         {
             file "RocketV2.eMesh";
-            level 8;
+            level 6;
         }
 
     );
@@ -67,7 +67,7 @@ castellatedMeshControls
     {
         rocket
         {
-            level (6 6);
+            level (4 6);
             patchInfo { type wall; }
             
         }
@@ -87,13 +87,13 @@ castellatedMeshControls
 
 snapControls
 {
-    nSmoothPatch 3;
+    nSmoothPatch 5;
     nSmoothInternal 1; // OpenFOAM.com option
     tolerance 2.0;
     nSolveIter 30;
     nRelaxIter 4;
     nFeatureSnapIter 4;
-    implicitFeatureSnap false;
+    implicitFeatureSnap true;
     explicitFeatureSnap true;
     multiRegionFeatureSnap true;
     nFaceSplitInterval -1; // OpenFOAM.com option
@@ -176,7 +176,7 @@ meshQualityControls
     maxInternalSkewness 4;   // Common value for internal skewness
 
     // Max concaveness allowed. 
-    maxConcave 80;  // Standard value for moderate concave faces
+    maxConcave 70;  // Standard value for moderate concave faces
 
     // Minimum projected area v.s. actual area. 
     minFlatness 0.5;  // Relaxed for general meshing; lower precision required

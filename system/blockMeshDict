@@ -10,24 +10,28 @@ FoamFile
 // Source file: C:\Users\pdh24\Desktop\Concordia Classes\Rockets\blend\CR-25 medium mesh.blend
 // Export date: 2024-08-17 23:51:38.113671
 
-xMin -7;
-xMax  10;
+xMin -9;
+xMax  12;
 
-yMin -6;
-yMax  6;
+yMin -7;
+yMax  7;
 
-zMin -6;
-zMax  6;
+zMin -7;
+zMax  7;
 
 // **Define Number of Cells**
-cellSize 0.1;  // Adjust cell size as needed
+cellSizeX 0.1;  // Adjust cell size as needed
+cellSizeY 0.1;  // Adjust cell size as needed
+
+cellSizeZ 0.1;  // Adjust cell size as needed
+
 
 scale 1;
 
 
-nx #calc "round(($xMax - $xMin) / $cellSize)";
-ny #calc "round(($yMax - $yMin) / $cellSize)";
-nz #calc "round(($zMax - $zMin) / $cellSize)";
+nx #calc "round(($xMax - $xMin) / $cellSizeX)";
+ny #calc "round(($yMax - $yMin) / $cellSizeY)";
+nz #calc "round(($zMax - $zMin) / $cellSizeZ)";
 
 vertices
 (
@@ -43,7 +47,7 @@ vertices
 
 blocks
 (
-    hex (0 1 2 3 4 5 6 7) (150 75 75) simpleGrading (1 1 1)
+    hex (0 1 2 3 4 5 6 7) ($nx $ny $nz) simpleGrading (1 1 1)
 );
 
 edges

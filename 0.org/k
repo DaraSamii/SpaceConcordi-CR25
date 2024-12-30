@@ -14,31 +14,36 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+#include "../system/parameters.cs"
+
 dimensions      [0 2 -2 0 0 0 0];
 
-internalField   uniform 1; // describes turbulence kinetic energy
+k   #calc "1.5 * pow((0.05 * sqrt(pow($Ux * 1.0,2) + pow($Uy * 1.0,2) + pow($Uz * 1.0,2))),2)";
+
+
+internalField   uniform $k; // describes turbulence kinetic energy
 
 boundaryField
 {
     inlet
     {
          type            fixedValue;
-        value           uniform 1;
+        value           uniform $k;
     }
     outlet
     {
         type            zeroGradient;
-	value           uniform 1;
+	value           uniform $k;
     }
     sides
     {
         type            freestream;
-        freestreamValue uniform 1;
+        freestreamValue uniform $k;
     }
     rocket
     {
         type            kqRWallFunction;
-        value           uniform 1;
+        value           uniform $k;
     }
 }
 

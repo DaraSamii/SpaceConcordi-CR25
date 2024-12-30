@@ -79,7 +79,7 @@ functions
         liftDir     (0 1 0);
         dragDir     (1 0 0);
         pitchAxis   (0 0 1);
-        magUInf     #calc "sqrt(pow($Ux,2) + pow($Uy,2) + pow($Uz,2))";
+        magUInf     #calc "sqrt(pow($Ux * 1.0,2) + pow($Uy * 1.0,2) + pow($Uz * 1.0,2))";
         lRef        1;
         Aref        1;
     }

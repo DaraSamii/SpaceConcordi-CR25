@@ -38,8 +38,8 @@ boundaryField
         field           p;
         phi             phi;
         rho             rho;
-        fieldInf        101325;  // Far-field atmospheric pressure
-        value           uniform 101325; 
+        fieldInf        $P;  // Far-field atmospheric pressure
+        value           uniform $P; 
     }
 
     sides
