@@ -31,15 +31,12 @@ boundaryField
 
     outlet
     {
-        type            waveTransmissive; 
-        psi             thermo:psi;
-        lInf            0.1;
-        gamma           1.4;
+        type            waveTransmissive;
         field           p;
-        phi             phi;
-        rho             rho;
-        fieldInf        $P;  // Far-field atmospheric pressure
-        value           uniform $P; 
+        gamma           1.4;
+        fieldInf        101325;
+        lInf            1;
+        value           uniform 101325;
     }
 
     sides

@@ -22,6 +22,15 @@ FoamFile
 
 #include "parameters.cs";
 
+//stlFile "RocketV2.stl";
+//eMeshFile "RocketV2.eMesh";
+
+
+stlFile "rocket.stl";
+eMeshFile "rocket.eMesh";
+
+
+
 castellatedMesh true;
 snap            true;
 addLayers       false;
@@ -33,7 +42,7 @@ geometry
     rocket
     {
         type triSurfaceMesh;
-        file "RocketV2.stl";
+        file $stlFile;
         // Min Bounds = [ 9.50825e-07 -7.36521e-02 -1.24298e-01]
         // Max Bounds = [ 3.23994e+00  1.41840e-01  1.24298e-01]
         // Area = 1.14863e+00
@@ -57,7 +66,7 @@ castellatedMeshControls
     features
     (
         {
-            file "RocketV2.eMesh";
+            file $eMeshFile;
             level 6;
         }
 

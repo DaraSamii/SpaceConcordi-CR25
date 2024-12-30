@@ -21,7 +21,7 @@ T 300;
 
 maxCo 0.5;
 deltaT 2e-07;
-maxDeltaT 1e-05;
+maxDeltaT 2e-07;
 
 
 firstLayerThickness 0.1;
