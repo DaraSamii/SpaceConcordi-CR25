@@ -33,14 +33,18 @@ boundaryField
     outlet
     {
         type            inletOutlet;
-        inletValue      uniform ($Ux $Uy $Uz);
-        value           uniform ($Ux $Uy $Uz);
+        inletValue      uniform (0 0 0);
+        value           uniform (0 0 0);
     }
 
     sides
     {
-    type            freestream;
-    freestreamValue uniform ($Ux $Uy $Uz);
+	type            supersonicFreestream;
+        pInf            $P;
+        TInf            $T;
+        UInf            ($Ux $Uy $Uz);
+        gamma           1.4;
+        value           uniform ($Ux $Uy $Uz);
     }
 
     rocket

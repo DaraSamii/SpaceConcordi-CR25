@@ -36,7 +36,9 @@ boundaryField
     }
     outlet
     {
-        type            zeroGradient;
+        type            inletOutlet;
+        inletValue      uniform $omega;
+        value           uniform $omega;
     }
     sides
     {

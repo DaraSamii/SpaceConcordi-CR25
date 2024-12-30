@@ -32,13 +32,17 @@ boundaryField
     }
     outlet
     {
-        type            zeroGradient;
-	value           uniform $k;
+        type            inletOutlet;
+        inletValue      uniform $k;
+        value           uniform $k;
+
     }
     sides
     {
-        type            freestream;
-        freestreamValue uniform $k;
+        type            inletOutlet;
+        inletValue      uniform $k;
+        value           uniform $k;
+
     }
     rocket
     {

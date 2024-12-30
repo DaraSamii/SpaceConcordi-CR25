@@ -29,14 +29,18 @@ boundaryField
 
     outlet
     {
-        type            zeroGradient;
-	value           uniform $T;
+        type            inletOutlet;
+        inletValue      uniform $T;
+        value           uniform $T;
+
     }
 
     sides
     {
-    type            zeroGradient;
-    value           uniform $T;
+        type            inletOutlet;
+        inletValue      uniform $T;
+        value           uniform $T;
+
     }
 
     rocket
