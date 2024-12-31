@@ -149,11 +149,11 @@ addLayersControls
     nSmoothNormals 3;
 
     // Number of iterations to smooth out the layer thickness distribution
-    nSmoothThickness 10;
+    nSmoothThickness 15;
 
     // Number of iterations to smooth the displacement vector field
     // used for layer extrusion
-    nSmoothDisplacement 12;
+    nSmoothDisplacement 25;
 
     // (Advanced) Max iterations for medial axis analysis. 
     // The medial axis helps ensure layers don't overlap or blow up near tight curvatures.
