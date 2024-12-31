@@ -19,12 +19,6 @@ crankNicolsonCoeff  0.5;
 ddtSchemes
 {
     default         CrankNicolson $crankNicolsonCoeff; // Replace <coeff> with your desired blending factor, e.g., 0.5
-    ddt(rho)        CrankNicolson $crankNicolsonCoeff;
-    ddt(U)          CrankNicolson $crankNicolsonCoeff;
-    ddt(h)          CrankNicolson $crankNicolsonCoeff;
-    ddt(e)          CrankNicolson $crankNicolsonCoeff;
-    ddt(T)          CrankNicolson $crankNicolsonCoeff;
-    ddt(phi)        CrankNicolson $crankNicolsonCoeff;
 }
 
 /*
@@ -43,27 +37,19 @@ divSchemes
 {
     default         none;
 
-    //div(phi,U)      Gauss LUST grad(U);
-    //div(phi,e)      Gauss LUST grad(e);
     div(phi,U)      Gauss limitedLinearV 1;
+
     div(phi,e)      Gauss limitedLinear 1;
-    
+    div(phid,p)     Gauss limitedLinear 1;
     div(phi,K)      Gauss limitedLinear 1;
     div(phiv,p)     Gauss limitedLinear 1;
-    div(phid,p)     Gauss limitedLinear 1;
 
-    div(phi,h)      Gauss upwind;          // Enthalpy divergence scheme
-    div(phi,k)      Gauss limitedLinear 1;
-    div(phi,B)      Gauss limitedLinear 1;
-    div(phi,nuTilda) Gauss limitedLinear 1;
-    div(B)          Gauss linear;
-
-    // Divergence of the stress tensor for compressible flow
-    div(tauMC)      Gauss linear;
-    // Convective term for kinetic energy in compressible flows
-    div(phi,Ekp)    Gauss upwind;
+    turbulence      Gauss upwind;
+    div(phi,k)      $turbulence;
+    div(phi,epsilon) $turbulence;
 
     div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
+
 
     div(phi,omega)  Gauss upwind;        // Specific dissipation rate
 }
@@ -71,27 +57,24 @@ divSchemes
 gradSchemes
 {
     default         Gauss linear;
-    grad(U)         Gauss linear limited 0.5;  // Limiting gradients for stability
 }
+
 
 laplacianSchemes
 {
-    default         Gauss linear limited corrected 0.5;
-    laplacian(diffusivity,cellDisplacement) Gauss linear corrected;
+    default         Gauss linear corrected;
 }
 
 interpolationSchemes
 {
     default         linear;
-    reconstruct(rho) vanAlbada;
-    reconstruct(U) vanAlbadaV;
-    reconstruct(T) vanAlbada;
 }
 
 snGradSchemes
 {
     default         corrected;
 }
+
 
 wallDist
 {
