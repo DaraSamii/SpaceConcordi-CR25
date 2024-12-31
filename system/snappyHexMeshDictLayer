@@ -110,14 +110,14 @@ addLayersControls
     // If 'true', thickness parameters (firstLayerThickness, minThickness, etc.)
     // are interpreted as a fraction of the local background cell size.
     // If 'false', they're treated as absolute distances in SI units (meters).
-    relativeSizes true;
+    relativeSizes false;
 
     // The fraction by which each subsequent layer grows
     expansionRatio 1.2;
 
     // The thickness of your first boundary-layer cell, relative to local cell size
     // if relativeSizes = true; or absolute thickness if relativeSizes = false.
-    firstLayerThickness 0.01;
+    firstLayerThickness 1e-05;
 
     // If snappy can't achieve at least this fraction/absolute thickness,
     // it won't add a layer. (Again depends on 'relativeSizes'.)
@@ -142,7 +142,7 @@ addLayersControls
 
     // If set to 'true', snappy won't add layers at edges. 
     // Setting to 'false' tries to add them if possible.
-    disableWallEdges false;
+    disableWallEdges true;
 
     // Smoothing of surface normals before and after layer addition
     nSmoothSurfaceNormals 2;
@@ -170,13 +170,13 @@ addLayersControls
     slipFeatureAngle 30;
 
     // After failing or partial layering, tries relaxing constraints up to these iterations
-    nRelaxIter 4;
+    nRelaxIter 6;
 
     // The main layering loop tries up to nLayerIter times to inflate layers each pass
-    nLayerIter 5;
+    nLayerIter 8;
 
     // Additional 'relaxed' passes (some parameters are eased) up to nRelaxedIter times
-    nRelaxedIter 4;
+    nRelaxedIter 6;
 
     // (OpenFOAM.com) The outer layering loop can repeat up to nOuterIter passes 
     // if layers keep failing. A high number helps, but increases runtime.
@@ -195,11 +195,11 @@ addLayersControls
         rocket
         {
             // Target number of layers on this patch
-            nSurfaceLayers 8;
+            nSurfaceLayers 5;
 
             // Optionally, you can override the global defaults (expansionRatio, etc.)
-            expansionRatio 1.1;
-            firstLayerThickness 0.05;
+            expansionRatio 1.2;
+            firstLayerThickness 1e-4;
         }
     }
 }

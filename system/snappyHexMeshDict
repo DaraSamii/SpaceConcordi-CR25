@@ -22,12 +22,12 @@ FoamFile
 
 #include "parameters.cs";
 
-//stlFile "RocketV2.stl";
-//eMeshFile "RocketV2.eMesh";
+stlFile "RocketV2.stl";
+eMeshFile "RocketV2.eMesh";
 
 
-stlFile "rocket.stl";
-eMeshFile "rocket.eMesh";
+//stlFile "rocket.stl";
+//eMeshFile "rocket.eMesh";
 
 
 
@@ -221,3 +221,5 @@ meshQualityControls
 writeFlags      ( scalarLevels layerSets layerFields );
 
 mergeTolerance  1e-06;
+
+    // Maximum non-orthogonality allowed. 
