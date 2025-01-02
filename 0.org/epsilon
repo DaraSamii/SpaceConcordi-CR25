@@ -27,8 +27,8 @@ boundaryField
             }
     outlet
     {
-        type            zeroGradient;
-	value           uniform 0.1;
+        type 		inletOutlet;
+        inletValue	 uniform 0.1;      
     }
     sides
     {

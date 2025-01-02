@@ -18,7 +18,7 @@ crankNicolsonCoeff  0.5;
 
 ddtSchemes
 {
-    default         CrankNicolson $crankNicolsonCoeff; // Replace <coeff> with your desired blending factor, e.g., 0.5
+    default         steadyState;//CrankNicolson $crankNicolsonCoeff; // Replace <coeff> with your desired blending factor, e.g., 0.5
 }
 
 /*
@@ -43,6 +43,8 @@ divSchemes
     div(phid,p)     Gauss limitedLinear 1;
     div(phi,K)      Gauss limitedLinear 1;
     div(phiv,p)     Gauss limitedLinear 1;
+    div(phi,Ekp)     Gauss limitedLinear 1;
+
 
     turbulence      Gauss upwind;
     div(phi,k)      $turbulence;

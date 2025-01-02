@@ -13,8 +13,8 @@ zMax  5;
 cellSize 0.2;  // Adjust cell size as needed
 
 
-Ux 600;
-Uy 0.0;
+Ux 400;
+Uy 15.0;
 Uz 0.0;
 P 100000;
 T 300;

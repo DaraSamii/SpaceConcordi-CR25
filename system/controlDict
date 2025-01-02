@@ -19,21 +19,21 @@ application     foamRun;
 
 solver          fluid;
 
-startFrom       latestTime;
+startFrom       startTime;
 
 startTime       0;
 
 stopAt          endTime;
 
-endTime         1;  
+endTime         20;  
 
-deltaT         $deltaT;
+deltaT         1;//$deltaT;
 
-maxDeltaT          $maxDeltaT;	
+maxDeltaT       10;//   $maxDeltaT;	
 
 writeControl    runTime;
 
-writeInterval   $maxDeltaT;
+writeInterval   1;
 
 purgeWrite      0;
 
@@ -84,7 +84,7 @@ functions
         Aref        1;
     }
 
-    
+    /*
     // yPlus calculation for wall boundary monitoring
     yPlus1
     {
@@ -96,12 +96,12 @@ functions
         writeToFile     true;
         enabled         true;
         log             true;
-        executeControl  runTime;
-        executeInterval $deltaT;  // Calculate yPlus every 10 time steps
-        writeControl    runTime;
-        writeInterval   $maxDeltaT;
+        executeControl  timeStep;
+        executeInterval 1;  // Calculate yPlus every 10 time steps
+        writeControl    timeStep;
+        writeInterval   1;
     }
-
+    */
 
     MachNo
     {

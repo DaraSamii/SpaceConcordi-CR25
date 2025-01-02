@@ -22,13 +22,13 @@ boundaryField
 {
     inlet
     {
-	type            supersonicFreestream;
+	    type            supersonicFreestream;
         pInf            $P;
         TInf            $T;
         UInf            ($Ux $Uy $Uz);
         gamma           1.4;
         value           uniform ($Ux $Uy $Uz);
-}
+    }
 
     outlet
     {
@@ -39,7 +39,7 @@ boundaryField
 
     sides
     {
-	type            supersonicFreestream;
+	    type            supersonicFreestream;
         pInf            $P;
         TInf            $T;
         UInf            ($Ux $Uy $Uz);
