@@ -110,10 +110,10 @@ addLayersControls
     // If 'true', thickness parameters (firstLayerThickness, minThickness, etc.)
     // are interpreted as a fraction of the local background cell size.
     // If 'false', they're treated as absolute distances in SI units (meters).
-    relativeSizes false;
+    relativeSizes true;
 
     // The fraction by which each subsequent layer grows
-    expansionRatio 1.2;
+    expansionRatio 1.1;
 
     // The thickness of your first boundary-layer cell, relative to local cell size
     // if relativeSizes = true; or absolute thickness if relativeSizes = false.
@@ -121,20 +121,20 @@ addLayersControls
 
     // If snappy can't achieve at least this fraction/absolute thickness,
     // it won't add a layer. (Again depends on 'relativeSizes'.)
-    minThickness 1e-7;
+    minThickness 0.01;
 
     // If initial layer insertion fails on a cell, snappy tries to grow from
     // neighboring cells up to nGrow layers away. Helps fill small misses.
     nGrow 0;
 
     // Controls how snappy identifies 'sharp' features to preserve or refine
-    featureAngle 130;
+    featureAngle 140;
 
     // (OpenFOAM.com) merges patch faces that meet at < this angle
     mergePatchFacesAngle 45;
 
     // (OpenFOAM.com) stops layering if extruded faces bend more than this angle
-    layerTerminationAngle 45;
+    layerTerminationAngle 55;
 
     // Ensures the new layer face thickness doesn't exceed some fraction of
     // the underlying cell face thickness. Helps control extreme aspect ratios.
@@ -145,8 +145,8 @@ addLayersControls
     disableWallEdges true;
 
     // Smoothing of surface normals before and after layer addition
-    nSmoothSurfaceNormals 2;
-    nSmoothNormals 3;
+    nSmoothSurfaceNormals 4;
+    nSmoothNormals 5;
 
     // Number of iterations to smooth out the layer thickness distribution
     nSmoothThickness 15;
@@ -170,20 +170,20 @@ addLayersControls
     slipFeatureAngle 30;
 
     // After failing or partial layering, tries relaxing constraints up to these iterations
-    nRelaxIter 6;
+    nRelaxIter 5;
 
     // The main layering loop tries up to nLayerIter times to inflate layers each pass
-    nLayerIter 8;
+    nLayerIter 10;
 
     // Additional 'relaxed' passes (some parameters are eased) up to nRelaxedIter times
-    nRelaxedIter 6;
+    nRelaxedIter 5;
 
     // (OpenFOAM.com) The outer layering loop can repeat up to nOuterIter passes 
     // if layers keep failing. A high number helps, but increases runtime.
-    nOuterIter 10;
+    nOuterIter 8;
 
     // More verbose printouts in the log (helpful for debugging)
-    additionalReporting true;
+    additionalReporting false;
 
     // If > 0, snappy sets aside these cells from extrusion
     nBufferCellsNoExtrude 0;
@@ -198,8 +198,8 @@ addLayersControls
             nSurfaceLayers 5;
 
             // Optionally, you can override the global defaults (expansionRatio, etc.)
-            expansionRatio 1.2;
-            firstLayerThickness 1e-4;
+            expansionRatio 1.1;
+            firstLayerThickness 0.1;
         }
     }
 }
@@ -208,7 +208,7 @@ addLayersControls
 meshQualityControls
 {
     // 1. Non-Orthogonality
-    maxNonOrtho 95;
+    maxNonOrtho 85;
     /*
       The maximum allowed angle deviation from orthogonality 
       between cell faces and lines drawn from face centers to the cell center. 
@@ -236,7 +236,7 @@ meshQualityControls
     */
 
     // 3. Concavity
-    maxConcave 80;
+    maxConcave 75;
     /*
       Controls how "concave" a cell face can be. 
       A concavity angle measures how "inward" the face bends. 
@@ -262,7 +262,7 @@ meshQualityControls
     */
 
     // 6. Tetrahedral Quality
-    minTetQuality 1e-15;
+    minTetQuality 1e-18;
     /*
       For cells shaped like tetrahedra (in polyhedral meshes, 
       a "tet decomposition" of each cell is tested), 

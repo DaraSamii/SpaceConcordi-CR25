@@ -13,19 +13,14 @@ FoamFile
 #include "../system/parameters.cs"
 
 
-// **Define Number of Cells**
-cellSizeX 0.1;  // Adjust cell size as needed
-cellSizeY 0.1;  // Adjust cell size as needed
-
-cellSizeZ 0.1;  // Adjust cell size as needed
 
 
 scale 1;
 
 
-nx #calc "round(($xMax - $xMin) / $cellSizeX)";
-ny #calc "round(($yMax - $yMin) / $cellSizeY)";
-nz #calc "round(($zMax - $zMin) / $cellSizeZ)";
+nx #calc "round(($xMax - $xMin) / $cellSize)";
+ny #calc "round(($yMax - $yMin) / $cellSize)";
+nz #calc "round(($zMax - $zMin) / $cellSize)";
 
 vertices
 (

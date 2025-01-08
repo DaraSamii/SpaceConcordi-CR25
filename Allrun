@@ -80,7 +80,7 @@ decomposePar -copyZero 2>&1  | tee ./logs/log.decomposePar;
 # Step 4: Run snappyHexMesh in parallel on 4 cores
 mpirun -np $numProcs snappyHexMesh -overwrite -parallel 2>&1  | tee ./logs/log.snappyHexMesh;
 
-#mpirun -np $numProcs snappyHexMesh -dict ./system/snappyHexMeshDictLayer -overwrite -parallel 2>&1  | tee ./logs/log.snappyHexMeshLayer;
+mpirun -np $numProcs snappyHexMesh -dict ./system/snappyHexMeshDictLayer -overwrite -parallel 2>&1  | tee ./logs/log.snappyHexMeshLayer;
 # Optional Step 5: Reconstruct the final mesh (combine into single mesh)
 #reconstructPar -constant 2>&1  | tee ./logs/log.reconstructPar;
 reconstructParMesh -constant 2>&1  | tee ./logs/log.reconstructPar;
@@ -104,6 +104,6 @@ for d in processor*; do touch "$d/foam.foam"; done
 
 # Step 6: Run the solver in parallel
 echo "Running rhoPimpleFoam in parallel..."
-mpirun -np $numProcs sonicFoam -parallel 2>&1 | tee logs/log.sonicFoam
+mpirun -np $numProcs rhoSimpleFoam -parallel 2>&1 | tee logs/log.rhoSimpleFoam
 
 #mpirun -np $numProcs foamRun -parallel 2>&1  | tee ./logs/log.foamRun;

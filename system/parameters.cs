@@ -10,11 +10,11 @@ zMin -5;
 zMax  5;
 
 // **Define Number of Cells**
-cellSize 0.2;  // Adjust cell size as needed
+cellSize 0.05;  // Adjust cell size as needed
 
 
-Ux 400;
-Uy 15.0;
+Ux 100;
+Uy 0.0;
 Uz 0.0;
 P 100000;
 T 300;
@@ -27,4 +27,4 @@ maxDeltaT 5e-06;
 firstLayerThickness 0.1;
 minThickness    1e-5;
 
-refinementRegionsLevels ((0.3 3) (0.6 2) (1.2 1));// (2.4 1));
+refinementRegionsLevels ((0.1 5) (0.2 3) (0.4 2) (0.8 1));

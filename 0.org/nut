@@ -24,7 +24,7 @@ LengthScale 0.03;
 
 omega #calc "0.09 * pow($k,0.5) / $LengthScale";
 
-nut #calc " $k / $omega";
+nut 0;//#calc " $k / $omega";
 
 
 internalField   uniform $nut;// describes turbulence diffusion
@@ -48,14 +48,11 @@ boundaryField
     }
     rocket
     {
-            type            zeroGradient;
-        /*
         type            nutkWallFunction;
         Cmu             0.09;
         kappa           0.41;
         E               9.8;
         value           uniform 0;
-        */
     }
 }
 

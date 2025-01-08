@@ -25,8 +25,8 @@ boundaryField
 {
     inlet
     {
-        type            zeroGradient;
-	    value           uniform $P;
+    type            freestreamPressure;
+    freestreamValue uniform $P;
     }
 
     outlet

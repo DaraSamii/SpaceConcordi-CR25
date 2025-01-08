@@ -25,15 +25,15 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         20;  
+endTime         1000;  
 
-deltaT         1;//$deltaT;
+deltaT         1;//1;//$deltaT;
 
 maxDeltaT       10;//   $maxDeltaT;	
 
-writeControl    runTime;
+writeControl    timeStep;
 
-writeInterval   1;
+writeInterval   100;
 
 purgeWrite      0;
 
@@ -84,7 +84,7 @@ functions
         Aref        1;
     }
 
-    /*
+    
     // yPlus calculation for wall boundary monitoring
     yPlus1
     {
@@ -93,15 +93,15 @@ functions
         libs            ("libfieldFunctionObjects.so");
         
         writePrecision  8;
-        writeToFile     true;
+        writeToFile     false;
         enabled         true;
         log             true;
         executeControl  timeStep;
         executeInterval 1;  // Calculate yPlus every 10 time steps
         writeControl    timeStep;
-        writeInterval   1;
+        writeInterval   100;
     }
-    */
+    
 
     MachNo
     {
