@@ -33,7 +33,7 @@ maxDeltaT       10;//   $maxDeltaT;
 
 writeControl    timeStep;
 
-writeInterval   100;
+writeInterval   10;
 
 purgeWrite      0;
 
@@ -80,8 +80,8 @@ functions
         dragDir     (1 0 0);
         pitchAxis   (0 0 1);
         magUInf     #calc "sqrt(pow($Ux * 1.0,2) + pow($Uy * 1.0,2) + pow($Uz * 1.0,2))";
-        lRef        1;
-        Aref        1;
+        lRef        3;
+        Aref        0.0188545853;
     }
 
     
@@ -99,7 +99,7 @@ functions
         executeControl  timeStep;
         executeInterval 1;  // Calculate yPlus every 10 time steps
         writeControl    timeStep;
-        writeInterval   100;
+        writeInterval   10;
     }
     
 

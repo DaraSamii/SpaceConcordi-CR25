@@ -51,12 +51,12 @@ geometry
 
 castellatedMeshControls
 {
-    maxLocalCells   100000;
-    maxGlobalCells  5000000;
+    maxLocalCells   2000000;
+    maxGlobalCells  15000000;
     minRefinementCells 10;
     maxLoadUnbalance 0.1;
-    nCellsBetweenLevels 4;
-    locationInMesh (-1 0 0);
+    nCellsBetweenLevels 1;
+    locationInMesh (-1 -1 -1);
     allowFreeStandingZoneFaces true;
     resolveFeatureAngle 130;
     // useLeakClosure true; // OpenFOAM.com option
