@@ -16,10 +16,10 @@ cellSize 0.1;  // Adjust cell size as needed
 Ux 100;
 Uy 0.0;
 Uz 0.0;
-P 100000;
-T 300;
+P 69681;
+T 268;
 
-WriteInterval 20;
+WriteInterval 40;
 
 
 refinementRegionsLevels ((0.1 5) (0.2 3) (0.4 2) (0.8 1));
