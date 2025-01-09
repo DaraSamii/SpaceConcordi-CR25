@@ -66,7 +66,8 @@ foamDictionary system/decomposeParDict -entry "numberOfSubdomains" -set "$numPro
 # Step 1: Generate base mesh
 blockMesh 2>&1 | tee ./logs/log.blockMesh;
 
-# Step 2: Extract surface features
+# Step 2: Extract surface features 
+# IMPORTANT : it should be done with surfaceFeature of openfoam11 or openfoam12. v2406 doesn't work
 #surfaceFeatureExtract 2>&1  | tee ./logs/log.surfaceFeatures;
 
 # Step 3: Decompose the domain for parallel processing

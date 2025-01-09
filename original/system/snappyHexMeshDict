@@ -22,8 +22,8 @@ FoamFile
 
 #include "parameters.cs";
 
-stlFile "RocketV2.stl";
-eMeshFile "RocketV2.eMesh";
+stlFile "RocketV4.stl";
+eMeshFile "RocketV4.eMesh";
 
 
 //stlFile "rocket.stl";
