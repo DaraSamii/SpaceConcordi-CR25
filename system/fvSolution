@@ -42,7 +42,7 @@ solvers
     {
         solver          PBiCGStab;
         preconditioner  diagonal;
-        tolerance       1e-9;
+        tolerance       1e-10;
         relTol          0;
     }
 
@@ -50,7 +50,7 @@ solvers
     {
         solver          GAMG;
         smoother        GaussSeidel;
-        tolerance       1e-8;
+        tolerance       1e-10;
         relTol          0;
     }
 }
@@ -88,15 +88,15 @@ relaxationFactors
 {
     fields
     {
-        p               0.4;
-        U               0.3;
-        rho             0.01;
+        p               0.5;
+        U               0.6;
+        rho             0.2;
     }
     equations
     {
-        U               0.1;
+        U               0.6;
         e               0.5;
-        "(k|omega|nut)"     0.1;
+        "(k|omega|nut)"     0.4;
     }
 }
 

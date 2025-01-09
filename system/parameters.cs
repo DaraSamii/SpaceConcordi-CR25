@@ -19,12 +19,7 @@ Uz 0.0;
 P 100000;
 T 300;
 
-maxCo 0.5;
-deltaT 2e-07;
-maxDeltaT 5e-06;
+WriteInterval 20;
 
-
-firstLayerThickness 0.1;
-minThickness    1e-5;
 
 refinementRegionsLevels ((0.1 5) (0.2 3) (0.4 2) (0.8 1));

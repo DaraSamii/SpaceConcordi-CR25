@@ -19,21 +19,23 @@ application     foamRun;
 
 solver          fluid;
 
-startFrom       startTime;
+//startFrom       startTime;
+startFrom       latestTime;
+
 
 startTime       0;
 
 stopAt          endTime;
 
-endTime         1000;  
+endTime         3000;  
 
-deltaT         1;//1;//$deltaT;
+deltaT         1;
 
-maxDeltaT       10;//   $maxDeltaT;	
+maxDeltaT       1;
 
 writeControl    timeStep;
 
-writeInterval   10;
+writeInterval   $WriteInterval;
 
 purgeWrite      0;
 
@@ -53,7 +55,7 @@ runTimeModifiable true;
 
 adjustTimeStep  true;
 
-maxCo   $maxCo;
+maxCo   0.5;
 
 functions
 {
@@ -112,7 +114,7 @@ functions
         libs            ("libfieldFunctionObjects.so");
         
         writePrecision  8;
-        writeToFile     false;
+        writeToFile     true;
         useUserTime     true;
         region          region0;
         enabled         true;
@@ -122,7 +124,7 @@ functions
         executeControl  timeStep;
         executeInterval 1;
         writeControl    timeStep;
-        writeInterval   10;
+        writeInterval   $WriteInterval;
     }
     
 
@@ -153,29 +155,6 @@ functions
         writeInterval   $writeInterval;            // Write every 0.01 seconds of simulation time
     }
     
-    
-    Co1
-    {
-        // Mandatory entries (unmodifiable)
-        type            CourantNo;
-        libs            (fieldFunctionObjects);
-    
-        // Optional entries (runtime modifiable)
-        rho             rho;
-    
-        // Optional (inherited) entries
-        region          region0;
-        enabled         true;
-        log             true;
-        timeStart       0;
-        timeEnd         3;
-        executeControl  $writeControl;         // Trigger function based on simulation time
-        executeInterval $writeInterval;            // Execute every 0.01 seconds of simulation time
-    
-        // Write control
-        writeControl    $writeControl;         // Save results based on runTime
-        writeInterval   $writeInterval;            // Write every 0.01 seconds of simulation time
-    }
     
     solverInfo
     {

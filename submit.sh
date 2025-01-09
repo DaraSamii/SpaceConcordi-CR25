@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=CR25
-#SBATCH --mem=32G
+#SBATCH --mem=48G
 #SBATCH --nodes=1
 #SBATCH --ntasks=36
 #SBATCH --cpus-per-task=1
