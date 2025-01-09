@@ -67,7 +67,7 @@ castellatedMeshControls
     (
         {
             file $eMeshFile;
-            level 6;
+            level 7;
         }
 
     );
@@ -76,7 +76,7 @@ castellatedMeshControls
     {
         rocket
         {
-            level (4 6);
+            level (5 7);
             patchInfo { type wall; }
             
         }

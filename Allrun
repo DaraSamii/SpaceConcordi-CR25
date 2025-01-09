@@ -105,4 +105,5 @@ for d in processor*; do touch "$d/foam.foam"; done
 echo "Running rhoPimpleFoam in parallel..."
 mpirun -np $numProcs rhoSimpleFoam -parallel 2>&1 | tee logs/log.rhoSimpleFoam
 
-#mpirun -np $numProcs foamRun -parallel 2>&1  | tee ./logs/log.foamRun;
+
+reconstructPar -latestTime 2>&1 | tee logs/log.reconstructPar
