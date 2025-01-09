@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=CR25
-#SBATCH --mem=32G
+#SBATCH --mem=48G
 #SBATCH --nodes=1
 #SBATCH --ntasks=36
 #SBATCH --cpus-per-task=1
@@ -32,26 +32,21 @@ cd ${0%/*} || exit 1    # Run from this directory
 
 cleanCase
 
-rm -r ./0
+rm -r ./0 ./processor*/
 
-cp -r ./0.org ./0
+cp -r ./0.orig ./0
 
-rm -r /processor*/
 # Remove and recreate logs directory
 if [ -d "logs" ]; then
     echo "Removing existing logs directory..."
     rm -r logs
 fi
+
 mkdir -p logs
 echo "Logs directory created."
 
 # Touch foam.foam for ParaView compatibility
 touch foam.foam
-
-
-cd ${0%/*} || exit 1    # Run from this directory
-
-mkdir -p logs
 
 
 if module avail openfoam/11 &>/dev/null; then
@@ -95,7 +90,11 @@ decomposePar 2>&1  | tee ./logs/log.decomposePar2;
 
 
 echo "Checking the mesh quality..."
-mpirun -np $numProcs checkMesh -allGeometry -allTopology -parallel 2>&1 | tee logs/log.checkMesh
+
+mpirun -np $numProcs checkMesh -parallel 2>&1 | tee logs/log.checkMesh
+
+
+mpirun -np $numProcs checkMesh -allGeometry -allTopology -parallel 2>&1 | tee logs/log.checkMeshAllTopology
 
 # Step 5: Create foam.foam for visualization
 echo "Creating foam.foam for visualization..."

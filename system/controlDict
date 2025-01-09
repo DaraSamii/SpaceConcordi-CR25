@@ -94,12 +94,16 @@ functions
         
         writePrecision  8;
         writeToFile     false;
+        useUserTime     true;
+        region          region0;
         enabled         true;
         log             true;
+        timeStart       0;
+        timeEnd         1000;
         executeControl  timeStep;
-        executeInterval 1;  // Calculate yPlus every 10 time steps
+        executeInterval 1;
         writeControl    timeStep;
-        writeInterval   10;
+        writeInterval   1;
     }
     
 

@@ -116,60 +116,99 @@ snapControls
 
 addLayersControls
 {
-    // Layer sizing
-    relativeSizes        true;            // Interpret thickness as fraction of local cell size
-    expansionRatio       1.1;            // Growth of each subsequent layer
-    firstLayerThickness  $firstLayerThickness; 
-    minThickness         1e-08;          // Absolute min thickness (in case local cells are extremely small)
-    nGrow                0;
+    // If 'true', thickness parameters (firstLayerThickness, minThickness, etc.)
+    // are interpreted as a fraction of the local background cell size.
+    // If 'false', they're treated as absolute distances in SI units (meters).
+    relativeSizes true;
 
-    // Mesh dependencies
-    featureAngle         130;            // Detect sharp edges above this angle
-    mergePatchFacesAngle 45;             // (OpenFOAM.com) Merge patch faces below 45° difference
-    layerTerminationAngle 45;            // (OpenFOAM.com) If layers need > 45° to inflate, they terminate
-    maxFaceThicknessRatio 0.5;           // Max ratio of layer thickness to adjacent cell thickness
-    disableWallEdges     false;          // Keep inflation on edges
+    // The fraction by which each subsequent layer grows
+    expansionRatio 1.1;
 
-    // Mesh displacement iterations for layer addition
-    nSmoothSurfaceNormals 2; 
-    nSmoothThickness     10;
-    nSmoothNormals       3;
-    nSmoothDisplacement  30;
-    nMedialAxisIter      1000;
+    // The thickness of your first boundary-layer cell, relative to local cell size
+    // if relativeSizes = true; or absolute thickness if relativeSizes = false.
+    firstLayerThickness 1e-05;
 
-    // Medial axis analysis 
-    minMedianAxisAngle   90;
-    minMedialAxisAngle   90;
+    // If snappy can't achieve at least this fraction/absolute thickness,
+    // it won't add a layer. (Again depends on 'relativeSizes'.)
+    minThickness 0.01;
 
-    // Allow somewhat larger layers relative to medial axis:
-    maxThicknessToMedialRatio 0.8;       // Loosened from 0.5 to 0.8
+    // If initial layer insertion fails on a cell, snappy tries to grow from
+    // neighboring cells up to nGrow layers away. Helps fill small misses.
+    nGrow 0;
 
-    slipFeatureAngle     30;
-    nRelaxIter           15;
+    // Controls how snappy identifies 'sharp' features to preserve or refine
+    featureAngle 140;
 
-    // If using displacement-based solver (commented out by default)
-    //meshShrinker        displacementMotionSolver;
-    //solver              displacementLaplacian;
-    //displacementLaplacianCoeffs
-    //{
-    //    diffusivity     quadratic inverseDistance ("wall.*");
-    //}
+    // (OpenFOAM.com) merges patch faces that meet at < this angle
+    mergePatchFacesAngle 45;
 
-    // Overall layering iteration/relaxation
+    // (OpenFOAM.com) stops layering if extruded faces bend more than this angle
+    layerTerminationAngle 55;
+
+    // Ensures the new layer face thickness doesn't exceed some fraction of
+    // the underlying cell face thickness. Helps control extreme aspect ratios.
+    maxFaceThicknessRatio 0.5;
+
+    // If set to 'true', snappy won't add layers at edges. 
+    // Setting to 'false' tries to add them if possible.
+    disableWallEdges true;
+
+    // Smoothing of surface normals before and after layer addition
+    nSmoothSurfaceNormals 4;
+    nSmoothNormals 5;
+
+    // Number of iterations to smooth out the layer thickness distribution
+    nSmoothThickness 15;
+
+    // Number of iterations to smooth the displacement vector field
+    // used for layer extrusion
+    nSmoothDisplacement 25;
+
+    // (Advanced) Max iterations for medial axis analysis. 
+    // The medial axis helps ensure layers don't overlap or blow up near tight curvatures.
+    nMedialAxisIter 1000;
+
+    // Minimum angles used in the medial axis analysis
+    minMedianAxisAngle 90;
+    minMedialAxisAngle 90;
+
+    // Allows layers to be up to this fraction of the local distance to the medial axis
+    maxThicknessToMedialRatio 0.5;
+
+    // Another angle for advanced slip features
+    slipFeatureAngle 30;
+
+    // After failing or partial layering, tries relaxing constraints up to these iterations
+    nRelaxIter 5;
+
+    // The main layering loop tries up to nLayerIter times to inflate layers each pass
+    nLayerIter 10;
+
+    // Additional 'relaxed' passes (some parameters are eased) up to nRelaxedIter times
+    nRelaxedIter 5;
+
+    // (OpenFOAM.com) The outer layering loop can repeat up to nOuterIter passes 
+    // if layers keep failing. A high number helps, but increases runtime.
+    nOuterIter 8;
+
+    // More verbose printouts in the log (helpful for debugging)
+    additionalReporting false;
+
+    // If > 0, snappy sets aside these cells from extrusion
     nBufferCellsNoExtrude 0;
-    nLayerIter            50;            // Max attempts per pass
-    nRelaxedIter          20;            // Relax iteration attempts
-    nOuterIter            1000;          // (OpenFOAM.com) # of passes; can be reduced to ~5–10 if runtime is an issue
-    additionalReporting   true;
 
+    // Patch-specific layer settings go inside 'layers {}'
     layers
     {
+        // For patch named "rocket" (must match your STL patch or region name)
         rocket
         {
-            nSurfaceLayers    5;         // # of inflation layers on the "rocket" patch
-            expansionRatio    1.1;       // (Local override) can match global or differ
-            firstLayerThickness $firstLayerThickness;
-            //minThickness     $minThickness;
+            // Target number of layers on this patch
+            nSurfaceLayers 5;
+
+            // Optionally, you can override the global defaults (expansionRatio, etc.)
+            expansionRatio 1.1;
+            firstLayerThickness 0.1;
         }
     }
 }
@@ -215,6 +254,15 @@ meshQualityControls
     // Advanced settings
     nSmoothScale 4;       // Reset to typical default for smoothing iterations
     errorReduction 0.75;  // Retain error reduction for balance
+
+    relaxed
+    {
+          maxNonOrtho 90;
+          minVolRatio 0.001;
+          minFaceWeight 0.001;
+          minDeterminant 0.0001;
+          maxConcave 90;
+    }
 }
 
 
