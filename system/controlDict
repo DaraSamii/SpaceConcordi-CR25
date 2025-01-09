@@ -61,7 +61,7 @@ functions
     //#includeFunc residuals
 
     
-    forces
+    forceCoeffs
     {
         type            forceCoeffs;
         libs            ("libforces.so");
@@ -84,6 +84,25 @@ functions
         Aref        0.0188545853;
     }
 
+    forces
+    {
+        type forces;                         // Function object for force calculation
+        libs ("libforces.so"); // Library required for force calculations
+        patches ("rocket");                  // Name of the boundary patch
+        
+        // Field names
+        p               p;
+        U               U;
+        rho             rho;
+
+        // Reference pressure [Pa]
+        pRef            $P;
+        log true;                            // Log results to a file
+
+        // Optional: Specify center of rotation for moment calculation
+        CofR (0 0 0);                        // Replace with the desired center of rotation
+    }
+
     
     // yPlus calculation for wall boundary monitoring
     yPlus1
@@ -103,7 +122,7 @@ functions
         executeControl  timeStep;
         executeInterval 1;
         writeControl    timeStep;
-        writeInterval   1;
+        writeInterval   10;
     }
     
 
