@@ -208,14 +208,14 @@ addLayersControls
 meshQualityControls
 {
     // Maximum non-orthogonality allowed. 
-    maxNonOrtho 100;  // Relaxed from 75 to 65 (common default)
+    maxNonOrtho 80;  // Relaxed from 75 to 65 (common default)
 
     // Max skewness allowed.
-    maxBoundarySkewness -1;  // Typical default for boundary faces
-    maxInternalSkewness -1;   // Common value for internal skewness
+    maxBoundarySkewness 4;  // Typical default for boundary faces
+    maxInternalSkewness 20;   // Common value for internal skewness
 
     // Max concaveness allowed. 
-    maxConcave 90;  // Standard value for moderate concave faces
+    maxConcave 80;  // Standard value for moderate concave faces
 
     // Minimum projected area v.s. actual area. 
     minFlatness 0.5;  // Relaxed for general meshing; lower precision required
@@ -227,16 +227,16 @@ meshQualityControls
     minTetQuality 1e-30;  // Relaxed from stricter stability (e.g., 1e-12)
 
     // Minimum face twist. Ensures cells are not overly twisted.
-    minTwist -1;  // Loosened to allow slightly more twist (default range: 0.01-0.05)
+    minTwist 0.01;  // Loosened to allow slightly more twist (default range: 0.01-0.05)
 
     // Minimum normalized cell determinant.
     minDeterminant -1;  // Relaxed determinant for near-degenerate cells
 
     // Minimum face weight.
-    minFaceWeight -1;  // Relaxed from 0.01 to prioritize mesh generation
+    minFaceWeight 0.01;  // Relaxed from 0.01 to prioritize mesh generation
 
     // Minimum volume ratio.
-    minVolRatio -1;  // Typical for maintaining balanced cell sizes
+    minVolRatio 0.01;  // Typical for maintaining balanced cell sizes
 
     // Additional parameters (default: ignored if -1)
     minArea -1;          // Disable area checks (not commonly used)

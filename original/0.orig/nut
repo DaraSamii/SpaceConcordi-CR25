@@ -39,12 +39,12 @@ boundaryField
     outlet
     {
         type            calculated;
-        value           uniform 0;
+        value           uniform $nut;
     }
     sides
     {
         type            calculated;
-	value           uniform 0;
+	value           uniform $nut;
     }
     rocket
     {

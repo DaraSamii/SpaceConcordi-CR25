@@ -96,12 +96,12 @@ castellatedMeshControls
 
 snapControls
 {
-    nSmoothPatch 5;
+    nSmoothPatch 8;
     nSmoothInternal 1; // OpenFOAM.com option
     tolerance 2.0;
     nSolveIter 30;
-    nRelaxIter 4;
-    nFeatureSnapIter 4;
+    nRelaxIter 6;
+    nFeatureSnapIter 6;
     implicitFeatureSnap true;
     explicitFeatureSnap true;
     multiRegionFeatureSnap true;
