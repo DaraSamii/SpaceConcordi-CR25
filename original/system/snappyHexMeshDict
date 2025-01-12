@@ -96,12 +96,12 @@ castellatedMeshControls
 
 snapControls
 {
-    nSmoothPatch 13;
+    nSmoothPatch 15;
     nSmoothInternal 1; // OpenFOAM.com option
-    tolerance 2.0;
+    tolerance 1.0;
     nSolveIter 30;
-    nRelaxIter 12;
-    nFeatureSnapIter 12;
+    nRelaxIter 20;
+    nFeatureSnapIter 20;
     implicitFeatureSnap true;
     explicitFeatureSnap true;
     multiRegionFeatureSnap true;
@@ -220,8 +220,8 @@ meshQualityControls
     maxNonOrtho 65;  // Relaxed from 75 to 65 (common default)
 
     // Max skewness allowed.
-    maxBoundarySkewness 20;  // Typical default for boundary faces
-    maxInternalSkewness 4;   // Common value for internal skewness
+    maxBoundarySkewness 10;  // Typical default for boundary faces
+    maxInternalSkewness 3;   // Common value for internal skewness
 
     // Max concaveness allowed. 
     maxConcave 70;  // Standard value for moderate concave faces
@@ -233,7 +233,7 @@ meshQualityControls
     minVol 1e-30;  // Default is slightly lower for more flexibility
 
     // Minimum quality of tetrahedral cells.
-    minTetQuality 1e-10;  // Relaxed from stricter stability (e.g., 1e-12)
+    minTetQuality 1e-15;  // Relaxed from stricter stability (e.g., 1e-12)
 
     // Minimum face twist. Ensures cells are not overly twisted.
     minTwist 0.05;  // Loosened to allow slightly more twist (default range: 0.01-0.05)
@@ -257,14 +257,8 @@ meshQualityControls
 
     relaxed
     {
-          maxNonOrtho 75;
-          minVolRatio 0.001;
-          minFaceWeight 0.001;
-          minDeterminant 0.0001;
+          maxNonOrtho 70;
           maxConcave 80;
-          minTetQuality 1e-14;
-          minVolRatio 0.005;
-          minTwist  0.02;
     }
 }
 
