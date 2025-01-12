@@ -53,38 +53,38 @@ foamDictionary system/decomposeParDict -entry "numberOfSubdomains" -set "$numPro
 
 #------------------------------------------------------------------------------
 # Step 1: Generate base mesh
-blockMesh 2>&1 | tee ./logs/log.blockMesh;
+blockMesh 2>&1 | tee ./logs/blockMesh.log;
 
 # Step 2: Extract surface features 
 # IMPORTANT : it should be done with surfaceFeature of openfoam11 or openfoam12. v2406 doesn't work
 #surfaceFeatureExtract 2>&1  | tee ./logs/log.surfaceFeatures;
 
 # Step 3: Decompose the domain for parallel processing
-decomposePar -copyZero 2>&1  | tee ./logs/log.decomposePar;
+decomposePar -copyZero 2>&1  | tee ./logs/decomposePar.log;
 
 # Step 4: Run snappyHexMesh in parallel on 4 cores
-mpirun -np $numProcs snappyHexMesh -overwrite -parallel 2>&1  | tee ./logs/log.snappyHexMesh;
+mpirun -np $numProcs snappyHexMesh -overwrite -parallel 2>&1  | tee ./logs/snappyHexMesh.log;
 
 #mpirun -np $numProcs snappyHexMesh -dict ./system/snappyHexMeshDictLayer -overwrite -parallel 2>&1  | tee ./logs/log.snappyHexMeshLayer;
 # Optional Step 5: Reconstruct the final mesh (combine into single mesh)
 #reconstructPar -constant 2>&1  | tee ./logs/log.reconstructPar;
-reconstructParMesh -constant 2>&1  | tee ./logs/log.reconstructPar;
+reconstructParMesh -constant 2>&1  | tee ./logs/reconstructPar.log;
 
 
 rm -r processor*
 
-renumberMesh -overwrite 2>&1 | tee logs/log.renumberMesh;
+renumberMesh -overwrite 2>&1 | tee logs/renumberMesh.log;
 
 #Speed steps
-decomposePar 2>&1  | tee ./logs/log.decomposePar2;
+decomposePar 2>&1  | tee ./logs/decomposePar2.log;
 
 
 echo "Checking the mesh quality..."
 
-mpirun -np $numProcs checkMesh -parallel 2>&1 | tee logs/log.checkMesh
+mpirun -np $numProcs checkMesh -parallel 2>&1 | tee logs/checkMesh.log;
 
 
-mpirun -np $numProcs checkMesh -allGeometry -allTopology -parallel 2>&1 | tee logs/log.checkMeshAllTopology
+mpirun -np $numProcs checkMesh -allGeometry -allTopology -parallel 2>&1 | tee logs/checkMeshAllTopology.log
 
 # Step 5: Create foam.foam for visualization
 echo "Creating foam.foam for visualization..."
@@ -93,7 +93,7 @@ for d in processor*; do touch "$d/foam.foam"; done
 
 # Step 6: Run the solver in parallel
 echo "Running rhoPimpleFoam in parallel..."
-mpirun -np $numProcs rhoSimpleFoam -parallel 2>&1 | tee logs/log.rhoSimpleFoam
+mpirun -np $numProcs rhoSimpleFoam -parallel 2>&1 | tee logs/rhoSimpleFoam.log
 
 
 reconstructPar -latestTime 2>&1 | tee logs/log.reconstructPar
