@@ -15,9 +15,7 @@ FoamFile
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 #include "parameters.cs"
 
-application     foamRun;
-
-solver          fluid;
+application     rhoSimpleFoam;
 
 //startFrom       startTime;
 startFrom       latestTime;

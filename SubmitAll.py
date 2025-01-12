@@ -91,12 +91,12 @@ original_dir = "./original"  # Path to the original OpenFOAM case
 data_dir = "./Data"          # Destination data directory
 
 # Run the function for each mesh size with a unique job name
-for u in [110, 210, 310, 410, 510, 610]:
+for u in [310, 410, 510, 610]:
     modifications = {            # Parameters to modify
         "Ux": u,
     }
 
 
-    copied_folder = f"inletP{P}_LibAcoustic" # Name of the copied folder   
+    copied_folder = f"U{u}" # Name of the copied folder   
     job_name = copied_folder  # Unique job name for the submission
     copy_and_modify_case(original_dir, data_dir, copied_folder, modifications, job_name)

@@ -8,8 +8,8 @@
 #SBATCH --mail-user=darasamii@gmail.com
 #SBATCH --mail-type=ALL
 #SBATCH --account=def-tembelym
-#SBATCH --output=submit.out
+#SBATCH --output=submit.log
 
 
 
-./Allrun
+./Allrun.sh

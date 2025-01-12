@@ -25,7 +25,7 @@ solvers
     {
         solver          PBiCGStab;         // Bi-Conjugate Gradient Stabilized
         preconditioner  DIC;             // Diagonal Incomplete LU (DILU)
-        tolerance       1e-06;
+        tolerance       1e-08;
         relTol          0.01;
     }
     
@@ -34,8 +34,8 @@ solvers
     {
         solver          PBiCG;
         preconditioner  DILU;
-        tolerance       1e-06;
-        relTol          0.01;
+        tolerance       1e-08;
+        relTol          0;
     }
 
     "U.*"
@@ -70,33 +70,19 @@ SIMPLE
 }
 
 
-PIMPLE
-{
-    nOuterCorrectors 1;
-    nCorrectors      1;
-    nNonOrthogonalCorrectors 1;
-
-    transonic            yes;
-}
-
-potentialFlow
-{
-    nNonOrthogonalCorrectors 2;
-}
-
 relaxationFactors
 {
     fields
     {
-        p               0.5;
-        U               0.6;
-        rho             0.2;
+        p               0.2;
+        U               0.2;
+        rho             0.01;
     }
     equations
     {
-        U               0.6;
-        e               0.5;
-        "(k|omega|nut)"     0.4;
+        U               0.2;
+        e               0.3;
+        "(k|omega|nut)"     0.3;
     }
 }
 

@@ -51,8 +51,8 @@ geometry
 
 castellatedMeshControls
 {
-    maxLocalCells   2000000;
-    maxGlobalCells  15000000;
+    maxLocalCells   20000000;
+    maxGlobalCells  35000000;
     minRefinementCells 10;
     maxLoadUnbalance 0.1;
     nCellsBetweenLevels 1;
@@ -67,7 +67,7 @@ castellatedMeshControls
     (
         {
             file $eMeshFile;
-            level 7;
+            level 9;
         }
 
     );
@@ -76,7 +76,7 @@ castellatedMeshControls
     {
         rocket
         {
-            level (5 7);
+            level (7 8);
             patchInfo { type wall; }
             
         }
@@ -85,23 +85,23 @@ castellatedMeshControls
 
     refinementRegions
     {
-        rocket
+        /*rocket
         {
             mode distance;
             levels $refinementRegionsLevels;
-        }
+        }*/
 
     }
 }
 
 snapControls
 {
-    nSmoothPatch 8;
+    nSmoothPatch 13;
     nSmoothInternal 1; // OpenFOAM.com option
     tolerance 2.0;
     nSolveIter 30;
-    nRelaxIter 6;
-    nFeatureSnapIter 6;
+    nRelaxIter 12;
+    nFeatureSnapIter 12;
     implicitFeatureSnap true;
     explicitFeatureSnap true;
     multiRegionFeatureSnap true;
@@ -204,11 +204,11 @@ addLayersControls
         rocket
         {
             // Target number of layers on this patch
-            nSurfaceLayers 5;
+            nSurfaceLayers 3;
 
             // Optionally, you can override the global defaults (expansionRatio, etc.)
-            expansionRatio 1.1;
-            firstLayerThickness 0.1;
+            expansionRatio 1.2;
+            firstLayerThickness 0.2;
         }
     }
 }
@@ -230,7 +230,7 @@ meshQualityControls
     minFlatness 0.5;  // Relaxed for general meshing; lower precision required
 
     // Minimum cell pyramid volume relative to min bounding box length^3.
-    minVol 1e-13;  // Default is slightly lower for more flexibility
+    minVol 1e-30;  // Default is slightly lower for more flexibility
 
     // Minimum quality of tetrahedral cells.
     minTetQuality 1e-10;  // Relaxed from stricter stability (e.g., 1e-12)
@@ -257,11 +257,14 @@ meshQualityControls
 
     relaxed
     {
-          maxNonOrtho 90;
+          maxNonOrtho 75;
           minVolRatio 0.001;
           minFaceWeight 0.001;
           minDeterminant 0.0001;
-          maxConcave 90;
+          maxConcave 80;
+          minTetQuality 1e-14;
+          minVolRatio 0.005;
+          minTwist  0.02;
     }
 }
 
