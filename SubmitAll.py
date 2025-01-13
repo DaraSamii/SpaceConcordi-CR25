@@ -91,7 +91,7 @@ original_dir = "./original"  # Path to the original OpenFOAM case
 data_dir = "./Data"          # Destination data directory
 
 # Run the function for each mesh size with a unique job name
-for u in [310, 410, 510, 610]:
+for u in [610]:
     modifications = {            # Parameters to modify
         "Ux": u,
     }
