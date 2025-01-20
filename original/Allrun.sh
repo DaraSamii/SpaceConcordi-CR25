@@ -58,7 +58,7 @@ blockMesh 2>&1 | tee ./logs/blockMesh.log;
 # Step 2: Extract surface features 
 # IMPORTANT : it should be done with surfaceFeature of openfoam11 or openfoam12. v2406 doesn't work
 #surfaceFeatureExtract 2>&1  | tee ./logs/log.surfaceFeatures;
-
+# gzip -d constant/triSurface/file.gz
 # Step 3: Decompose the domain for parallel processing
 decomposePar -copyZero 2>&1  | tee ./logs/decomposePar.log;
 
