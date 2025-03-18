@@ -47,6 +47,7 @@ numCellsY1 #calc "1 + (log($gradingFactor * 1.0) / log(1.0 - (($cellSize / $grad
 numCellsYfocus #calc "(($yMax * $yzPlaneProportion) * 2.0) / ($cellSize / $gradingFactor)";
 
 // Logging important parameters
+/*
 #message "============================================================================";
 #message "Mesh Proportions:";
 #message "Front Proportion = $frontProportion";
@@ -62,7 +63,7 @@ numCellsYfocus #calc "(($yMax * $yzPlaneProportion) * 2.0) / ($cellSize / $gradi
 #message "Number of Cells Y1 = $numCellsY";
 #message "Number of Cells Y2 = $numCellsYfocus";
 #message "============================================================================";
-
+*/
 // Mesh vertices
 vertices
 (

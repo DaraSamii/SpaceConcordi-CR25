@@ -1,6 +1,6 @@
 
 // **Define Parameters for Mesh Dimensions**
-xMin -4;
+xMin -5;
 xMax  14;
 
 yMin -5;
@@ -27,4 +27,4 @@ T 268;
 WriteInterval 40;
 
 
-refinementRegionsLevels ((0.1 5) (0.2 3) (0.4 2) (0.8 1));
+refinementRegionsLevels ((0.1 3) (0.2 2) (0.4 1));

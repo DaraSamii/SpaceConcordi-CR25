@@ -51,8 +51,8 @@ geometry
 
 castellatedMeshControls
 {
-    maxLocalCells   20000000;
-    maxGlobalCells  35000000;
+    maxLocalCells   1000000;
+    maxGlobalCells  20000000;
     minRefinementCells 10;
     maxLoadUnbalance 0.1;
     nCellsBetweenLevels 1;
@@ -67,7 +67,7 @@ castellatedMeshControls
     (
         {
             file $eMeshFile;
-            level 9;
+            level 7;
         }
 
     );
@@ -76,7 +76,7 @@ castellatedMeshControls
     {
         rocket
         {
-            level (7 8);
+            level (5 6);
             patchInfo { type wall; }
             
         }
@@ -85,11 +85,11 @@ castellatedMeshControls
 
     refinementRegions
     {
-        /*rocket
+        rocket
         {
             mode distance;
             levels $refinementRegionsLevels;
-        }*/
+        }
 
     }
 }
@@ -122,11 +122,11 @@ addLayersControls
     relativeSizes true;
 
     // The fraction by which each subsequent layer grows
-    expansionRatio 1.1;
+    expansionRatio 1.2;
 
     // The thickness of your first boundary-layer cell, relative to local cell size
     // if relativeSizes = true; or absolute thickness if relativeSizes = false.
-    firstLayerThickness 1e-05;
+    firstLayerThickness 0.1;
 
     // If snappy can't achieve at least this fraction/absolute thickness,
     // it won't add a layer. (Again depends on 'relativeSizes'.)
@@ -208,7 +208,7 @@ addLayersControls
 
             // Optionally, you can override the global defaults (expansionRatio, etc.)
             expansionRatio 1.2;
-            firstLayerThickness 0.2;
+            firstLayerThickness 0.1;
         }
     }
 }

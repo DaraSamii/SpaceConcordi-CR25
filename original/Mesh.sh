@@ -2,11 +2,11 @@
 
 
 # Source the OpenFOAM environment (modify as needed)
-if module avail openfoam/v2406 &>/dev/null; then
-    module load openfoam/v2406
+if module avail openfoam/12 &>/dev/null; then
+    module load openfoam/12
     echo "OpenFOAM v12 module loaded successfully."
 else
-    op2406
+    op11
     #op11
     echo "Using OpenFOAM op11."
 fi
@@ -38,7 +38,7 @@ echo "Logs directory created."
 touch foam.foam
 
 
-if module avail openfoam/11 &>/dev/null; then
+if module avail openfoam/12 &>/dev/null; then
     numProcs=32  # Server
 else
     numProcs=4  # Local machine
@@ -65,35 +65,8 @@ decomposePar -copyZero 2>&1  | tee ./logs/decomposePar.log;
 # Step 4: Run snappyHexMesh in parallel on 4 cores
 mpirun -np $numProcs snappyHexMesh -overwrite -parallel 2>&1  | tee ./logs/snappyHexMesh.log;
 
-mpirun -np $numProcs snappyHexMesh -dict ./system/snappyHexMeshDictLayer -overwrite -parallel 2>&1  | tee ./logs/log.snappyHexMeshLayer;
-# Optional Step 5: Reconstruct the final mesh (combine into single mesh)
-#reconstructPar -constant 2>&1  | tee ./logs/log.reconstructPar;
+mpirun -np $numProcs snappyHexMesh -dict ./system/snappyHexMeshDictLayer -parallel 2>&1  | tee ./logs/log.snappyHexMeshLayer;
+
 reconstructParMesh -constant 2>&1  | tee ./logs/reconstructPar.log;
 
-
 rm -r processor*
-
-renumberMesh -overwrite 2>&1 | tee logs/renumberMesh.log;
-
-#Speed steps
-decomposePar 2>&1  | tee ./logs/decomposePar2.log;
-
-
-echo "Checking the mesh quality..."
-
-mpirun -np $numProcs checkMesh -parallel 2>&1 | tee logs/checkMesh.log;
-
-
-mpirun -np $numProcs checkMesh -allGeometry -allTopology -parallel 2>&1 | tee logs/checkMeshAllTopology.log
-
-# Step 5: Create foam.foam for visualization
-echo "Creating foam.foam for visualization..."
-for d in processor*; do touch "$d/foam.foam"; done
-
-
-# Step 6: Run the solver in parallel
-echo "Running rhoPimpleFoam in parallel..."
-mpirun -np $numProcs rhoSimpleFoam -parallel 2>&1 | tee logs/rhoSimpleFoam.log
-
-
-reconstructPar -latestTime 2>&1 | tee logs/log.reconstructPar

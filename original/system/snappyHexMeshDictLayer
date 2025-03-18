@@ -42,8 +42,8 @@ geometry
 
 castellatedMeshControls
 {
-    maxLocalCells   100000;
-    maxGlobalCells  5000000;
+    maxLocalCells   1000000;
+    maxGlobalCells  20000000;
     minRefinementCells 10;
     maxLoadUnbalance 0.1;
     nCellsBetweenLevels 4;
@@ -76,12 +76,12 @@ castellatedMeshControls
 
     refinementRegions
     {
-        rocket
+        /*rocket
         {
             mode distance;
             levels $refinementRegionsLevels;
         }
-
+        */
     }
 }
 
@@ -113,11 +113,11 @@ addLayersControls
     relativeSizes true;
 
     // The fraction by which each subsequent layer grows
-    expansionRatio 1.1;
+    expansionRatio 1.2;
 
     // The thickness of your first boundary-layer cell, relative to local cell size
     // if relativeSizes = true; or absolute thickness if relativeSizes = false.
-    firstLayerThickness 1e-05;
+    firstLayerThickness 0.01;
 
     // If snappy can't achieve at least this fraction/absolute thickness,
     // it won't add a layer. (Again depends on 'relativeSizes'.)
@@ -125,7 +125,7 @@ addLayersControls
 
     // If initial layer insertion fails on a cell, snappy tries to grow from
     // neighboring cells up to nGrow layers away. Helps fill small misses.
-    nGrow 0;
+    nGrow 1;
 
     // Controls how snappy identifies 'sharp' features to preserve or refine
     featureAngle 140;
@@ -138,15 +138,15 @@ addLayersControls
 
     // Ensures the new layer face thickness doesn't exceed some fraction of
     // the underlying cell face thickness. Helps control extreme aspect ratios.
-    maxFaceThicknessRatio 0.8;
+    maxFaceThicknessRatio 0.5;
 
     // If set to 'true', snappy won't add layers at edges. 
     // Setting to 'false' tries to add them if possible.
-    disableWallEdges true;
+    disableWallEdges false;
 
     // Smoothing of surface normals before and after layer addition
-    nSmoothSurfaceNormals 4;
-    nSmoothNormals 5;
+    nSmoothSurfaceNormals 8;
+    nSmoothNormals 10;
 
     // Number of iterations to smooth out the layer thickness distribution
     nSmoothThickness 15;
@@ -169,18 +169,19 @@ addLayersControls
     // Another angle for advanced slip features
     slipFeatureAngle 30;
 
-    // After failing or partial layering, tries relaxing constraints up to these iterations
-    nRelaxIter 5;
-
     // The main layering loop tries up to nLayerIter times to inflate layers each pass
-    nLayerIter 10;
+    nLayerIter 8;
+
+    // After failing or partial layering, tries relaxing constraints up to these iterations
+    nRelaxIter 6;
+
+
 
     // Additional 'relaxed' passes (some parameters are eased) up to nRelaxedIter times
-    nRelaxedIter 5;
 
     // (OpenFOAM.com) The outer layering loop can repeat up to nOuterIter passes 
     // if layers keep failing. A high number helps, but increases runtime.
-    nOuterIter 8;
+    nOuterIter 12;
 
     // More verbose printouts in the log (helpful for debugging)
     additionalReporting false;
@@ -198,24 +199,23 @@ addLayersControls
             nSurfaceLayers 5;
 
             // Optionally, you can override the global defaults (expansionRatio, etc.)
-            expansionRatio 1.1;
-            firstLayerThickness 0.1;
+            expansionRatio 1.2;
+            firstLayerThickness 0.05;
         }
     }
 }
 
-
 meshQualityControls
 {
     // Maximum non-orthogonality allowed. 
-    maxNonOrtho 80;  // Relaxed from 75 to 65 (common default)
+    maxNonOrtho 100;  // Relaxed from 75 to 65 (common default)
 
     // Max skewness allowed.
-    maxBoundarySkewness 4;  // Typical default for boundary faces
+    maxBoundarySkewness 6;  // Typical default for boundary faces
     maxInternalSkewness 20;   // Common value for internal skewness
 
     // Max concaveness allowed. 
-    maxConcave 80;  // Standard value for moderate concave faces
+    maxConcave 85;  // Standard value for moderate concave faces
 
     // Minimum projected area v.s. actual area. 
     minFlatness 0.5;  // Relaxed for general meshing; lower precision required
@@ -227,16 +227,16 @@ meshQualityControls
     minTetQuality 1e-30;  // Relaxed from stricter stability (e.g., 1e-12)
 
     // Minimum face twist. Ensures cells are not overly twisted.
-    minTwist 0.01;  // Loosened to allow slightly more twist (default range: 0.01-0.05)
+    minTwist 0.001;  // Loosened to allow slightly more twist (default range: 0.01-0.05)
 
     // Minimum normalized cell determinant.
     minDeterminant -1;  // Relaxed determinant for near-degenerate cells
 
     // Minimum face weight.
-    minFaceWeight 0.01;  // Relaxed from 0.01 to prioritize mesh generation
+    minFaceWeight 0.001;  // Relaxed from 0.01 to prioritize mesh generation
 
     // Minimum volume ratio.
-    minVolRatio 0.01;  // Typical for maintaining balanced cell sizes
+    minVolRatio 0.001;  // Typical for maintaining balanced cell sizes
 
     // Additional parameters (default: ignored if -1)
     minArea -1;          // Disable area checks (not commonly used)
@@ -248,16 +248,17 @@ meshQualityControls
 
     relaxed
     {
-          maxNonOrtho 180;
+    maxNonOrtho 100;
+    maxConcave 95;
+    minTetQuality -1;
+    minFlatness -1
+    minTwist -1;
+    minFaceWeight -1;
+    minVolRatio -1;
 
-/*          minVolRatio 0.001;
-          minFaceWeight 0.001;
-          minDeterminant 0.0001;
-          maxConcave 90;
-          minTwist 0.1;
-*/
     }
 }
+
 
 writeFlags      ( scalarLevels layerSets layerFields );
 
