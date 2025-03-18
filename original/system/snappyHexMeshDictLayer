@@ -128,7 +128,7 @@ addLayersControls
     nGrow 1;
 
     // Controls how snappy identifies 'sharp' features to preserve or refine
-    featureAngle 140;
+    featureAngle 180;
 
     // (OpenFOAM.com) merges patch faces that meet at < this angle
     mergePatchFacesAngle 45;
@@ -167,7 +167,7 @@ addLayersControls
     maxThicknessToMedialRatio 0.5;
 
     // Another angle for advanced slip features
-    slipFeatureAngle 30;
+    slipFeatureAngle 60;
 
     // The main layering loop tries up to nLayerIter times to inflate layers each pass
     nLayerIter 8;
@@ -208,10 +208,10 @@ addLayersControls
 meshQualityControls
 {
     // Maximum non-orthogonality allowed. 
-    maxNonOrtho 100;  // Relaxed from 75 to 65 (common default)
+    maxNonOrtho 80;  // Relaxed from 75 to 65 (common default)
 
     // Max skewness allowed.
-    maxBoundarySkewness 6;  // Typical default for boundary faces
+    maxBoundarySkewness 4;  // Typical default for boundary faces
     maxInternalSkewness 20;   // Common value for internal skewness
 
     // Max concaveness allowed. 
@@ -224,16 +224,16 @@ meshQualityControls
     minVol 1e-30;  // Default is slightly lower for more flexibility
 
     // Minimum quality of tetrahedral cells.
-    minTetQuality 1e-30;  // Relaxed from stricter stability (e.g., 1e-12)
+    minTetQuality -1;  // Relaxed from stricter stability (e.g., 1e-12)
 
     // Minimum face twist. Ensures cells are not overly twisted.
-    minTwist 0.001;  // Loosened to allow slightly more twist (default range: 0.01-0.05)
+    minTwist 0.01;  // Loosened to allow slightly more twist (default range: 0.01-0.05)
 
     // Minimum normalized cell determinant.
     minDeterminant -1;  // Relaxed determinant for near-degenerate cells
 
     // Minimum face weight.
-    minFaceWeight 0.001;  // Relaxed from 0.01 to prioritize mesh generation
+    minFaceWeight 0.01;  // Relaxed from 0.01 to prioritize mesh generation
 
     // Minimum volume ratio.
     minVolRatio 0.001;  // Typical for maintaining balanced cell sizes

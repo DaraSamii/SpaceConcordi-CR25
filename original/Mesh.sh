@@ -3,10 +3,15 @@
 
 # Source the OpenFOAM environment (modify as needed)
 if module avail openfoam/12 &>/dev/null; then
+    module purge
+    module load
     module load openfoam/12
+    numProcs=32  # Server
     echo "OpenFOAM v12 module loaded successfully."
 else
     op11
+    numProcs=4  # Local machine
+
     #op11
     echo "Using OpenFOAM op11."
 fi
@@ -37,13 +42,6 @@ echo "Logs directory created."
 # Touch foam.foam for ParaView compatibility
 touch foam.foam
 
-
-if module avail openfoam/12 &>/dev/null; then
-    numProcs=32  # Server
-else
-    numProcs=4  # Local machine
-fi
-
 # ============================
 # Modify decomposeParDict
 # ============================
@@ -58,15 +56,15 @@ blockMesh 2>&1 | tee ./logs/blockMesh.log;
 # Step 2: Extract surface features 
 # IMPORTANT : it should be done with surfaceFeature of openfoam11 or openfoam12. v2406 doesn't work
 #surfaceFeatureExtract 2>&1  | tee ./logs/log.surfaceFeatures;
-# gzip -d constant/triSurface/file.gz
+#gzip -d constant/triSurface/file.gz
 # Step 3: Decompose the domain for parallel processing
 decomposePar -copyZero 2>&1  | tee ./logs/decomposePar.log;
 
 # Step 4: Run snappyHexMesh in parallel on 4 cores
 mpirun -np $numProcs snappyHexMesh -overwrite -parallel 2>&1  | tee ./logs/snappyHexMesh.log;
 
-mpirun -np $numProcs snappyHexMesh -dict ./system/snappyHexMeshDictLayer -parallel 2>&1  | tee ./logs/log.snappyHexMeshLayer;
+mpirun -np $numProcs snappyHexMesh -dict ./system/snappyHexMeshDictLayer -overwrite -parallel 2>&1  | tee ./logs/log.snappyHexMeshLayer;
 
-reconstructParMesh -constant 2>&1  | tee ./logs/reconstructPar.log;
+reconstructPar -constant 2>&1  | tee ./logs/reconstructPar.log;
 
 rm -r processor*
