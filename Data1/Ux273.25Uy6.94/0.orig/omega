@@ -1,0 +1,58 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  12
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      omega;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 -1 0 0 0 0];
+
+#include "../system/parameters.cs"
+
+
+k   #calc "1.5 * pow((0.05 * sqrt(pow($Ux * 1.0,2) + pow($Uy * 1.0,2) + pow($Uz * 1.0,2))),2)";
+
+LengthScale 0.03;
+
+omega 10;//#calc "0.09 * pow($k,0.5) / $LengthScale";
+
+internalField   uniform $omega;
+
+boundaryField
+{
+    inlet
+    {
+        type            inletOutlet;
+        inletValue      uniform $omega;
+        value           uniform $omega;
+    }
+    outlet
+    {
+        type            inletOutlet;
+        inletValue      uniform $omega;
+        value           uniform $omega;
+    }
+    sides
+    {
+        type            inletOutlet;
+        inletValue      uniform $omega;
+        value           uniform $omega;
+    }
+    rocket
+    {
+        type            omegaWallFunction;
+        value           uniform $omega;  // Suitable value for wall function
+    }
+}
+
+
+// ************************************************************************* //

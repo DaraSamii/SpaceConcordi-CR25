@@ -1,0 +1,23 @@
+FoamFile
+{
+    version         2;
+    format          ascii;
+    class           dictionary;
+    object          surfaceFeaturesDict;
+}
+
+// Exported by SnappyHexMesh GUI add-on for Blender v1.8
+// Source file: C:\Users\pdh24\Desktop\Concordia Classes\Rockets\blend\CR-25 medium mesh.blend
+// Export date: 2024-08-18 14:58:02.437950
+
+
+
+surfaces
+(
+    "RocketV5.stl"
+);
+
+includedAngle 150;
+writeObj yes;
+
+

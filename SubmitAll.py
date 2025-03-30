@@ -87,7 +87,7 @@ def copy_and_modify_case(original_dir, data_dir, copied_folder, modifications, j
 
 
 original_dir = "./original"
-data_dir = "./Data"
+data_dir = "./Data1"
 
 # Define the parameter sets explicitly
 parameter_sets = [
