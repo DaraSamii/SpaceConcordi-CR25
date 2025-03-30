@@ -86,17 +86,20 @@ def copy_and_modify_case(original_dir, data_dir, copied_folder, modifications, j
 #===================================================================================================
 
 
-# Example usage
-original_dir = "./original"  # Path to the original OpenFOAM case
-data_dir = "./Data"          # Destination data directory
+original_dir = "./original"
+data_dir = "./Data"
 
-# Run the function for each mesh size with a unique job name
-for u in [610]:
-    modifications = {            # Parameters to modify
-        "Ux": u,
-    }
+# Define the parameter sets explicitly
+parameter_sets = [
+    {"Ux": 273.25, "Uy": 6.94, "Uz": 0.0, "P": 99066.1, "T": 289.367},
+    {"Ux": 342, "Uy": 6.943344, "Uz": 0.0, "P": 97708.9, "T": 288.608},
+    {"Ux": 408, "Uy": 12.5, "Uz": 0.0, "P": 96115.5, "T": 287.7},
+    {"Ux": 721, "Uy": 26.66, "Uz": 0.0, "P": 78764.1, "T": 277.01},
+]
 
+# Loop over parameter sets
+for params in parameter_sets:
+    copied_folder = f"Ux{params['Ux']}Uy{params['Uy']}"
+    job_name = copied_folder
+    copy_and_modify_case(original_dir, data_dir, copied_folder, params, job_name)
 
-    copied_folder = f"U{u}" # Name of the copied folder   
-    job_name = copied_folder  # Unique job name for the submission
-    copy_and_modify_case(original_dir, data_dir, copied_folder, modifications, job_name)

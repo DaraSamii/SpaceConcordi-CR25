@@ -6,7 +6,7 @@ if module avail openfoam/12 &>/dev/null; then
     module purge
     module load
     module load openfoam/12
-    numProcs=32  # Server
+    numProcs=$SLURM_NTASKS  # Server
     echo "OpenFOAM v12 module loaded successfully."
 else
     op11
@@ -63,7 +63,7 @@ decomposePar -copyZero 2>&1  | tee ./logs/decomposePar.log;
 # Step 4: Run snappyHexMesh in parallel on 4 cores
 mpirun -np $numProcs snappyHexMesh -overwrite -parallel 2>&1  | tee ./logs/snappyHexMesh.log;
 
-mpirun -np $numProcs snappyHexMesh -dict ./system/snappyHexMeshDictLayer -overwrite -parallel 2>&1  | tee ./logs/log.snappyHexMeshLayer;
+#mpirun -np $numProcs snappyHexMesh -dict ./system/snappyHexMeshDictLayer -overwrite -parallel 2>&1  | tee ./logs/log.snappyHexMeshLayer;
 
 reconstructPar -constant 2>&1  | tee ./logs/reconstructPar.log;
 

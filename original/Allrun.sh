@@ -1,11 +1,14 @@
 #!/bin/bash
 
 
+rm -r 0
+
+cp -r 0.rig 0
 # Source the OpenFOAM environment (modify as needed)
 if module avail openfoam/v2406 &>/dev/null; then
     module purge
     module load openfoam/v2406
-    numProcs=32  # Server
+    numProcs=$SLURM_NTASKS  # Server
     echo "OpenFOAM v12 module loaded successfully."
 else
     op2406
