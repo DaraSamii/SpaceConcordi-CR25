@@ -3,7 +3,7 @@
 
 rm -r 0
 
-cp -r 0.rig 0
+cp -r 0.orig 0
 # Source the OpenFOAM environment (modify as needed)
 if module avail openfoam/v2406 &>/dev/null; then
     module purge
