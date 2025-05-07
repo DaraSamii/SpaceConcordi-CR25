@@ -32,7 +32,7 @@ Uz      0;
 
 
 
-internalField   uniform (0 0 0);
+internalField   uniform ($Ux $Uy $Uz);
 
 boundaryField
 {
