@@ -15,7 +15,7 @@ FoamFile
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 
-#include "../system/parameters.cs"
+#include "../parameters.cs"
 
 dimensions      [1 -1 -2 0 0 0 0];
 

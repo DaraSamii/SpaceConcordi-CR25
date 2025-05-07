@@ -20,7 +20,7 @@ FoamFile
 //   https://develop.openfoam.com/Development/openfoam/-/blob/master/etc/caseDicts/annotated/snappyHexMeshDict
 // See also links in https://openfoamwiki.net/index.php/SnappyHexMesh
 
-#include "parameters.cs";
+#include "../parameters.cs";
 
 stlFile "RocketV5.stl";
 eMeshFile "RocketV5.eMesh";
@@ -233,13 +233,13 @@ meshQualityControls
     minVol 1e-30;  // Default is slightly lower for more flexibility
 
     // Minimum quality of tetrahedral cells.
-    minTetQuality 1e-15;  // Relaxed from stricter stability (e.g., 1e-12)
+    minTetQuality 1e-30;  // Relaxed from stricter stability (e.g., 1e-12)
 
     // Minimum face twist. Ensures cells are not overly twisted.
     minTwist 0.05;  // Loosened to allow slightly more twist (default range: 0.01-0.05)
 
     // Minimum normalized cell determinant.
-    minDeterminant 0.01;  // Relaxed determinant for near-degenerate cells
+    minDeterminant 0.001;  // Relaxed determinant for near-degenerate cells
 
     // Minimum face weight.
     minFaceWeight 0.08;  // Relaxed from 0.01 to prioritize mesh generation

@@ -1,0 +1,36 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2406                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      topoSetDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+#include "../parameters.cs"
+
+actions
+(
+
+    {
+        name    sampleSurface;
+        type    faceZoneSet;
+        action  new;
+        source  planeToFaceZone;
+        point   (0 0 0);      // Example plane
+        normal  (0 0 1);        // Cutting plane normal
+        option  all;
+    }
+);
+
+
+
+
+// ************************************************************************* //

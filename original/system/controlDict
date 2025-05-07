@@ -13,7 +13,7 @@ FoamFile
     object      controlDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-#include "parameters.cs"
+#include "../parameters.cs"
 
 application     rhoSimpleFoam;
 
@@ -34,7 +34,7 @@ writeControl    timeStep;
 
 writeInterval   $WriteInterval;
 
-purgeWrite      0;
+purgeWrite      10;
 
 writeFormat     ascii;
 
@@ -53,6 +53,23 @@ runTimeModifiable true;
 adjustTimeStep  true;
 
 maxCo   0.5;
+
+
+
+
+alpha #calc "$AoA * 3.14159265358979323846 / 180.0";
+
+sinAlphaN #calc "-sin($alpha * 1.0)";
+cosAlphaN #calc "-cos($alpha * 1.0)";
+sinAlpha #calc "sin($alpha * 1.0)";
+cosAlpha #calc "cos($alpha * 1.0)";
+
+a       #calc "sqrt($gamma * $R * $T)";
+U       #calc "$Ma * $a";
+
+
+
+
 
 functions
 {
@@ -75,10 +92,10 @@ functions
         log         true;
         rhoInf      1;
         CofR        (0 0 0);
-        liftDir     (0 1 0);
-        dragDir     (1 0 0);
+        liftDir     ($sinAlphaN $cosAlpha 0);
+        dragDir     ($cosAlpha $sinAlpha 0);
         pitchAxis   (0 0 1);
-        magUInf     #calc "sqrt(pow($Ux * 1.0,2) + pow($Uy * 1.0,2) + pow($Uz * 1.0,2))";
+        magUInf     $U;
         lRef        3;
         Aref        0.0188545853;
     }
@@ -162,12 +179,74 @@ functions
     
         fields
         (
-            U
-            p
-            k
-            omega
+        U e k omega p epsilon
         );
     }
+
+    
+//=====================================================================================================//
+
+sliceCentre
+{ 
+    type            surfaces;
+    libs
+    (
+        "libsampling.so"
+    );
+    writeControl    $writeControl;
+    writeInterval   $writeInterval;
+    surfaceFormat  vtk;
+    fields
+    (
+        U
+        T
+        p
+        Ma
+        rho
+    );
+    surfaces
+    (
+        sampleSurface
+        {
+            type            faceZone;
+            zones           (sampleSurface);
+            interpolate     true;
+        }
+    );
+    interpolationScheme cell;
+}
+
+
+rocketVTK
+{
+    type            surfaces;
+    libs            ("libsampling.so");
+    writeControl    $writeControl;
+    writeInterval   $writeInterval;
+
+    surfaceFormat   vtk;
+
+    fields
+    (
+        U
+        T
+        p
+        Ma
+        rho
+    );
+
+    surfaces
+    (
+        rocketWall
+        {
+            type            patch;
+            patches         (rocket); // this is your wall patch
+            interpolate     true;
+        }
+    );
+
+    interpolationScheme cell;
+}
 }
 
 // ************************************************************************* //

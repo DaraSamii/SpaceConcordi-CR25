@@ -20,7 +20,7 @@ FoamFile
 //   https://develop.openfoam.com/Development/openfoam/-/blob/master/etc/caseDicts/annotated/snappyHexMeshDict
 // See also links in https://openfoamwiki.net/index.php/SnappyHexMesh
 
-#include "parameters.cs";
+#include "../parameters.cs";
 
 castellatedMesh false;
 snap            false;
@@ -33,7 +33,7 @@ geometry
     rocket
     {
         type triSurfaceMesh;
-        file "RocketV4.stl";
+        file "RocketV5.stl";
         // Min Bounds = [ 9.50825e-07 -7.36521e-02 -1.24298e-01]
         // Max Bounds = [ 3.23994e+00  1.41840e-01  1.24298e-01]
         // Area = 1.14863e+00
@@ -57,7 +57,7 @@ castellatedMeshControls
     features
     (
         {
-            file "RocketV4.eMesh";
+            file "RocketV5.eMesh";
             level 6;
         }
 

@@ -11,7 +11,7 @@ FoamFile
 // Source: C:\Users\pdh24\Desktop\Concordia Classes\Rockets\blend\CR-25 medium mesh.blend
 // Export date: 2024-08-17 23:51:38.113671
 
-#include "../system/parameters.cs"  // Include external parameters for flexibility
+#include "../parameters.cs"  // Include external parameters for flexibility
 
 // Overall scaling factor for the mesh
 scale 1.0;

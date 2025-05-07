@@ -13,7 +13,7 @@ FoamFile
     object      fvSchemes;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-#include "parameters.cs"
+#include "../parameters.cs"
 
 ddtSchemes
 {

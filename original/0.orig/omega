@@ -16,10 +16,8 @@ FoamFile
 
 dimensions      [0 0 -1 0 0 0 0];
 
-#include "../system/parameters.cs"
+#include "../parameters.cs"
 
-
-k   #calc "1.5 * pow((0.05 * sqrt(pow($Ux * 1.0,2) + pow($Uy * 1.0,2) + pow($Uz * 1.0,2))),2)";
 
 LengthScale 0.03;
 
