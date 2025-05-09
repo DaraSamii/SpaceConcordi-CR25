@@ -1,0 +1,10 @@
+include ../buildDefs.include
+
+EXE_INC = \
+    $(OMP_FLAGS) $(CFMESH_MACROS) $(BLUECFD) \
+    -I$(LIB_SRC)/triSurface/lnInclude \
+    -I$(LIB_SRC)/surfMesh/lnInclude \
+    -I$(LIB_SRC)/edgeMesh/lnInclude \
+    -I$(LIB_SRC)/meshTools/lnInclude
+
+LIB_LIBS = $(OMP_LIBS) $(CFMESH_LIBS)

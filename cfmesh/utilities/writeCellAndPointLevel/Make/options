@@ -1,0 +1,12 @@
+include ../../buildDefs.include
+
+EXE_INC = -g \
+    $(CFMESH_MACROS) $(BLUECFD) \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -I$(LIB_SRC)/meshTools/lnInclude
+
+EXE_LIBS = \
+    $(CFMESH_LIBS) \
+    -lOpenFOAM \
+    -lfiniteVolume \
+    -lmeshTools
