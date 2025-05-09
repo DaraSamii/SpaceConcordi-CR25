@@ -1,3 +1,0 @@
-cartesian2DMesh.C
-
-EXE = $(FOAM_USER_APPBIN)/cartesian2DMesh
