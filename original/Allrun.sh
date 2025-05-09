@@ -76,6 +76,7 @@ renumberMesh -overwrite > logs/renumberMesh.log 2>&1
 #----------------------------------------
 # Step 7: Decompose final mesh
 echo "Decomposing final mesh..."
+foamDictionary system/decomposeParDict -entry "numberOfSubdomains" -set "$numProcs"
 decomposePar > logs/decomposePar.log 2>&1
 
 #----------------------------------------
