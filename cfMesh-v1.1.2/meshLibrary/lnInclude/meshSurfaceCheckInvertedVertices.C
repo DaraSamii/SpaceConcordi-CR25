@@ -1,1 +1,0 @@
-../utilities/surfaceTools/meshSurfaceCheckInvertedVertices/meshSurfaceCheckInvertedVertices.C

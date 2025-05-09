@@ -1,1 +1,0 @@
-../utilities/smoothers/topology/topologicalCleaner/topologicalCleanerInvalidVertices.C

@@ -1,1 +1,0 @@
-../utilities/surfaceTools/correctEdgesBetweenPatches/correctEdgesBetweenPatches.C

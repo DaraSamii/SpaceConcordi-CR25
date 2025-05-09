@@ -1,1 +1,0 @@
-../utilities/triSurfaceTools/triSurfaceCurvatureEstimator/triSurfaceCurvatureEstimator.H

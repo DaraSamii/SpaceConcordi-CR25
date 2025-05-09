@@ -1,1 +1,0 @@
-../utilities/smoothers/geometry/meshSurfaceOptimizer/meshSurfaceOptimizerOptimizePoint.C

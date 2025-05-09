@@ -1,1 +1,0 @@
-../utilities/surfaceTools/meshSurfaceCheckEdgeTypes/meshSurfaceCheckEdgeTypes.C

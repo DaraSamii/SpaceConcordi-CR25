@@ -1,1 +1,0 @@
-../utilities/smoothers/topology/checkIrregularSurfaceConnections/checkIrregularSurfaceConnections.H

@@ -1,1 +1,0 @@
-../utilities/meshes/polyMeshGenChecks/polyMeshGenChecks.H

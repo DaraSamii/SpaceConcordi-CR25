@@ -1,1 +1,0 @@
-../utilities/triSurfaceTools/triSurfaceRemoveFacets/triSurfaceRemoveFacets.H

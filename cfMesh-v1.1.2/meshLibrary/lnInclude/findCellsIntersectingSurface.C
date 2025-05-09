@@ -1,1 +1,0 @@
-../utilities/intersectionTools/findCellsIntersectingSurface/findCellsIntersectingSurface.C

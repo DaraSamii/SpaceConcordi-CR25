@@ -1,1 +1,0 @@
-../utilities/smoothers/topology/checkBoundaryFacesSharingTwoEdges/checkBoundaryFacesSharingTwoEdges.H
