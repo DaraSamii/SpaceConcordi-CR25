@@ -1,0 +1,471 @@
+
+meshSurfaceEngine  =  utilities/surfaceTools/meshSurfaceEngine
+meshSurfacePartitioner = utilities/surfaceTools/meshSurfacePartitioner
+
+bndLayers = utilities/boundaryLayers
+boundaryLayers = $(bndLayers)/boundaryLayers
+detectBoundaryLayers = $(bndLayers)/detectBoundaryLayers
+extrudeLayer = $(bndLayers)/extrudeLayer
+refineBoundaryLayers = $(bndLayers)/refineBoundaryLayers
+triangulateNonPlanarBaseFaces = $(bndLayers)/triangulateNonPlanarBaseFaces
+
+checkMeshDict = utilities/checkMeshDict
+
+anisotropicMeshing = utilities/anisotropicMeshing
+coordinateModification = $(anisotropicMeshing)/coordinateModification
+edgeMeshGeometryModification = $(anisotropicMeshing)/edgeMeshGeometryModification
+surfaceMeshGeometryModification = $(anisotropicMeshing)/surfaceMeshGeometryModification
+polyMeshGenGeometryModification = $(anisotropicMeshing)/polyMeshGenGeometryModification
+
+meshSurfaceCheckInvertedVertices = utilities/surfaceTools/meshSurfaceCheckInvertedVertices
+meshSurfaceCheckEdgeTypes = utilities/surfaceTools/meshSurfaceCheckEdgeTypes
+meshSurfaceCutter  =  utilities/surfaceTools/meshSurfaceCutter
+meshSurfaceMapper  =  utilities/surfaceTools/meshSurfaceMapper
+meshSurfaceMapper2D = utilities/surfaceTools/meshSurfaceMapper2D
+edgeExtraction = utilities/surfaceTools/edgeExtraction
+edgeExtractor = $(edgeExtraction)/edgeExtractor
+meshSurfaceEdgeExtractor = utilities/surfaceTools/meshSurfaceEdgeExtractor
+meshSurfaceEdgeExtractorNonTopo = utilities/surfaceTools/meshSurfaceEdgeExtractorNonTopo
+meshSurfaceEdgeExtractor2D = utilities/surfaceTools/meshSurfaceEdgeExtractor2D
+meshSurfaceEdgeExtractorFUN = utilities/surfaceTools/meshSurfaceEdgeExtractorFUN
+
+createFundamentalSheetsBase = utilities/surfaceTools/createFundamentalSheets
+createFundamentalSheets = $(createFundamentalSheetsBase)/createFundamentalSheets
+createFundamentalSheetsFJ = $(createFundamentalSheetsBase)/createFundamentalSheetsFJ
+createFundamentalSheetsJFS = $(createFundamentalSheetsBase)/createFundamentalSheetsJFS
+
+correctEdgesBetweenPatches = utilities/surfaceTools/correctEdgesBetweenPatches
+
+decomposeCellsNearConcaveEdges = utilities/surfaceTools/decomposeCellsNearConcaveEdges
+renameBoundaryPatches = utilities/surfaceTools/renameBoundaryPatches
+
+intersectionTools = utilities/intersectionTools
+findCellsIntersectingSurface = $(intersectionTools)/findCellsIntersectingSurface
+
+meshOptimizer = utilities/smoothers/geometry/meshOptimizer
+tetMeshOptimisation = $(meshOptimizer)/tetMeshOptimisation
+boundaryLayerOptimisation = $(meshOptimizer)/boundaryLayerOptimisation
+
+symmetryPlaneOptimisation = $(meshOptimizer)/symmetryPlaneOptimisation
+simplexSmoother = $(tetMeshOptimisation)/advancedSmoothers/simplexSmoother
+knuppMetric = $(tetMeshOptimisation)/advancedSmoothers/knuppMetric
+meshUntangler = $(tetMeshOptimisation)/advancedSmoothers/meshUntangler
+quadricMetric = $(tetMeshOptimisation)/advancedSmoothers/quadricMetric
+volumeOptimizer = $(tetMeshOptimisation)/advancedSmoothers/volumeOptimizer
+
+meshSurfaceOptimizer = utilities/smoothers/geometry/meshSurfaceOptimizer
+surfaceOptimizer = $(meshSurfaceOptimizer)/advancedSurfaceSmoothers/surfaceOptimizer
+surfaceMorpherCells = utilities/surfaceTools/surfaceMorpherCells
+
+utilitiesOctrees  =  utilities/octrees
+meshOctree  =  utilities/octrees/meshOctree
+meshOctreeCube  =  utilities/octrees/meshOctree/meshOctreeCube
+meshOctreeInsideOutside = utilities/octrees/meshOctree/meshOctreeInsideOutside
+meshOctreeCreator = utilities/octrees/meshOctree/meshOctreeCreator
+meshOctreeAddressing = utilities/octrees/meshOctree/meshOctreeAddressing
+meshOctreeModifier = utilities/octrees/meshOctree/meshOctreeModifier
+meshOctreeAutoRef = utilities/octrees/meshOctree/meshOctreeAutomaticRefinement
+patchRefinement = utilities/octrees/meshOctree/refinementControls/patchRefinement
+objectRefinement = utilities/octrees/meshOctree/refinementControls/objectRefinement
+
+helperFunctions  =  utilities/helperFunctions
+createFacesFromChain = utilities/helperClasses/createFacesFromChain
+sortEdgesIntoChains = utilities/helperClasses/sortEdgesIntoChains
+trianglePlaneIntersections  =  utilities/helperClasses/trianglePlaneIntersections
+
+tetCreatorOctree = utilities/tetrahedra/tetCreatorOctree
+faceDecomposition = utilities/faceDecomposition
+decomposeCells = utilities/decomposeCells
+
+topology = utilities/smoothers/topology
+topologicalCleaner = $(topology)/topologicalCleaner
+checkBoundaryFacesSharingTwoEdges = $(topology)/checkBoundaryFacesSharingTwoEdges
+checkCellConnectionsOverFaces = $(topology)/checkCellConnectionsOverFaces
+checkIrregularSurfaceConnections = $(topology)/checkIrregularSurfaceConnections
+checkNonMappableCellConnections = $(topology)/checkNonMappableCellConnections
+
+triSurfaceTools = utilities/triSurfaceTools
+
+triSurface2DCheck = $(triSurfaceTools)/triSurface2DCheck
+triSurfaceChecks = $(triSurfaceTools)/triSurfaceChecks
+triSurfaceCleanupDuplicates = $(triSurfaceTools)/triSurfaceCleanupDuplicates
+triSurfaceCleanupDuplicateTriangles = $(triSurfaceTools)/triSurfaceCleanupDuplicateTriangles
+triSurfaceCopyParts = $(triSurfaceTools)/triSurfaceCopyParts
+triSurfaceCurvatureEstimator = $(triSurfaceTools)/triSurfaceCurvatureEstimator
+triSurfacePartitioner = $(triSurfaceTools)/triSurfacePartitioner
+triSurfaceDetectFeatureEdges = $(triSurfaceTools)/triSurfaceDetectFeatureEdges
+triSurfaceClassifyEdges = $(triSurfaceTools)/triSurfaceClassifyEdges
+triSurfaceImportSurfaceAsSubset = $(triSurfaceTools)/triSurfaceImportSurfaceAsSubset
+triSurfacePatchManipulator = $(triSurfaceTools)/triSurfacePatchManipulator
+triSurfaceRemoveFacets = $(triSurfaceTools)/triSurfaceRemoveFacets
+triSurfaceExtrude2DEdges = $(triSurfaceTools)/triSurfaceExtrude2DEdges
+triSurfaceMetaData = $(triSurfaceTools)/triSurfaceMetaData
+
+polyMeshGen = utilities/meshes/polyMeshGen
+boundaryPatch  = utilities/meshes/polyMeshGen/boundaryPatch
+polyMeshGen2DEngine = utilities/meshes/polyMeshGen2DEngine
+polyMeshGenModifier = utilities/meshes/polyMeshGenModifier
+polyMeshGenAddressing = utilities/meshes/polyMeshGenAddressing
+polyMeshGenChecks = utilities/meshes/polyMeshGenChecks
+partTetMesh = utilities/meshes/partTetMesh
+partTriMesh = utilities/meshes/partTriMesh
+primitiveMesh = utilities/meshes/primitiveMesh
+triSurf = utilities/meshes/triSurf
+cell = utilities/meshes/primitives/cell
+edge = utilities/meshes/primitives/edge
+face = utilities/meshes/primitives/face
+
+containers = utilities/containers
+VRWGraph = $(containers)/VRWGraph
+VRWGraphList = $(containers)/VRWGraphList
+graphs = $(containers)/Graphs
+lists = $(containers)/Lists
+
+meshZipper = utilities/meshZipper
+
+writeAsFPMA = utilities/dataConversion/foamToFPMA
+
+polyMeshExtractor = pMeshLibrary/polyMeshExtractor
+polyMeshGenerator = pMeshLibrary/polyMeshGenerator
+
+cartesianMeshExtractor = cartesianMesh/cartesianMeshExtractor
+cartesianMeshGenerator = cartesianMesh/cartesianMeshGenerator
+
+cartesian2DMeshGenerator = cartesian2DMesh/cartesian2DMeshGenerator
+
+tetMeshExtractor = tetMesh/tetMeshExtractor
+tetMeshExtractorOctree = tetMesh/tetMeshExtractorOctree
+tetMeshGenerator = tetMesh/tetMeshGenerator
+
+voronoiMeshExtractor = voronoiMesh/voronoiMeshExtractor
+voronoiMeshGenerator = voronoiMesh/voronoiMeshGenerator
+
+workflowControls = utilities/workflowControls
+
+SOURCE += $(checkMeshDict)/checkMeshDict.C
+
+SOURCE += $(lists)/pointFieldPMG.C
+SOURCE += $(lists)/faceListPMG.C
+
+SOURCE += $(VRWGraph)/VRWGraph.C
+SOURCE += $(VRWGraph)/VRWGraphSMPModifier.C
+
+SOURCE += $(VRWGraphList)/VRWGraphList.C
+
+SOURCE += $(graphs)/cellIOGraph.C
+SOURCE += $(graphs)/faceIOGraph.C
+
+SOURCE += $(polyMeshGen)/polyMeshGen.C
+SOURCE += $(polyMeshGen)/polyMeshGenPoints.C
+SOURCE += $(polyMeshGen)/polyMeshGenFaces.C
+SOURCE += $(polyMeshGen)/polyMeshGenCells.C
+
+SOURCE += $(polyMeshGen2DEngine)/polyMeshGen2DEngine.C
+
+SOURCE += $(coordinateModification)/coordinateModification.C
+SOURCE += $(coordinateModification)/newCoordinateModification.C
+SOURCE += $(coordinateModification)/planeScaling.C
+SOURCE += $(coordinateModification)/boxScaling.C
+
+SOURCE += $(edgeMeshGeometryModification)/edgeMeshGeometryModification.C
+SOURCE += $(surfaceMeshGeometryModification)/surfaceMeshGeometryModification.C
+SOURCE += $(polyMeshGenGeometryModification)/polyMeshGenGeometryModification.C
+
+SOURCE += $(coordinateModification)/coordinateModifier.C
+
+SOURCE += $(boundaryPatch)/boundaryPatchBase.C
+SOURCE += $(boundaryPatch)/boundaryPatch.C
+SOURCE += $(boundaryPatch)/processorBoundaryPatch.C
+
+SOURCE += $(polyMeshGenModifier)/polyMeshGenModifierRemoveUnusedVertices.C
+SOURCE += $(polyMeshGenModifier)/polyMeshGenModifierRemoveFaces.C
+SOURCE += $(polyMeshGenModifier)/polyMeshGenModifierRemoveCells.C
+SOURCE += $(polyMeshGenModifier)/polyMeshGenModifierReorderBoundaryFaces.C
+SOURCE += $(polyMeshGenModifier)/polyMeshGenModifierAddCells.C
+SOURCE += $(polyMeshGenModifier)/polyMeshGenModifierAddProcessorFaces.C
+SOURCE += $(polyMeshGenModifier)/polyMeshGenModifierAddBufferCells.C
+SOURCE += $(polyMeshGenModifier)/polyMeshGenModifierReplaceBoundary.C
+SOURCE += $(polyMeshGenModifier)/polyMeshGenModifierZipUpCells.C
+SOURCE += $(polyMeshGenModifier)/polyMeshGenModifierRenumberMesh.C
+SOURCE += $(polyMeshGenModifier)/polyMeshGenModifierAddCellByCell.C
+
+SOURCE += $(polyMeshGenAddressing)/polyMeshGenAddressing.C
+SOURCE += $(polyMeshGenAddressing)/polyMeshGenAddressingCellCells.C
+SOURCE += $(polyMeshGenAddressing)/polyMeshGenAddressingCellEdges.C
+SOURCE += $(polyMeshGenAddressing)/polyMeshGenAddressingCellPoints.C
+SOURCE += $(polyMeshGenAddressing)/polyMeshGenAddressingCentresAndAreas.C
+SOURCE += $(polyMeshGenAddressing)/polyMeshGenAddressingCentresAndVols.C
+SOURCE += $(polyMeshGenAddressing)/polyMeshGenAddressingClear.C
+SOURCE += $(polyMeshGenAddressing)/polyMeshGenAddressingUpdateGeometry.C
+SOURCE += $(polyMeshGenAddressing)/polyMeshGenAddressingEdgeCells.C
+SOURCE += $(polyMeshGenAddressing)/polyMeshGenAddressingEdgeFaces.C
+SOURCE += $(polyMeshGenAddressing)/polyMeshGenAddressingFaceEdges.C
+SOURCE += $(polyMeshGenAddressing)/polyMeshGenAddressingEdges.C
+SOURCE += $(polyMeshGenAddressing)/polyMeshGenAddressingPointCells.C
+SOURCE += $(polyMeshGenAddressing)/polyMeshGenAddressingPointEdges.C
+SOURCE += $(polyMeshGenAddressing)/polyMeshGenAddressingPointFaces.C
+SOURCE += $(polyMeshGenAddressing)/polyMeshGenAddressingPointPoints.C
+SOURCE += $(polyMeshGenAddressing)/polyMeshGenAddressingParallelAddressing.C
+
+SOURCE += $(polyMeshGenChecks)/polyMeshGenChecks.C
+SOURCE += $(polyMeshGenChecks)/polyMeshGenChecksGeometry.C
+SOURCE += $(polyMeshGenChecks)/polyMeshGenChecksTopology.C
+
+SOURCE += $(partTetMesh)/partTetMesh.C
+SOURCE += $(partTetMesh)/partTetMeshAddressing.C
+SOURCE += $(partTetMesh)/partTetMeshParallelAddressing.C
+SOURCE += $(partTetMesh)/partTetMeshSimplex.C
+
+SOURCE += $(partTriMesh)/partTriMesh.C
+SOURCE += $(partTriMesh)/partTriMeshAddressing.C
+SOURCE += $(partTriMesh)/partTriMeshParallelAddressing.C
+SOURCE += $(partTriMesh)/partTriMeshSimplex.C
+
+SOURCE += $(triSurf)/triSurf.C
+SOURCE += $(triSurf)/triSurfPoints.C
+SOURCE += $(triSurf)/triSurfFacets.C
+SOURCE += $(triSurf)/triSurfFeatureEdges.C
+SOURCE += $(triSurf)/triSurfAddressing.C
+SOURCE += $(triSurf)/triSurfModifier.C
+
+SOURCE += $(findCellsIntersectingSurface)/findCellsIntersectingSurface.C
+
+SOURCE += $(tetCreatorOctree)/tetCreatorOctree.C
+SOURCE += $(tetCreatorOctree)/tetCreatorOctreePointsAndAddressing.C
+SOURCE += $(tetCreatorOctree)/tetCreatorOctreeFromFacesWithCentreNode.C
+SOURCE += $(tetCreatorOctree)/tetCreatorOctreeTetsAroundEdges.C
+SOURCE += $(tetCreatorOctree)/tetCreatorOctreeTetsAroundSplitEdges.C
+SOURCE += $(tetCreatorOctree)/tetCreatorOctreeTetsFromSplitFaces.C
+
+SOURCE += $(faceDecomposition)/faceDecomposition.C
+SOURCE += $(faceDecomposition)/decomposeFaces.C
+
+SOURCE += $(helperFunctions)/helperFunctionsStringConversion.C
+
+SOURCE += $(sortEdgesIntoChains)/sortEdgesIntoChains.C
+
+SOURCE += $(surfaceMorpherCells)/surfaceMorpherCells.C
+SOURCE += $(surfaceMorpherCells)/surfaceMorpherCellsMorphInternalFaces.C
+SOURCE += $(surfaceMorpherCells)/surfaceMorpherCellsCreateBoundaryFaces.C
+
+SOURCE += $(decomposeCells)/decomposeCells.C
+SOURCE += $(decomposeCells)/decomposeCellsPyramids.C
+SOURCE += $(decomposeCells)/decomposeCellsDecomposition.C
+
+SOURCE += $(topologicalCleaner)/topologicalCleaner.C
+SOURCE += $(topologicalCleaner)/topologyCleanerNonConsecutiveBoundaryVertices.C
+SOURCE += $(topologicalCleaner)/topologicalCleanerInvalidVertices.C
+SOURCE += $(topologicalCleaner)/topologyCleanerNonMappableCells.C
+SOURCE += $(checkCellConnectionsOverFaces)/checkCellConnectionsOverFaces.C
+SOURCE += $(checkIrregularSurfaceConnections)/checkIrregularSurfaceConnections.C
+SOURCE += $(checkIrregularSurfaceConnections)/checkIrregularSurfaceConnectionsFunctions.C
+SOURCE += $(checkNonMappableCellConnections)/checkNonMappableCellConnections.C
+SOURCE += $(checkBoundaryFacesSharingTwoEdges)/checkBoundaryFacesSharingTwoEdges.C
+
+SOURCE += $(boundaryLayers)/boundaryLayers.C
+SOURCE += $(boundaryLayers)/boundaryLayersCreateVertices.C
+SOURCE += $(boundaryLayers)/boundaryLayersFacesAndCells.C
+SOURCE += $(boundaryLayers)/boundaryLayerCells.C
+SOURCE += $(boundaryLayers)/boundaryLayersCheckTopologyOfBndFaces.C
+SOURCE += $(boundaryLayers)/boundaryLayersWrapperLayer.C
+SOURCE += $(extrudeLayer)/extrudeLayer.C
+SOURCE += $(detectBoundaryLayers)/detectBoundaryLayers.C
+SOURCE += $(detectBoundaryLayers)/detectBoundaryLayersFunctions.C
+SOURCE += $(refineBoundaryLayers)/refineBoundaryLayers.C
+SOURCE += $(refineBoundaryLayers)/refineBoundaryLayersFunctions.C
+SOURCE += $(refineBoundaryLayers)/refineBoundaryLayersFaces.C
+SOURCE += $(refineBoundaryLayers)/refineBoundaryLayersCells.C
+SOURCE += $(triangulateNonPlanarBaseFaces)/triangulateNonPlanarBaseFaces.C
+SOURCE += $(triangulateNonPlanarBaseFaces)/triangulateNonPlanarBaseFacesFunctions.C
+
+SOURCE += $(meshSurfaceEngine)/meshSurfaceEngine.C
+SOURCE += $(meshSurfaceEngine)/meshSurfaceEngineCalculateBoundaryNodesAndFaces.C
+SOURCE += $(meshSurfaceEngine)/meshSurfaceEngineParallelAddressing.C
+SOURCE += $(meshSurfaceEngine)/meshSurfaceEngineModifier.C
+
+SOURCE += $(meshSurfacePartitioner)/meshSurfacePartitioner.C
+SOURCE += $(meshSurfacePartitioner)/meshSurfacePartitionerFunctions.C
+
+SOURCE += $(meshSurfaceCheckInvertedVertices)/meshSurfaceCheckInvertedVertices.C
+
+SOURCE += $(meshSurfaceCheckEdgeTypes)/meshSurfaceCheckEdgeTypes.C
+
+SOURCE += $(meshSurfaceMapper)/meshSurfaceMapper.C
+SOURCE += $(meshSurfaceMapper)/meshSurfaceMapperMapVertices.C
+SOURCE += $(meshSurfaceMapper)/meshSurfaceMapperCornersAndEdges.C
+SOURCE += $(meshSurfaceMapper)/meshSurfaceMapperPremapVertices.C
+
+SOURCE += $(meshSurfaceMapper2D)/meshSurfaceMapper2D.C
+SOURCE += $(meshSurfaceMapper2D)/meshSurfaceMapper2DMapVertices.C
+SOURCE += $(meshSurfaceMapper2D)/meshSurfaceMapper2DPremapVertices.C
+
+SOURCE += $(edgeExtractor)/edgeExtractor.C
+SOURCE += $(edgeExtractor)/edgeExtractorCorners.C
+
+SOURCE += $(meshSurfaceEdgeExtractorNonTopo)/meshSurfaceEdgeExtractorNonTopo.C
+SOURCE += $(meshSurfaceEdgeExtractorNonTopo)/meshSurfaceEdgeExtractorNonTopoDistributeFaces.C
+
+SOURCE += $(meshSurfaceEdgeExtractor2D)/meshSurfaceEdgeExtractor2D.C
+SOURCE += $(meshSurfaceEdgeExtractor2D)/meshSurfaceEdgeExtractor2DDistributeFaces.C
+
+SOURCE += $(meshSurfaceEdgeExtractorFUN)/meshSurfaceEdgeExtractorFUN.C
+SOURCE += $(meshSurfaceEdgeExtractorFUN)/meshSurfaceEdgeExtractorFUNDistributeFaces.C
+
+SOURCE += $(createFundamentalSheets)/createFundamentalSheets.C
+SOURCE += $(createFundamentalSheetsFJ)/createFundamentalSheetsFJ.C
+SOURCE += $(createFundamentalSheetsJFS)/createFundamentalSheetsJFS.C
+
+SOURCE += $(correctEdgesBetweenPatches)/correctEdgesBetweenPatches.C
+SOURCE += $(correctEdgesBetweenPatches)/correctEdgesBetweenPatchesDistributeFaces.C
+
+SOURCE += $(renameBoundaryPatches)/renameBoundaryPatches.C
+
+SOURCE += $(meshOptimizer)/meshOptimizer.C
+SOURCE += $(meshOptimizer)/meshOptimizerOptimizePoint.C
+SOURCE += $(meshOptimizer)/meshOptimizerOptimizePointParallel.C
+SOURCE += $(meshOptimizer)/meshOptimizerOptimizeSurface.C
+SOURCE += $(meshOptimizer)/optimizeMeshFV.C
+
+SOURCE += $(tetMeshOptimisation)/tetMeshOptimisation.C
+SOURCE += $(tetMeshOptimisation)/tetMeshOptimisationParallel.C
+
+SOURCE += $(symmetryPlaneOptimisation)/symmetryPlaneOptimisation.C
+
+SOURCE += $(boundaryLayerOptimisation)/boundaryLayerOptimisation.C
+SOURCE += $(boundaryLayerOptimisation)/boundaryLayerOptimisationFunctions.C
+SOURCE += $(boundaryLayerOptimisation)/boundaryLayerOptimisationNormals.C
+SOURCE += $(boundaryLayerOptimisation)/boundaryLayerOptimisationThickness.C
+
+SOURCE += $(simplexSmoother)/simplexSmoother.C
+
+SOURCE += $(knuppMetric)/knuppMetric.C
+
+SOURCE += $(meshUntangler)/meshUntangler.C
+SOURCE += $(meshUntangler)/meshUntanglerCutRegion.C
+SOURCE += $(meshUntangler)/meshUntanglerCutRegionPoints.C
+SOURCE += $(meshUntangler)/meshUntanglerCutRegionEdges.C
+SOURCE += $(meshUntangler)/meshUntanglerCutRegionFaces.C
+SOURCE += $(meshUntangler)/meshUntanglerCutRegionTieBreak.C
+
+SOURCE += $(quadricMetric)/quadricMetric.C
+
+SOURCE += $(volumeOptimizer)/volumeOptimizer.C
+SOURCE += $(volumeOptimizer)/volumeOptimizerEvaluateGradients.C
+
+SOURCE += $(meshSurfaceOptimizer)/meshSurfaceOptimizer.C
+SOURCE += $(meshSurfaceOptimizer)/meshSurfaceOptimizerCalculateTrianglesAndAddressing.C
+SOURCE += $(meshSurfaceOptimizer)/meshSurfaceOptimizerOptimizePoint.C
+SOURCE += $(meshSurfaceOptimizer)/meshSurfaceOptimizerOptimizeSurface.C
+SOURCE += $(meshSurfaceOptimizer)/meshSurfaceOptimizerOptimizePointParallel.C
+
+SOURCE += $(surfaceOptimizer)/surfaceOptimizer.C
+
+SOURCE += $(meshOctreeCube)/meshOctreeCube.C
+SOURCE += $(meshOctreeCube)/meshOctreeCubeIntersections.C
+SOURCE += $(meshOctreeCube)/meshOctreeCubeRecursiveFunctions.C
+SOURCE += $(meshOctreeCube)/meshOctreeCubeRefine.C
+SOURCE += $(meshOctreeCube)/meshOctreeCubeCoordinatesIntersections.C
+
+SOURCE += $(meshOctreeModifier)/meshOctreeModifier.C
+SOURCE += $(meshOctreeModifier)/meshOctreeModifierRefineSelectedBoxes.C
+SOURCE += $(meshOctreeModifier)/meshOctreeModifierEnsureCorrectRegularity.C
+SOURCE += $(meshOctreeModifier)/meshOctreeModifierParallelRefinement.C
+SOURCE += $(meshOctreeModifier)/meshOctreeModifierDistributeLeavesToProcessors.C
+SOURCE += $(meshOctreeModifier)/meshOctreeModifierLoadDistribution.C
+SOURCE += $(meshOctreeModifier)/meshOctreeModifierReduceMemoryConsumption.C
+SOURCE += $(meshOctreeModifier)/meshOctreeModifierUpdateCommunicationPattern.C
+
+SOURCE += $(meshOctreeInsideOutside)/meshOctreeInsideOutside.C
+
+SOURCE += $(meshOctreeCreator)/meshOctreeCreator.C
+SOURCE += $(meshOctreeCreator)/meshOctreeCreatorAdjustOctreeToSurface.C
+SOURCE += $(meshOctreeCreator)/meshOctreeCreatorCreateOctreeBoxes.C
+SOURCE += $(meshOctreeCreator)/meshOctreeCreatorFrontalMarking.C
+SOURCE += $(meshOctreeCreator)/meshOctreeCreatorLoadDistribution.C
+
+SOURCE += $(meshOctreeAddressing)/meshOctreeAddressing.C
+SOURCE += $(meshOctreeAddressing)/meshOctreeAddressingCreation.C
+SOURCE += $(meshOctreeAddressing)/meshOctreeAddressingGluedMesh.C
+SOURCE += $(meshOctreeAddressing)/meshOctreeAddressingIrregularConnections.C
+SOURCE += $(meshOctreeAddressing)/meshOctreeAddressingParallelAddressing.C
+
+SOURCE += $(meshOctreeAutoRef)/meshOctreeAutomaticRefinement.C
+SOURCE += $(meshOctreeAutoRef)/meshOctreeAutomaticRefinementRef.C
+
+SOURCE += $(meshOctree)/meshOctree.C
+SOURCE += $(meshOctree)/meshOctreeCubePatches.C
+SOURCE += $(meshOctree)/meshOctreeNeighbourSearches.C
+SOURCE += $(meshOctree)/meshOctreeFindNearestSurfacePoint.C
+SOURCE += $(meshOctree)/meshOctreeInsideCalculations.C
+SOURCE += $(meshOctree)/meshOctreeParallelCommunication.C
+
+SOURCE += $(patchRefinement)/patchRefinement.C
+SOURCE += $(objectRefinement)/objectRefinement.C
+SOURCE += $(objectRefinement)/newObjectRefinement.C
+SOURCE += $(objectRefinement)/sphereRefinement.C
+SOURCE += $(objectRefinement)/lineRefinement.C
+SOURCE += $(objectRefinement)/coneRefinement.C
+SOURCE += $(objectRefinement)/boxRefinement.C
+SOURCE += $(objectRefinement)/hollowConeRefinement.C
+
+SOURCE += $(triSurface2DCheck)/triSurface2DCheck.C
+
+SOURCE += $(triSurfaceChecks)/triSurfaceChecks.C
+
+SOURCE += $(triSurfaceCleanupDuplicates)/triSurfaceCleanupDuplicates.C
+SOURCE += $(triSurfaceCleanupDuplicates)/triSurfaceCleanupDuplicatesFunctions.C
+
+SOURCE += $(triSurfaceCleanupDuplicateTriangles)/triSurfaceCleanupDuplicateTriangles.C
+SOURCE += $(triSurfaceCleanupDuplicateTriangles)/triSurfaceCleanupDuplicateTrianglesFunctions.C
+
+SOURCE += $(triSurfaceCopyParts)/triSurfaceCopyParts.C
+
+SOURCE += $(triSurfacePartitioner)/triSurfacePartitioner.C
+SOURCE += $(triSurfacePartitioner)/triSurfacePartitionerCreateAddressing.C
+
+SOURCE += $(triSurfaceCurvatureEstimator)/triSurfaceCurvatureEstimator.C
+SOURCE += $(triSurfaceCurvatureEstimator)/triSurfaceCurvatureEstimatorCalculate.C
+
+SOURCE += $(triSurfaceDetectFeatureEdges)/triSurfaceDetectFeatureEdges.C
+SOURCE += $(triSurfaceDetectFeatureEdges)/triSurfaceDetectFeatureEdgesFunctions.C
+
+SOURCE += $(triSurfaceClassifyEdges)/triSurfaceClassifyEdges.C
+SOURCE += $(triSurfaceClassifyEdges)/triSurfaceClassifyEdgesFunctions.C
+
+SOURCE += $(triSurfaceImportSurfaceAsSubset)/triSurfaceImportSurfaceAsSubset.C
+
+SOURCE += $(triSurfacePatchManipulator)/triSurfacePatchManipulator.C
+SOURCE += $(triSurfacePatchManipulator)/triSurfacePatchManipulatorFunctions.C
+
+SOURCE += $(triSurfaceRemoveFacets)/triSurfaceRemoveFacets.C
+SOURCE += $(triSurfaceRemoveFacets)/triSurfaceRemoveFacetsFunctions.C
+
+SOURCE += $(triSurfaceExtrude2DEdges)/triSurfaceExtrude2DEdges.C
+
+SOURCE += $(triSurfaceMetaData)/triSurfaceMetaData.C
+
+SOURCE += $(cartesianMeshExtractor)/cartesianMeshExtractor.C
+SOURCE += $(cartesianMeshExtractor)/cartesianMeshExtractorPointsAndAddressing.C
+SOURCE += $(cartesianMeshExtractor)/cartesianMeshExtractorPolyMesh.C
+SOURCE += $(cartesianMeshExtractor)/cartesianMeshExtractorDecomposeSplitHexes.C
+
+SOURCE += $(cartesianMeshGenerator)/cartesianMeshGenerator.C
+
+SOURCE += $(cartesian2DMeshGenerator)/cartesian2DMeshGenerator.C
+
+SOURCE += $(tetMeshExtractorOctree)/tetMeshExtractorOctree.C
+
+SOURCE += $(tetMeshGenerator)/tetMeshGenerator.C
+
+SOURCE += $(voronoiMeshExtractor)/voronoiMeshExtractor.C
+SOURCE += $(voronoiMeshExtractor)/voronoiMeshExtractorAddressing.C
+SOURCE += $(voronoiMeshExtractor)/voronoiMeshExtractorCreateMesh.C
+
+SOURCE += $(voronoiMeshGenerator)/voronoiMeshGenerator.C
+
+SOURCE += $(writeAsFPMA)/writeMeshFPMA.C
+SOURCE += $(writeAsFPMA)/fpmaMesh.C
+
+SOURCE += $(workflowControls)/workflowControls.C
+
+LIB = $(FOAM_USER_LIBBIN)/libmeshLibrary
