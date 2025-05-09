@@ -29,7 +29,7 @@ fi
 # Clean Case
 #----------------------------------------
 echo "Cleaning case..."
-rm -rf 0 processor* constant/polyMesh logs
+rm -rf 0 processor*
 cp -r 0.orig 0
 
 mkdir -p logs
