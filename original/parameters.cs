@@ -31,7 +31,7 @@ R       287.05;
 
 AoA 10;
 
-WriteInterval 40;
+WriteInterval 10;
 
 
 refinementRegionsLevels ((0.1 3) (0.2 2) (0.4 1));

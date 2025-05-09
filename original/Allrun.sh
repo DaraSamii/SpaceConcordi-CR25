@@ -37,8 +37,8 @@ touch foam.foam
 
 #----------------------------------------
 # Step 1: blockMesh
-echo "Running blockMesh..."
-blockMesh > logs/blockMesh.log 2>&1
+#echo "Running blockMesh..."
+#blockMesh > logs/blockMesh.log 2>&1
 
 
 # IMPORTANT : it should be done with surfaceFeature of openfoam11 or openfoam12. v2406 doesn't work
@@ -48,20 +48,20 @@ blockMesh > logs/blockMesh.log 2>&1
 
 #----------------------------------------
 # Step 2: Initial decompose (for snappyHexMesh)
-echo "Decomposing for snappyHexMesh..."
-foamDictionary system/decomposeParDict -entry "numberOfSubdomains" -set "$numProcs"
-decomposePar -copyZero > logs/decomposePar_preSnappy.log 2>&1
+#echo "Decomposing for snappyHexMesh..."
+#foamDictionary system/decomposeParDict -entry "numberOfSubdomains" -set "$numProcs"
+#decomposePar -copyZero > logs/decomposePar_preSnappy.log 2>&1
 
 #----------------------------------------
 # Step 3: snappyHexMesh
-echo "Running snappyHexMesh in parallel..."
-mpirun -np $numProcs snappyHexMesh -overwrite -parallel > logs/snappyHexMesh.log 2>&1
+#echo "Running snappyHexMesh in parallel..."
+#mpirun -np $numProcs snappyHexMesh -overwrite -parallel > logs/snappyHexMesh.log 2>&1
 
 #----------------------------------------
 # Step 4: Reconstruct mesh
-echo "Reconstructing mesh after snappyHexMesh..."
-reconstructParMesh -constant > logs/reconstructParMesh.log 2>&1
-rm -rf processor*
+#echo "Reconstructing mesh after snappyHexMesh..."
+#reconstructParMesh -constant > logs/reconstructParMesh.log 2>&1
+#rm -rf processor*
 
 #----------------------------------------
 # Step 5: topoSet (after reconstructed mesh)

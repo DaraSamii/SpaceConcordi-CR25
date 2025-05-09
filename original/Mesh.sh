@@ -1,69 +1,37 @@
 #!/bin/bash
 
 
-# Source the OpenFOAM environment (modify as needed)
-if module avail openfoam/12 &>/dev/null; then
+cd "$(dirname "$0")" || exit 1
+echo "Running in: $(pwd)"
+
+#----------------------------------------
+# Load OpenFOAM v2406 Environment
+#----------------------------------------
+echo "Loading OpenFOAM v2406 environment..."
+if module avail openfoam/v2406 &>/dev/null; then
     module purge
-    module load openfoam/12
-    numProcs=$SLURM_NTASKS  # Server
-    echo "OpenFOAM v12 module loaded successfully."
+    source ~/v2406/OpenFOAM-v2406/etc/bashrc
+    source ~/OpenFOAM/OpenFOAM-v2406/etc/bashrc
+    numProcs=$SLURM_NTASKS
+    echo "OpenFOAM v2406 loaded via module with $numProcs processors."
 else
-    op11
-    numProcs=4  # Local machine
-
-    #op11
-    echo "Using OpenFOAM op11."
+    source /opt/openfoam2406/etc/bashrc
+    numProcs=4
+    echo "OpenFOAM v2406 loaded from /opt with $numProcs processors."
 fi
 
-cd ${0%/*} || exit 1    # Run from this directory
 
-# Source tutorial run functions
-. $WM_PROJECT_DIR/bin/tools/RunFunctions
 
-# Source tutorial clean functions
-. $WM_PROJECT_DIR/bin/tools/CleanFunctions
+blockMesh > logs/blockMesh.log 2>&1
 
-cleanCase
 
-rm -r ./0 ./processor*/
+foamToSurface -tri -constant ./geometry/patches.stl   
 
-cp -r ./0.orig ./0
 
-# Remove and recreate logs directory
-if [ -d "logs" ]; then
-    echo "Removing existing logs directory..."
-    rm -r logs
-fi
+sed -i 's/^solid .*/solid rocket/; s/^endsolid .*/endsolid rocket/' ./geometry/rocket.stl
 
-mkdir -p logs
-echo "Logs directory created."
+cat ./geometry/rocket.stl ./geometry/patches.stl > ./geometry/combined.stl
 
-# Touch foam.foam for ParaView compatibility
-touch foam.foam
+surfaceToFMS ./geometry/combined.stl   
 
-# ============================
-# Modify decomposeParDict
-# ============================
-
-echo "Updating decomposeParDict for $numProcs processors..."
-foamDictionary system/decomposeParDict -entry "numberOfSubdomains" -set "$numProcs"
-
-#------------------------------------------------------------------------------
-# Step 1: Generate base mesh
-blockMesh 2>&1 | tee ./logs/blockMesh.log;
-
-# Step 2: Extract surface features 
-# IMPORTANT : it should be done with surfaceFeature of openfoam11 or openfoam12. v2406 doesn't work
-#surfaceFeatureExtract 2>&1  | tee ./logs/log.surfaceFeatures;
-#gzip -d constant/triSurface/file.gz
-# Step 3: Decompose the domain for parallel processing
-decomposePar -copyZero 2>&1  | tee ./logs/decomposePar.log;
-
-# Step 4: Run snappyHexMesh in parallel on 4 cores
-mpirun -np $numProcs snappyHexMesh -overwrite -parallel 2>&1  | tee ./logs/snappyHexMesh.log;
-
-#mpirun -np $numProcs snappyHexMesh -dict ./system/snappyHexMeshDictLayer -overwrite -parallel 2>&1  | tee ./logs/log.snappyHexMeshLayer;
-
-reconstructParMesh -constant 2>&1  | tee ./logs/reconstructParMesh.log;
-
-rm -r processor*
+cartesianMesh
