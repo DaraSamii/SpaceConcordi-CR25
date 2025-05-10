@@ -17,7 +17,10 @@ FoamFile
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+#include "../parameters.cs"
+
 surfaceFile "geometry/combined.fms";
+
 
 
 maxCellSize 0.1;
@@ -28,7 +31,7 @@ localRefinement
 {
     rocket
     {
-        cellSize 0.005;
+        cellSize $rocketCellSize;
     }
 
 }
@@ -38,11 +41,11 @@ objectRefinements
     box
     {
         type box;
-        cellSize 0.05;
+        cellSize $boxCellSize;
         centre (1.5 0 0);
-        lengthX 5;
-        lengthY 1;
-        lengthZ 1;
+        lengthX $boxLength;
+        lengthY $boxWidth;
+        lengthZ $boxWidth;
     }
 }
 
@@ -54,10 +57,22 @@ boundaryLayers
         {
             nLayers 5;
             thicknessRatio 1.2;
-            maxFirstLayerThickness 0.01;
+            maxFirstLayerThickness $firstLayerThickness;
 
             allowDiscontinuity 0;
         }
+    }
+
+    optimiseLayer true;
+
+    optimisationParameters
+    {
+        nSmoothNormals 5;
+        maxNumIterations 10;
+        featureSizeFactor 0.4;
+        reCalculateNormals true;
+        relThicknessTol 0.1;
+        
     }
 }
 

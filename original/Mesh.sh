@@ -20,6 +20,11 @@ else
     echo "OpenFOAM v2406 loaded from /opt with $numProcs processors."
 fi
 
+echo "Cleaning case..."
+rm -rf 0 processor* logs
+cp -r 0.orig 0
+foamCleanTutorials
+
 echo "Creating logs directory..."
 mkdir -p logs
 
@@ -43,5 +48,14 @@ surfaceToFMS ./geometry/combined.stl
 
 echo "Running cartesianMesh and logging to logs/cartesianMesh.log..."
 cartesianMesh > logs/cartesianMesh.log 2>&1
+
+
+gunzip ./constant/polyMesh/boundary.gz
+foamDictionary ./constant/polyMesh/boundary -entry "entry0/inlet/type" -set "patch"
+foamDictionary ./constant/polyMesh/boundary -entry "entry0/outlet/type" -set "patch"
+foamDictionary ./constant/polyMesh/boundary -entry "entry0/sides/type" -set "patch"
+foamDictionary ./constant/polyMesh/boundary -entry "entry0/rocket/type" -set "wall"
+
+
 
 echo "Mesh generation pipeline completed successfully."

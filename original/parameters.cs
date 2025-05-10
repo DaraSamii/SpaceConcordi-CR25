@@ -10,14 +10,12 @@ zMin -5;
 zMax  5;
 
 // **Define Number of Cells**
-cellSize 0.2;  // Adjust cell size as needed
-gradingFactor 10.0;
-
-// Margins and lengths
-marginLength 0.5;
-lengthRocket 3.0;
-yzMargin 0.5;
-
+maxCellSize 0.2;
+rocketCellSize 0.002;  
+boxWidth 1;
+boxLength 5;
+boxCellSize 0.05;
+firstLayerThickness 0.001;
 
 P 69681;
 T 268;
