@@ -100,6 +100,8 @@ functions
         Aref        0.0188545853;
     }
 
+//=====================================================================================================//
+
     forces
     {
         type forces;                         // Function object for force calculation
@@ -119,7 +121,7 @@ functions
         CofR (0 0 0);                        // Replace with the desired center of rotation
     }
 
-    
+//=====================================================================================================// 
     // yPlus calculation for wall boundary monitoring
     yPlus1
     {
@@ -134,13 +136,14 @@ functions
         enabled         true;
         log             true;
         timeStart       0;
-        timeEnd         1000;
+        timeEnd         $endTime;
         executeControl  timeStep;
         executeInterval 1;
         writeControl    timeStep;
         writeInterval   $WriteInterval;
     }
     
+//=====================================================================================================//
 
     MachNo
     {
@@ -160,7 +163,7 @@ functions
     
         // Execution control
         timeStart       0;               // Start from the beginning of the simulation
-        timeEnd         3;               // End at simulation stop time
+        timeEnd         $endTime;               // End at simulation stop time
         executeControl  $writeControl;         // Trigger function based on simulation time
         executeInterval $writeInterval;            // Execute every 0.01 seconds of simulation time
     
@@ -168,8 +171,34 @@ functions
         writeControl    $writeControl;         // Save results based on runTime
         writeInterval   $writeInterval;            // Write every 0.01 seconds of simulation time
     }
+
+//=====================================================================================================// 
+
+ReynoldsNo
+{
+    type            ReynoldsNo;
+    libs            ("libfieldFunctionObjects.so");
+
+    field           U;           // Velocity field
+    rho             rho;         // Density field
+    mu              mu;          // Dynamic viscosity field
+
+    lRef            3.0;         // Characteristic length (e.g., rocket length)
+
+    region          region0;
+    enabled         true;
+    log             true;
+
+    timeStart       0;
+    timeEnd         $endTime;
+    executeControl  $writeControl;
+    executeInterval $writeInterval;
+
+    writeControl    $writeControl;
+    writeInterval   $writeInterval;
+}
     
-    
+//=====================================================================================================// 
     solverInfo
     {
         type            solverInfo;  // Function to print solver residuals
@@ -203,6 +232,7 @@ sliceCentre
         p
         Ma
         rho
+        Re
     );
     surfaces
     (
@@ -233,6 +263,7 @@ rocketVTK
         p
         Ma
         rho
+        Re
     );
 
     surfaces

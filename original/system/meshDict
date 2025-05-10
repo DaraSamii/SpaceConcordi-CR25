@@ -23,7 +23,7 @@ surfaceFile "geometry/combined.fms";
 
 
 
-maxCellSize 0.1;
+maxCellSize $maxCellSize;
 
 
 
@@ -31,21 +31,39 @@ localRefinement
 {
     rocket
     {
-        cellSize $rocketCellSize;
+        cellSize #calc "$firstLayerThickness * 10.0";
     }
 
 }
 
 objectRefinements
 {
-    box
+    box1
     {
         type box;
-        cellSize $boxCellSize;
+        cellSize #calc "$maxCellSize / 2.0";
+        centre (3.5 0 0);
+        lengthX 12;
+        lengthY 4;
+        lengthZ 4;
+    }
+    box2
+    {
+        type box;
+        cellSize #calc "$maxCellSize / 4.0";
+        centre (2.5 0 0);
+        lengthX 8;
+        lengthY 2;
+        lengthZ 2;
+    }
+    box2
+    {
+        type box;
+        cellSize #calc "$maxCellSize / 8.0";
         centre (1.5 0 0);
-        lengthX $boxLength;
-        lengthY $boxWidth;
-        lengthZ $boxWidth;
+        lengthX 4;
+        lengthY 1;
+        lengthZ 1;
     }
 }
 
@@ -55,7 +73,7 @@ boundaryLayers
     {
         rocket
         {
-            nLayers 5;
+            nLayers 7;
             thicknessRatio 1.2;
             maxFirstLayerThickness $firstLayerThickness;
 

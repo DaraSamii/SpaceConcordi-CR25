@@ -1,21 +1,18 @@
 
 // **Define Parameters for Mesh Dimensions**
 xMin -5;
-xMax  14;
+xMax 20;
 
-yMin -5;
-yMax  5;
+yMin -10;
+yMax  10;
 
-zMin -5;
-zMax  5;
+zMin -10;
+zMax  10;
 
 // **Define Number of Cells**
-maxCellSize 0.2;
-rocketCellSize 0.002;  
-boxWidth 1;
-boxLength 5;
-boxCellSize 0.05;
-firstLayerThickness 0.001;
+maxCellSize 0.5;
+rocketCellSize 0.001;  
+firstLayerThickness 0.0001;
 
 P 69681;
 T 268;
