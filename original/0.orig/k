@@ -18,7 +18,7 @@ FoamFile
 
 dimensions      [0 2 -2 0 0 0 0];
 
-k   0.01;//#calc "1.5 * pow((0.05 * sqrt(pow($Ux * 1.0,2) + pow($Uy * 1.0,2) + pow($Uz * 1.0,2))),2)";
+k   0.01;
 
 
 internalField   uniform $k; // describes turbulence kinetic energy
@@ -27,8 +27,10 @@ boundaryField
 {
     inlet
     {
-         type            fixedValue;
+        type            inletOutlet;
+        inletValue      uniform $k;
         value           uniform $k;
+
     }
     outlet
     {

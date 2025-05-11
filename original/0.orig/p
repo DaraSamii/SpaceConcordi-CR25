@@ -33,14 +33,6 @@ boundaryField
     {
             type            freestreamPressure;
         freestreamValue uniform $P;
-        /*
-        type            waveTransmissive;
-        field           p;
-        gamma           1.4;
-        fieldInf        101325;
-        lInf            1;
-        value           uniform 101325;
-        */
     }
 
     sides

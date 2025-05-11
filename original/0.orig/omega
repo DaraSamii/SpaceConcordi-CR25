@@ -19,7 +19,6 @@ dimensions      [0 0 -1 0 0 0 0];
 #include "../parameters.cs"
 
 
-LengthScale 0.03;
 
 omega 10;//#calc "0.09 * pow($k,0.5) / $LengthScale";
 

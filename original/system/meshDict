@@ -56,7 +56,7 @@ objectRefinements
         lengthY 2;
         lengthZ 2;
     }
-    box2
+    box3
     {
         type box;
         cellSize #calc "$maxCellSize / 8.0";

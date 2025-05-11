@@ -18,23 +18,6 @@ FoamFile
 
 dimensions      [0 2 -1 0 0 0 0];
 
-
-alpha   #calc "$AoA * 3.14159265358979323846 / 180"; // 10 degrees in radians
-
-a       #calc "sqrt($gamma * $R * $T)";
-U       #calc "$Ma * $a";
-
-Ux      #calc "$U * cos($alpha)";
-Uy      #calc "$U * sin($alpha)";
-Uz      0;
-
-
-k   #calc "1.5 * pow((0.05 * sqrt(pow($Ux * 1.0,2) + pow($Uy * 1.0,2) + pow($Uz * 1.0,2))),2)";
-
-LengthScale 0.03;
-
-omega #calc "0.09 * pow($k,0.5) / $LengthScale";
-
 nut 0;//#calc " $k / $omega";
 
 

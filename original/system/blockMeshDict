@@ -17,17 +17,11 @@ FoamFile
 scale 1.0;
 
 
-
-// Grading factor
-reciprocalGradingFactor #calc "1.0 / $gradingFactor";
-
 // Compute total cells in x, y, z directions
-numCellsX #calc "round(($xMax - $xMin) / $cellSize)";
-numCellsY #calc "round(($yMax - $yMin) / $cellSize)";
-numCellsZ #calc "round(($zMax - $zMin) / $cellSize)";
+numCellsX #calc "round(($xMax - $xMin) / $maxCellSize)";
+numCellsY #calc "round(($yMax - $yMin) / $maxCellSize)";
+numCellsZ #calc "round(($zMax - $zMin) / $maxCellSize)";
 
-// Total length in x-direction
-totalLengthX #calc "($xMax - $xMin) * 1.0";
 
 
 // Logging important parameters
