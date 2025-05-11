@@ -47,9 +47,10 @@ boundaryField
 
     rocket
     {
-    type            zeroGradient;
-    value           uniform $T;
-
+        type externalWallHeatFluxTemperature;
+        mode    coefficient;
+        h           180;
+        Ta          $T;
     }
 }
 

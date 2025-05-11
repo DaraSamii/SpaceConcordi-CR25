@@ -32,6 +32,7 @@ localRefinement
     rocket
     {
         cellSize #calc "$firstLayerThickness * 10.0";
+        refinementThickness 0.1;
     }
 
 }

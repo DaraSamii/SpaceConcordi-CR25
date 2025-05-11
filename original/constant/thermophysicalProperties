@@ -14,6 +14,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+/*
 thermoType
 {
  type hePsiThermo;
@@ -24,7 +25,17 @@ thermoType
  specie specie;
  energy sensibleInternalEnergy;
 }
-
+*/
+thermoType
+{
+    type            hePsiThermo;
+    mixture         pureMixture;
+    transport       sutherland;
+    thermo          hConst;
+    equationOfState perfectGas;
+    specie          specie;
+    energy          sensibleInternalEnergy;
+}
 /*
 thermoType
 {
@@ -52,9 +63,17 @@ mixture
         Cp         1005;
         Hf          0;
     }
+    /*
     transport
     {
         mu          1.8e-05;
+        Pr          0.7;
+    }*/
+    transport
+    {
+        //mu          1.8e-05;
+        As          1.4792e-06;
+        Ts          116;
         Pr          0.7;
     }
 }

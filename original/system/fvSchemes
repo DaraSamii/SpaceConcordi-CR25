@@ -34,16 +34,21 @@ divSchemes
 {
     default         none;
 
-    div(phi,U)      bounded Gauss linearUpwind limited;
+    div(phi,U)      bounded Gauss vanLeerV;
+    div(phi,e)      bounded Gauss vanLeer;
+    div(phi,k)      bounded Gauss vanLeer;
+    div(phi,omega)  bounded Gauss vanLeer;
+
+    //div(phi,U)      bounded Gauss linearUpwind limited;
 
     energy          bounded Gauss linearUpwind limited;
-    div(phi,e)      $energy;
+    //div(phi,e)      $energy;
     div(phi,K)      $energy;
     div(phi,Ekp)    $energy;
 
     turbulence      bounded Gauss upwind;
-    div(phi,k)      $turbulence;
-    div(phi,omega)  $turbulence;
+    //div(phi,k)      $turbulence;
+    //div(phi,omega)  $turbulence;
 
     div(phid,p)     Gauss upwind;
     div((phi|interpolate(rho)),p)  bounded Gauss upwind;
@@ -59,8 +64,10 @@ laplacianSchemes
 interpolationSchemes
 {
     default         linear;
+    reconstruct(rho) vanAlbada;
+    reconstruct(U) vanAlbadaV;
+    reconstruct(T) vanAlbada;
 }
-
 snGradSchemes
 {
     default         corrected;
