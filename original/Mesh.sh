@@ -46,9 +46,11 @@ cat ./geometry/rocket.stl ./geometry/patches.stl > ./geometry/combined.stl
 echo "Converting combined.stl to FMS format (combined.fms)..."
 surfaceToFMS ./geometry/combined.stl
 
-echo "Running cartesianMesh and logging to logs/cartesianMesh.log..."
-cartesianMesh > logs/cartesianMesh.log 2>&1
-
+echo "Running cartesianMesh..."
+if ! cartesianMesh > logs/cartesianMesh.log 2>&1 ; then
+    echo "cartesianMesh failed - aborting Mesh.sh" >&2
+    exit 1
+fi
 
 gunzip ./constant/polyMesh/boundary.gz
 foamDictionary ./constant/polyMesh/boundary -entry "entry0/inlet/type" -set "patch"
