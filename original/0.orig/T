@@ -52,6 +52,7 @@ boundaryField
         h           180;
         Ta          $T;
         value           uniform $T;
+        kappaMethod  fluidThermo;
     }
 }
 
