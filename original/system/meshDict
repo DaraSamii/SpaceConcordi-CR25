@@ -19,53 +19,81 @@ FoamFile
 
 #include "../parameters.cs"
 
-surfaceFile "geometry/combined.fms";
+//surfaceFile "geometry/combined.fms";
+surfaceFile "geometry/combined.stl";
+
 
 
 
 maxCellSize $maxCellSize;
-
-
+symmetryPlaneLayerTopology	1;
+meshMultipleDomainsAndBaffles	0;
+//nCellsBetweenLevels	7;
+domainDefinition
+{
+    convertAllPatchesToFaceZones	1;
+    detachPointsAtAllInternalPatches	0;
+    domainNames	();
+    generateMeshInAllDomains	1;
+}
 
 localRefinement
 {
     rocket
     {
-        cellSize #calc "$firstLayerThickness * 10.0";
-        refinementThickness 0.1;
+        additionalRefinementLevels	9;
+        //cellSize #calc "$firstLayerThickness * 10.0";
+        //refinementThickness 0.0;
     }
 
 }
 
 objectRefinements
 {
-    box1
+
+    box0
     {
         type box;
-        cellSize #calc "$maxCellSize / 2.0";
-        centre (3.5 0 0);
-        lengthX 12;
+        //cellSize #calc "$maxCellSize / 2.0";
+        additionalRefinementLevels	1;
+        centre (4.5 0.1 0.1);
+        lengthX 13;
         lengthY 4;
         lengthZ 4;
     }
+    box1
+    {
+        type box;
+        //cellSize #calc "$maxCellSize / 2.0";
+        additionalRefinementLevels	2;
+        centre (3.5 0.1 0.1);
+        lengthX 10;
+        lengthY 3;
+        lengthZ 3;
+    }
+    
     box2
     {
         type box;
-        cellSize #calc "$maxCellSize / 4.0";
-        centre (2.5 0 0);
-        lengthX 8;
+        //cellSize #calc "$maxCellSize / 4.0";
+        additionalRefinementLevels	3;
+
+        centre (2.5 0.1 0.1);
+        lengthX 7;
         lengthY 2;
         lengthZ 2;
     }
     box3
     {
         type box;
-        cellSize #calc "$maxCellSize / 8.0";
-        centre (1.5 0 0);
+        //cellSize #calc "$maxCellSize / 8.0";
+        additionalRefinementLevels	4;
+        centre (1.5 0.1 0.1);
         lengthX 4;
         lengthY 1;
         lengthZ 1;
     }
+    
 }
 
 boundaryLayers
@@ -74,9 +102,9 @@ boundaryLayers
     {
         rocket
         {
-            nLayers 7;
+            nLayers 15;
             thicknessRatio 1.2;
-            maxFirstLayerThickness $firstLayerThickness;
+            //maxFirstLayerThickness $firstLayerThickness;
 
             allowDiscontinuity 0;
         }
@@ -86,8 +114,8 @@ boundaryLayers
 
     optimisationParameters
     {
-        nSmoothNormals 5;
-        maxNumIterations 10;
+        nSmoothNormals 10;
+        maxNumIterations 20;
         featureSizeFactor 0.4;
         reCalculateNormals true;
         relThicknessTol 0.1;
