@@ -28,7 +28,7 @@ ReconV       vanAlbadaV;
 
 ddtSchemes
 {
-    default         backward;
+    default         steadyState;
 }
 
 

@@ -14,3 +14,10 @@ log.*
 /results
 *.gz
 VTK/
+*.dep
+*.o
+sourceFiles
+variables
+options
+*.C
+*.H

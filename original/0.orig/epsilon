@@ -16,29 +16,32 @@ FoamFile
 
 dimensions      [0 2 -3 0 0 0 0];
 
-internalField   uniform 0.1; // calculates how fast turbulent kinetic energy is dissipated into heat.
+internalField   uniform 1e-5; // calculates how fast turbulent kinetic energy is dissipated into heat.
 
 boundaryField
 {
     inlet
     {
-        type 		epsilonWallFunction;
-        inletValue	 uniform 0.1;
-            }
+        type            freestream;
+        freestreamValue uniform 1e-5;
+        value           uniform 1e-5;
+    }
     outlet
     {
-        type 		epsilonWallFunction;
-        inletValue	 uniform 0.1;      
+        type            freestream;
+        freestreamValue uniform 1e-5;
+        value           uniform 1e-5;
     }
     sides
     {
-         type 		epsilonWallFunction;
-        inletValue	 uniform 0.1;          
+        type            freestream;
+        freestreamValue uniform 1e-5;
+        value           uniform 1e-5;
     }
     rocket
     {
         type            epsilonWallFunction;
-        value           uniform 0.1;
+        value           uniform 1e-12;
     }
 }
 

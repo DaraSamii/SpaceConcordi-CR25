@@ -10,7 +10,7 @@ zMin -6;
 zMax  6;
 
 // **Define Number of Cells**
-maxCellSize 0.2;
+maxCellSize 0.5;
 rocketCellSize 0.001;  
 firstLayerThickness 0.0001;
 
