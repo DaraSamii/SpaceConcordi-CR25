@@ -43,7 +43,7 @@ edgeMeshRefinement
     {
         edgeFile "constant/triSurface/rocket.eMesh";
 
-        additionalRefinementLevels    10;
+        additionalRefinementLevels    9;
     }
 }
 localRefinement
@@ -52,7 +52,14 @@ localRefinement
     {
         additionalRefinementLevels	7;
         //cellSize #calc "$firstLayerThickness * 10.0";
-        //refinementThickness 0.0;
+        refinementThickness 0.0;
+    }
+
+    rocket
+    {
+        additionalRefinementLevels	6;
+        //cellSize #calc "$firstLayerThickness * 10.0";
+        refinementThickness 0.05;
     }
 
 }
@@ -64,7 +71,7 @@ objectRefinements
     {
         type box;
         //cellSize #calc "$maxCellSize / 2.0";
-        additionalRefinementLevels	2;
+        additionalRefinementLevels	1;
         centre (4.5 0 0);
         lengthX 13;
         lengthY 4;
@@ -74,7 +81,7 @@ objectRefinements
     {
         type box;
         //cellSize #calc "$maxCellSize / 2.0";
-        additionalRefinementLevels	3;
+        additionalRefinementLevels	2;
         centre (3.5 0 0);
         lengthX 10;
         lengthY 3;
@@ -85,7 +92,7 @@ objectRefinements
     {
         type box;
         //cellSize #calc "$maxCellSize / 4.0";
-        additionalRefinementLevels	4;
+        additionalRefinementLevels	3;
 
         centre (2.5 0 0);
         lengthX 7;
@@ -96,13 +103,24 @@ objectRefinements
     {
         type box;
         //cellSize #calc "$maxCellSize / 8.0";
-        additionalRefinementLevels	5;
+        additionalRefinementLevels	4;
         centre (1.5 0 0);
         lengthX 4;
         lengthY 1;
         lengthZ 1;
     }
-    
+    box4
+    {
+        type box;
+        //cellSize #calc "$maxCellSize / 8.0";
+        additionalRefinementLevels	5;
+        centre (1.4 0 0);
+        lengthX 3.4;
+        lengthY 0.6;
+        lengthZ 0.6;
+    }
+
+
 }
 
 boundaryLayers
@@ -111,7 +129,7 @@ boundaryLayers
     {
         rocket
         {
-            nLayers 17;
+            nLayers 7;
             thicknessRatio 1.2;
             //maxFirstLayerThickness $firstLayerThickness;
 
