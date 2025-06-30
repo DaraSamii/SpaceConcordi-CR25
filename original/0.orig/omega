@@ -47,7 +47,8 @@ boundaryField
     rocket
     {
         type            omegaWallFunction;
-        value           uniform $omega;  // Suitable value for wall function
+        value           uniform 1e-12;
+
     }
 }
 

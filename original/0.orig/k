@@ -18,7 +18,7 @@ FoamFile
 
 dimensions      [0 2 -2 0 0 0 0];
 
-k   0.01;
+k   1e-03;
 
 
 internalField   uniform $k; // describes turbulence kinetic energy
@@ -27,22 +27,22 @@ boundaryField
 {
     inlet
     {
-        type            inletOutlet;
-        inletValue      uniform $k;
+        type            freestream;
+        freestreamValue      uniform $k;
         value           uniform $k;
 
     }
     outlet
     {
-        type            inletOutlet;
-        inletValue      uniform $k;
+        type            freestream;
+        freestreamValue      uniform $k;
         value           uniform $k;
 
     }
     sides
     {
-        type            inletOutlet;
-        inletValue      uniform $k;
+        type            freestream;
+        freestreamValue      uniform $k;
         value           uniform $k;
 
     }
