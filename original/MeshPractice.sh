@@ -1,0 +1,67 @@
+#!/bin/bash
+
+
+cd "$(dirname "$0")" || exit 1
+echo "Running in: $(pwd)"
+
+#----------------------------------------
+# Load OpenFOAM v2406 Environment
+#----------------------------------------
+echo "Loading OpenFOAM v2406 environment..."
+if module avail openfoam/v2406 &>/dev/null; then
+    module purge
+    source ~/v2406/OpenFOAM-v2406/etc/bashrc
+    source ~/OpenFOAM/OpenFOAM-v2406/etc/bashrc
+    numProcs=$SLURM_NTASKS
+    echo "OpenFOAM v2406 loaded via module with $numProcs processors."
+else
+    source /opt/openfoam2406/etc/bashrc
+    numProcs=4
+    echo "OpenFOAM v2406 loaded from /opt with $numProcs processors."
+fi
+
+echo "Cleaning case..."
+rm -rf 0 processor* logs
+cp -r 0.orig 0
+foamCleanTutorials
+
+echo "Creating logs directory..."
+mkdir -p logs
+
+echo "Creating foam.foam file for ParaView compatibility..."
+touch foam.foam
+
+echo "Running blockMesh and logging to logs/blockMesh.log..."
+blockMesh > logs/blockMesh.log 2>&1
+
+surfaceFeatureExtract > logs/surfaceFeatureExtract.log 2>&1
+gzip -d constant/triSurface/rocketPractice.eMesh.gz
+
+
+echo "Extracting boundary patches to STL (patches.stl)..."
+foamToSurface -tri -constant ./constant/triSurface/patches.stl
+
+echo "Renaming solid and endsolid entries in rocketPractice.stl to 'rocket'..."
+sed -i 's/^solid .*/solid rocket/; s/^endsolid .*/endsolid rocket/' ./constant/triSurface/rocketPractice.stl
+
+echo "Combining rocketPractice.stl and patches.stl into combined.stl..."
+cat ./constant/triSurface/rocketPractice.stl ./constant/triSurface/patches.stl > ./constant/triSurface/combined.stl
+
+echo "Converting combined.stl to FMS format (combined.fms)..."
+surfaceToFMS ./constant/triSurface/combined.stl
+
+echo "Running cartesianMesh..."
+if ! cartesianMesh > logs/cartesianMesh.log 2>&1 ; then
+    echo "cartesianMesh failed - aborting Mesh.sh" >&2
+    exit 1
+fi
+
+gunzip ./constant/polyMesh/boundary.gz
+foamDictionary ./constant/polyMesh/boundary -entry "entry0/inlet/type" -set "patch"
+foamDictionary ./constant/polyMesh/boundary -entry "entry0/outlet/type" -set "patch"
+foamDictionary ./constant/polyMesh/boundary -entry "entry0/sides/type" -set "patch"
+foamDictionary ./constant/polyMesh/boundary -entry "entry0/rocket/type" -set "wall"
+
+
+
+echo "Mesh generation pipeline completed successfully."
