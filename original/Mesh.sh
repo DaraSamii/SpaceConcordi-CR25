@@ -34,17 +34,21 @@ touch foam.foam
 echo "Running blockMesh and logging to logs/blockMesh.log..."
 blockMesh > logs/blockMesh.log 2>&1
 
-echo "Extracting boundary patches to STL (patches.stl)..."
-foamToSurface -tri -constant ./geometry/patches.stl
+surfaceFeatureExtract > logs/surfaceFeatureExtract.log 2>&1
+gzip -d constant/triSurface/rocket.eMesh.gz
 
-echo "Renaming solid and endsolid entries in rocket.stl to 'rocket'..."
-sed -i 's/^solid .*/solid rocket/; s/^endsolid .*/endsolid rocket/' ./geometry/rocket.stl
+
+echo "Extracting boundary patches to STL (patches.stl)..."
+foamToSurface -tri -constant ./constant/triSurface/patches.stl
+
+echo "Renaming solid and endsolid entries in rocketV4.stl to 'rocket'..."
+sed -i 's/^solid .*/solid rocket/; s/^endsolid .*/endsolid rocket/' ./constant/triSurface/rocket.stl
 
 echo "Combining rocket.stl and patches.stl into combined.stl..."
-cat ./geometry/rocket.stl ./geometry/patches.stl > ./geometry/combined.stl
+cat ./constant/triSurface/rocket.stl ./constant/triSurface/patches.stl > ./constant/triSurface/combined.stl
 
 echo "Converting combined.stl to FMS format (combined.fms)..."
-surfaceToFMS ./geometry/combined.stl
+surfaceToFMS ./constant/triSurface/combined.stl
 
 echo "Running cartesianMesh..."
 if ! cartesianMesh > logs/cartesianMesh.log 2>&1 ; then

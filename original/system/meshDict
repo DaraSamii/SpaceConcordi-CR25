@@ -19,14 +19,14 @@ FoamFile
 
 #include "../parameters.cs"
 
-//surfaceFile "geometry/combined.fms";
-surfaceFile "geometry/combined.stl";
+surfaceFile "constant/triSurface/combined.fms";
+//surfaceFile "geometry/combined.stl";
 
 
 
 
 maxCellSize $maxCellSize;
-symmetryPlaneLayerTopology	1;
+symmetryPlaneLayerTopology	0;
 meshMultipleDomainsAndBaffles	0;
 //nCellsBetweenLevels	7;
 domainDefinition
@@ -37,11 +37,20 @@ domainDefinition
     generateMeshInAllDomains	1;
 }
 
+edgeMeshRefinement
+{
+    edges
+    {
+        edgeFile "constant/triSurface/rocket.eMesh";
+
+        additionalRefinementLevels    10;
+    }
+}
 localRefinement
 {
     rocket
     {
-        additionalRefinementLevels	9;
+        additionalRefinementLevels	7;
         //cellSize #calc "$firstLayerThickness * 10.0";
         //refinementThickness 0.0;
     }
@@ -55,8 +64,8 @@ objectRefinements
     {
         type box;
         //cellSize #calc "$maxCellSize / 2.0";
-        additionalRefinementLevels	1;
-        centre (4.5 0.1 0.1);
+        additionalRefinementLevels	2;
+        centre (4.5 0 0);
         lengthX 13;
         lengthY 4;
         lengthZ 4;
@@ -65,8 +74,8 @@ objectRefinements
     {
         type box;
         //cellSize #calc "$maxCellSize / 2.0";
-        additionalRefinementLevels	2;
-        centre (3.5 0.1 0.1);
+        additionalRefinementLevels	3;
+        centre (3.5 0 0);
         lengthX 10;
         lengthY 3;
         lengthZ 3;
@@ -76,9 +85,9 @@ objectRefinements
     {
         type box;
         //cellSize #calc "$maxCellSize / 4.0";
-        additionalRefinementLevels	3;
+        additionalRefinementLevels	4;
 
-        centre (2.5 0.1 0.1);
+        centre (2.5 0 0);
         lengthX 7;
         lengthY 2;
         lengthZ 2;
@@ -87,8 +96,8 @@ objectRefinements
     {
         type box;
         //cellSize #calc "$maxCellSize / 8.0";
-        additionalRefinementLevels	4;
-        centre (1.5 0.1 0.1);
+        additionalRefinementLevels	5;
+        centre (1.5 0 0);
         lengthX 4;
         lengthY 1;
         lengthZ 1;
@@ -102,7 +111,7 @@ boundaryLayers
     {
         rocket
         {
-            nLayers 15;
+            nLayers 17;
             thicknessRatio 1.2;
             //maxFirstLayerThickness $firstLayerThickness;
 
