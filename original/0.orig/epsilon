@@ -22,25 +22,22 @@ boundaryField
 {
     inlet
     {
-        type 		inletOutlet;
+        type 		epsilonWallFunction;
         inletValue	 uniform 0.1;
             }
     outlet
     {
-        type 		inletOutlet;
+        type 		epsilonWallFunction;
         inletValue	 uniform 0.1;      
     }
     sides
     {
-         type 		inletOutlet;
+         type 		epsilonWallFunction;
         inletValue	 uniform 0.1;          
     }
     rocket
     {
         type            epsilonWallFunction;
-        Cmu             0.09;
-        kappa           0.41;
-        E               9.8;
         value           uniform 0.1;
     }
 }

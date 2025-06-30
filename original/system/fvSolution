@@ -14,6 +14,8 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+MinIter  4;
+
 solvers
 {
     p
@@ -21,17 +23,19 @@ solvers
         solver          GAMG;
         smoother        GaussSeidel;
         tolerance       1e-6;
-        relTol          0.01;
-        minIter         3;
+        relTol          0.0;
+        minIter         $MinIter;
+
     }
 
     "(U|k|omega|e)"
     {
         solver          PBiCGStab;
         preconditioner  DILU;
-        tolerance       1e-6;
-        relTol          0.1;
-        minIter         3;
+        tolerance       1e-8;
+        relTol          0.0;
+        minIter         $MinIter;
+
 
     }
 }
@@ -54,14 +58,14 @@ relaxationFactors
 {
     fields
     {
-        p               0.5;
+        p               0.4;
         rho             0.01;
     }
     equations
     {
         U               0.3;
-        e               0.5;
-        "(k|omega)"     0.5;
+        e               0.4;
+        "(k|omega)"     0.4;
     }
 }
 

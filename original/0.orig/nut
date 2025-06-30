@@ -21,7 +21,7 @@ dimensions      [0 2 -1 0 0 0 0];
 nut 1e-10;//#calc " $k / $omega";
 
 
-internalField   uniform $nut;// describes turbulence diffusion
+internalField   uniform 0.0;// describes turbulence diffusion
 
 boundaryField
 {

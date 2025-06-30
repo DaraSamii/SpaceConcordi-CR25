@@ -12,71 +12,85 @@ FoamFile
     class       dictionary;
     object      fvSchemes;
 }
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+// ************************************************************************* //
+
+limit           0.3;
+
+Main         Gauss limitedLinear $limit;
+MainV        Gauss limitedLinearV $limit;
+Turbulence   Gauss upwind;
+Grad         Gauss linear limited 0.5;
+Laplacian    Gauss linear limited corrected 0.5;
+Interp       linear;
+ReconS       vanAlbada;
+ReconV       vanAlbadaV;
+
 
 ddtSchemes
 {
-    default         steadyState;
+    default         backward;
 }
+
 
 gradSchemes
 {
     default         Gauss linear;
-
-    limited         cellLimited Gauss linear 1;
-    grad(U)         $limited;
-    grad(k)         $limited;
-    grad(omega)     $limited;
-    grad(subsetU)   $limited;
+    grad(U)         $Grad;
 }
+
 
 divSchemes
 {
     default         none;
 
-    div(phi,U)      bounded Gauss vanLeerV;
-    div(phi,e)      bounded Gauss vanLeer;
-    div(phi,k)      bounded Gauss vanLeer;
-    div(phi,omega)  bounded Gauss vanLeer;
+    // Main field transport
+    div(phi,U)          $MainV;
+    div(phi,e)          $Main;
+    div(phi,h)          $Main;
+    div(phi,K)          $Main;
 
-    //div(phi,U)      bounded Gauss linearUpwind limited;
+    // Pressure transport
+    div(phiv,p)         $Main;
+    div(phid,p)         $Main;
 
-    energy          bounded Gauss linearUpwind limited;
-    //div(phi,e)      $energy;
-    div(phi,K)      $energy;
-    div(phi,Ekp)    $energy;
+    // Turbulence
+    div(phi,k)          $Turbulence;
+    div(phi,omega)      $Turbulence;
+    div(phi,epsilon)    $Turbulence;
+    div(phi,nuTilda)    $Main;
+    div(phi,B)          $Main;
 
-    turbulence      bounded Gauss upwind;
-    //div(phi,k)      $turbulence;
-    //div(phi,omega)  $turbulence;
-
-    div(phid,p)     Gauss upwind;
-    div((phi|interpolate(rho)),p)  bounded Gauss upwind;
-
-    div(((rho*nuEff)*dev2(T(grad(U)))))    Gauss linear;
+    // Miscellaneous
+    div(B)              Gauss linear;
+    div(tauMC)          Gauss linear;
+    div(phi,Ekp)        $Turbulence;
+    div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
 }
 
 laplacianSchemes
 {
-    default         Gauss linear corrected;
+    default         $Laplacian;
 }
 
 interpolationSchemes
 {
-    default         linear;
-    reconstruct(rho) vanAlbada;
-    reconstruct(U) vanAlbadaV;
-    reconstruct(T) vanAlbada;
+    default             $Interp;
+    reconstruct(U)      $ReconV;
+    reconstruct(rho)    $ReconS;
+    reconstruct(T)      $ReconS;
 }
+
+
 snGradSchemes
 {
     default         corrected;
 }
 
+
+
 wallDist
 {
     method          meshWave;
 }
-
 
 // ************************************************************************* //

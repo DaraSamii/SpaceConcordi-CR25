@@ -28,20 +28,20 @@ boundaryField
 {
     inlet
     {
-        type            inletOutlet;
-        inletValue      uniform $omega;
+        type            freestream;
+        freestreamValue      uniform $omega;
         value           uniform $omega;
     }
     outlet
     {
-        type            inletOutlet;
-        inletValue      uniform $omega;
+        type            freestream;
+        freestreamValue      uniform $omega;
         value           uniform $omega;
     }
     sides
     {
-        type            inletOutlet;
-        inletValue      uniform $omega;
+        type            freestream;
+        freestreamValue      uniform $omega;
         value           uniform $omega;
     }
     rocket
