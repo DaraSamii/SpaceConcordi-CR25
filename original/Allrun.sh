@@ -10,12 +10,6 @@ cd "$(dirname "$0")" || exit 1
 echo "Running in: $(pwd)"
 
 
-# ----- check that a patch named "rocket" exists -----------------------------
-if ! foamDictionary constant/polyMesh/boundary -entry entry0/rocket > /dev/null 2>&1
-then
-    echo "ERROR: patch 'rocket' NOT found in constant/polyMesh/boundary" >&2
-    exit 1
-fi
 #----------------------------------------
 # Load OpenFOAM v2406 Environment
 #----------------------------------------

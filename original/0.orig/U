@@ -20,13 +20,13 @@ dimensions      [0 1 -1 0 0 0 0];
 
 
 
-alpha   #calc "$AoA * 3.14159265358979323846 / 180"; // 10 degrees in radians
+alpha   #calc "$AoA * 3.14159265358979323846 / 180.0"; // 10 degrees in radians
 
 a       #calc "sqrt($gamma * $R * $T)";
 U       #calc "$Ma * $a";
 
-Ux      #calc "$U * cos($alpha)";
-Uy      #calc "$U * sin($alpha)";
+Ux      #calc "$U * cos($alpha * 1.0)";
+Uy      #calc "$U * sin($alpha * 1.0)";
 Uz      0;
 
 
