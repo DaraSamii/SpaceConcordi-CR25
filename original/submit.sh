@@ -11,5 +11,5 @@
 #SBATCH --output=submit.log
 
 
-./Mesh.sh
+./MeshPractice.sh
 ./Allrun.sh
