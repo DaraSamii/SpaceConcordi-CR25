@@ -18,24 +18,14 @@ FoamFile
 
 dimensions      [0 2 -1 0 0 0 0];
 
-nut 1e-10;//#calc " $k / $omega";
+nut 0;
 
 
-internalField   uniform 0.0;// describes turbulence diffusion
+internalField   uniform 0.0;
 
 boundaryField
 {
-    inlet
-    {
-        type            calculated;
-        value           uniform $nut;
-    }
-    outlet
-    {
-        type            calculated;
-        value           uniform $nut;
-    }
-    sides
+    "(sides|outlet|inlet)"
     {
         type            calculated;
 	value           uniform $nut;
@@ -43,6 +33,9 @@ boundaryField
     rocket
     {
         type            nutkWallFunction;
+        Cmu             0.09;
+        kappa           0.41;
+        E               9.8;
         value           uniform 0;
     }
 }

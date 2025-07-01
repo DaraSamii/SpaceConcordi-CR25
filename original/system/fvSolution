@@ -38,6 +38,16 @@ solvers
 
 
     }
+
+    Phi
+    {
+        solver          GAMG;
+        smoother        symGaussSeidel;
+        tolerance       1e-12;
+        relTol          0.001;
+        maxIter         500;
+        minIter         1;
+    }
 }
 
 SIMPLE
@@ -51,7 +61,16 @@ SIMPLE
 
     nNonOrthogonalCorrectors 2;
     pMinFactor      0.1;
-    pMaxFactor      10;
+    pMaxFactor      3;
+
+    
+    consistent	yes;
+    transonic   no;
+}
+
+potentialFlow
+{
+   nNonOrthogonalCorrectors  10;
 }
 
 relaxationFactors

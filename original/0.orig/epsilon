@@ -20,19 +20,7 @@ internalField   uniform 1e-5; // calculates how fast turbulent kinetic energy is
 
 boundaryField
 {
-    inlet
-    {
-        type            freestream;
-        freestreamValue uniform 1e-5;
-        value           uniform 1e-5;
-    }
-    outlet
-    {
-        type            freestream;
-        freestreamValue uniform 1e-5;
-        value           uniform 1e-5;
-    }
-    sides
+    "(sides|outlet|inlet)"
     {
         type            freestream;
         freestreamValue uniform 1e-5;

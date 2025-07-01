@@ -21,25 +21,11 @@ dimensions      [0 2 -2 0 0 0 0];
 k   1e-03;
 
 
-internalField   uniform $k; // describes turbulence kinetic energy
+internalField   uniform $k;
 
 boundaryField
 {
-    inlet
-    {
-        type            freestream;
-        freestreamValue      uniform $k;
-        value           uniform $k;
-
-    }
-    outlet
-    {
-        type            freestream;
-        freestreamValue      uniform $k;
-        value           uniform $k;
-
-    }
-    sides
+    "(sides|outlet|inlet)"
     {
         type            freestream;
         freestreamValue      uniform $k;

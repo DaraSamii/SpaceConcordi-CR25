@@ -15,14 +15,22 @@ FoamFile
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 
-limitTemperature
+temperatureLimits
 {
-    type        limitTemperature;
-    active      true;
+    type  limitTemperature;
+	
     limitTemperatureCoeffs
     {
-        selectionMode   all;          // Applies to all cells
-        min            20;          // Minimum temperature in Kelvin
-        max            20000;          // Maximum temperature in Kelvin
+        selectionMode all;
+        min 100.00;
+        max 1000.00;
     }
+}
+
+limitVelocity
+{
+    type   limitVelocity;
+
+    selectionMode all;
+    max  1000.00;
 }

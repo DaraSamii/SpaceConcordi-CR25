@@ -36,22 +36,7 @@ internalField   uniform ($Ux $Uy $Uz);
 
 boundaryField
 {
-    inlet
-    {
-	    type            freestreamVelocity;
-        value           uniform ($Ux $Uy $Uz);
-        freestreamValue           uniform ($Ux $Uy $Uz);
-
-    }
-
-    outlet
-    {
-	    type            freestreamVelocity;
-        value           uniform ($Ux $Uy $Uz);
-        freestreamValue           uniform ($Ux $Uy $Uz);
-    }
-
-    sides
+    "(sides|outlet|inlet)"
     {
         type            freestreamVelocity;
         value           uniform ($Ux $Uy $Uz);

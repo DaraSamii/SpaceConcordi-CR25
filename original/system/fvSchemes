@@ -1,8 +1,8 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v2406                                 |
-|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|  \\    /   O peration     | Version:  v1806                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
@@ -10,87 +10,83 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
+    location    "system";
     object      fvSchemes;
 }
-// ************************************************************************* //
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-limit           0.3;
-
-Main         Gauss limitedLinear $limit;
-MainV        Gauss limitedLinearV $limit;
-Turbulence   Gauss upwind;
-Grad         Gauss linear limited 0.5;
-Laplacian    Gauss linear limited corrected 0.5;
-Interp       linear;
-ReconS       vanAlbada;
-ReconV       vanAlbadaV;
-
+fluxScheme          Tadmor; // Kurganov;
 
 ddtSchemes
 {
-    default         steadyState;
+    default         steadyState; // steadyState; // localEuler; // steadyState;
 }
-
 
 gradSchemes
 {
-    default         Gauss linear;
-    grad(U)         $Grad;
+    default         cellLimited Gauss linear 1.0;
+    grad(p)         cellLimited Gauss linear 1.0;
+    limitedGrad     faceLimited Gauss linear 1.0;
 }
-
 
 divSchemes
 {
     default         none;
-
-    // Main field transport
-    div(phi,U)          $MainV;
-    div(phi,e)          $Main;
-    div(phi,h)          $Main;
-    div(phi,K)          $Main;
-
-    // Pressure transport
-    div(phiv,p)         $Main;
-    div(phid,p)         $Main;
-
-    // Turbulence
-    div(phi,k)          $Turbulence;
-    div(phi,omega)      $Turbulence;
-    div(phi,epsilon)    $Turbulence;
-    div(phi,nuTilda)    $Main;
-    div(phi,B)          $Main;
-
-    // Miscellaneous
-    div(B)              Gauss linear;
-    div(tauMC)          Gauss linear;
-    div(phi,Ekp)        $Turbulence;
+	
+    div(phi,U)      bounded Gauss linearUpwindV limitedGrad; // vanLeerV; //upwind; //limitedLinearV 1.0; //linearUpwindV limitedGrad; //limitedLinearV 1.0;
+	
+    div(phi,e)      Gauss upwind; //vanLeer; // upwind; // linearUpwind limitedGrad;
+    div(phi,Ekp)    Gauss upwind; //vanLeer; // linearUpwind limitedGrad;
+    
+    div(phi,h)      bounded Gauss upwind; //linearUpwind limitedGrad; // vanLeer; // upwind; // linearUpwind limitedGrad;
+    
+    div(phi,K)      bounded Gauss upwind; //linearUpwind limitedGrad; // vanLeer; // upwind; // linearUpwind limitedGrad;
+	
+    div(phid,p)     Gauss upwind; //linearUpwind limitedGrad; // vanLeer; // upwind; // linearUpwind limitedGrad;
+ 
+    //div((phi|interpolate(rho)),p) Gauss upwind;
+	
+    div(phi,k)      bounded Gauss upwind; //linearUpwind limitedGrad; // vanLeer; // upwind;
+    div(phi,omega)  bounded Gauss upwind; //linearUpwind limitedGrad; // vanLeer; // upwind;
+    
+    div(phi,nuTilda) bounded Gauss linearUpwind limitedGrad; // vanLeer; // upwind;
+    div(phi,epsilon) bounded Gauss linearUpwind limitedGrad;
+	
     div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
+
+    // div(tauMC)       Gauss limitedLinear phi 1.0;
+
 }
 
 laplacianSchemes
 {
-    default         $Laplacian;
+    default         Gauss linear limited 0.5;
 }
 
 interpolationSchemes
 {
-    default             $Interp;
-    reconstruct(U)      $ReconV;
-    reconstruct(rho)    $ReconS;
-    reconstruct(T)      $ReconS;
+    default         linear;
+/*
+    reconstruct(U)   upwind; //vanLeerV; //limitedLinearV 1.0;
+    reconstruct(T)   upwind; //limitedVanLeer 101.01 2500;
+    reconstruct(rho) upwind; //limitedVanLeer 0.00001 10;
+*/
 }
-
 
 snGradSchemes
 {
-    default         corrected;
+    default         limited 0.5;
 }
 
-
+fluxRequired
+{
+	pCorr;
+}
 
 wallDist
 {
-    method          meshWave;
+    method   meshWave;
 }
+
 
 // ************************************************************************* //

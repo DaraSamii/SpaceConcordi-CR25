@@ -21,25 +21,11 @@ internalField   uniform $T;
 
 boundaryField
 {
-    inlet
+
+    "(sides|outlet|inlet)"
     {
         type            inletOutlet;
-        inletValue      uniform $T;
-        value           uniform $T;
-
-    }
-
-    outlet
-    {
-        type            inletOutlet;
-        inletValue      uniform $T;
-        value           uniform $T;
-
-    }
-
-    sides
-    {
-        type            inletOutlet;
+        gamma           1.4;
         inletValue      uniform $T;
         value           uniform $T;
 

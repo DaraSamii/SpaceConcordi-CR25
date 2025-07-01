@@ -16,28 +16,19 @@ FoamFile
 
 dimensions      [1 -1 -1 0 0 0 0];
 
-internalField   uniform 1e-04;
+internalField   uniform 0;
 
 boundaryField
 {
-    inlet
+    "(sides|outlet|inlet)"
     {
         type            calculated;
-        value           uniform 1e-04;
-    }
-    outlet
-    {
-        type            calculated;
-        value           uniform 1e-04;
-    }
-    sides
-    {
-        type            calculated;
-	    value           uniform 1e-04;
+	    value           uniform 0;
     }
     rocket
     {
         type            compressible::alphatWallFunction;
+        Prt             0.85;
         value           uniform 0;
 
     }

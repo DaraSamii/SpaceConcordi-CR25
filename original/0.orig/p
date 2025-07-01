@@ -23,19 +23,7 @@ internalField   uniform $P;
 
 boundaryField
 {
-    inlet
-    {
-    type            freestreamPressure;
-    freestreamValue uniform $P;
-    }
-
-    outlet
-    {
-            type            freestreamPressure;
-        freestreamValue uniform $P;
-    }
-
-    sides
+    "(sides|outlet|inlet)"
     {
     type            freestreamPressure;
     freestreamValue uniform $P;

@@ -20,25 +20,13 @@ dimensions      [0 0 -1 0 0 0 0];
 
 
 
-omega 10;//#calc "0.09 * pow($k,0.5) / $LengthScale";
+omega 10;
 
 internalField   uniform $omega;
 
 boundaryField
 {
-    inlet
-    {
-        type            freestream;
-        freestreamValue      uniform $omega;
-        value           uniform $omega;
-    }
-    outlet
-    {
-        type            freestream;
-        freestreamValue      uniform $omega;
-        value           uniform $omega;
-    }
-    sides
+    "(sides|outlet|inlet)"
     {
         type            freestream;
         freestreamValue      uniform $omega;
@@ -47,7 +35,10 @@ boundaryField
     rocket
     {
         type            omegaWallFunction;
-        value           uniform 1e-12;
+        Cmu             0.09;
+        kappa           0.41;
+        E               9.8;
+        value           uniform 10;
 
     }
 }

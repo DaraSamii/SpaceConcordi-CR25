@@ -54,13 +54,6 @@ localRefinement
     {
         additionalRefinementLevels	7;
         //cellSize #calc "$firstLayerThickness * 10.0";
-        refinementThickness 0.0;
-    }
-
-    rocket
-    {
-        additionalRefinementLevels	6;
-        //cellSize #calc "$firstLayerThickness * 10.0";
         refinementThickness 0.05;
     }
 
