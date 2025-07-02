@@ -27,7 +27,6 @@ gradSchemes
     grad(U)         $limited;
     grad(k)         $limited;
     grad(e)         $limited; 
-    grad(e)         $limited; 
     grad(omega)     $limited;
     grad(subsetU)   $limited;
 }
@@ -43,7 +42,6 @@ divSchemes
     div(phi,K)      $energy;
     div(phi,Ekp)    $energy;
 
-    //turbulence      bounded Gauss linearUpwind default; 
     turbulence      bounded Gauss upwind;
     div(phi,k)      $turbulence;
     div(phi,omega)  $turbulence;
