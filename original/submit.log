@@ -7,5 +7,5 @@ The following modules were not unloaded:
   3) gcccore/.12.3   8)  pmix/4.2.4         13) StdEnv/2023
   4) gcc/12.3        9)  ucc/1.2.0
   5) hwloc/2.9.1     10) openmpi/4.1.5
-/localscratch/spool/slurmd/job45672011/slurm_script: line 22: /home/darars/OpenFOAM/OpenFOAM-v2406/etc/bashrc: No such file or directory
+/localscratch/spool/slurmd/job45690266/slurm_script: line 22: /home/darars/OpenFOAM/OpenFOAM-v2406/etc/bashrc: No such file or directory
 OpenFOAM v2406 loaded via module with 64 processors.

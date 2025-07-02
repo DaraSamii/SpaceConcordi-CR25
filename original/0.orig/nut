@@ -18,7 +18,7 @@ FoamFile
 
 dimensions      [0 2 -1 0 0 0 0];
 
-nut 0;
+nut 1e-10;
 
 
 internalField   uniform 0.0;
@@ -33,7 +33,7 @@ boundaryField
     rocket
     {
         type            nutkWallFunction;
-        value           uniform 0;
+        value           uniform $nut;
     }
 }
 

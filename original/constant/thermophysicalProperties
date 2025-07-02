@@ -31,7 +31,7 @@ thermoType
     type            hePsiThermo;
     mixture         pureMixture;
     transport       const;//sutherland;
-    thermo          eConst;//eConst;
+    thermo          eConst;
     equationOfState perfectGas;
     specie          specie;
     energy          sensibleInternalEnergy;
