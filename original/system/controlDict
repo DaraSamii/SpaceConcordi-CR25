@@ -263,26 +263,10 @@ rocketVTK
         
         codeExecute
         #{
-            if (mesh().time().timeIndex() == 2)
+            if (mesh().time().timeIndex() == 1000)
             {
                 Info << "Switching to accurate schemes at iteration 1000" << endl;
                 system("cp system/fvSchemes.accurate system/fvSchemes");
-            }
-        #};
-    }
-
-    copySchemesStable
-    {
-        type            coded;
-        libs            ("libutilityFunctionObjects.so");
-        name            copySchemes;
-        
-        codeExecute
-        #{
-            if (mesh().time().timeIndex() == 0)
-            {
-                Info << "Switching to accurate schemes at iteration 1000" << endl;
-                system("cp system/fvSchemes.stable system/fvSchemes");
             }
         #};
     }

@@ -91,6 +91,10 @@ mpirun -np $numProcs checkMesh -allGeometry -allTopology -parallel > logs/checkM
 echo "Creating foam.foam..."
 for d in processor*; do touch "$d/foam.foam"; done
 
+
+#----------------------------------------
+cp ./system/fvSchemes.stable ./systemfvSchemes 
+
 #----------------------------------------
 # Step 10: Solver
 echo "Running rhoSimpleFoam in parallel..."
