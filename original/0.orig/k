@@ -18,16 +18,25 @@ FoamFile
 
 dimensions      [0 2 -2 0 0 0 0];
 
-k   1e-03;
+k 0.01;
 
 
 internalField   uniform $k;
 
 boundaryField
 {
-    "(sides|outlet|inlet)"
+
+    inlet
     {
-        type            freestream;
+         type            fixedValue;
+        value           uniform $k;
+    }
+
+    "(sides|outlet)"
+    {
+        //type            freestream;
+        type            inletOutlet;
+        inletValue      uniform $k;
         freestreamValue      uniform $k;
         value           uniform $k;
 

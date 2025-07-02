@@ -8,6 +8,14 @@
         "**/0/*": "OpenFOAM",
         "helperFunctionsFrontalMarking.C": "cpp",
         "LongList.C": "cpp",
-        "*.cs": "cpp"
+        "*.cs": "cpp",
+        "k": "cpp",
+        "ratio": "cpp",
+        "system_error": "cpp",
+        "array": "cpp",
+        "functional": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp"
     }
 }

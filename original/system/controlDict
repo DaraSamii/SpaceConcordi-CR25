@@ -171,32 +171,6 @@ functions
         writeControl    $writeControl;         // Save results based on runTime
         writeInterval   $writeInterval;            // Write every 0.01 seconds of simulation time
     }
-
-//=====================================================================================================// 
-
-ReynoldsNo
-{
-    type            ReynoldsNo;
-    libs            ("libfieldFunctionObjects.so");
-
-    field           U;           // Velocity field
-    rho             rho;         // Density field
-    mu              mu;          // Dynamic viscosity field
-
-    lRef            3.0;         // Characteristic length (e.g., rocket length)
-
-    region          region0;
-    enabled         true;
-    log             true;
-
-    timeStart       0;
-    timeEnd         $endTime;
-    executeControl  $writeControl;
-    executeInterval $writeInterval;
-
-    writeControl    $writeControl;
-    writeInterval   $writeInterval;
-}
     
 //=====================================================================================================// 
     solverInfo

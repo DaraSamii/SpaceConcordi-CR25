@@ -30,8 +30,8 @@ thermoType
 {
     type            hePsiThermo;
     mixture         pureMixture;
-    transport       sutherland;
-    thermo          eConst;
+    transport       const;//sutherland;
+    thermo          hConst;//eConst;
     equationOfState perfectGas;
     specie          specie;
     energy          sensibleInternalEnergy;
@@ -71,7 +71,7 @@ mixture
     }*/
     transport
     {
-        //mu          1.8e-05;
+        mu          1.8e-05;
         As          1.4792e-06;
         Ts          116;
         Pr          0.7;

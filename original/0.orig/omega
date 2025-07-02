@@ -19,8 +19,7 @@ dimensions      [0 0 -1 0 0 0 0];
 #include "../parameters.cs"
 
 
-
-omega 10;
+omega 20000;
 
 internalField   uniform $omega;
 
@@ -28,17 +27,16 @@ boundaryField
 {
     "(sides|outlet|inlet)"
     {
-        type            freestream;
+        //type            freestream;
+        type            inletOutlet;
+        inletValue      uniform $omega;
         freestreamValue      uniform $omega;
         value           uniform $omega;
     }
     rocket
     {
         type            omegaWallFunction;
-        Cmu             0.09;
-        kappa           0.41;
-        E               9.8;
-        value           uniform 10;
+        value           uniform $omega;
 
     }
 }

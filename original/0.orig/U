@@ -39,9 +39,12 @@ boundaryField
     "(sides|outlet|inlet)"
     {
         type            freestreamVelocity;
+        pInf            $P;
+        TInf            $T;
+        UInf            ($Ux $Uy $Uz);
+        gamma           1.4;
         value           uniform ($Ux $Uy $Uz);
         freestreamValue           uniform ($Ux $Uy $Uz);
-
     }
 
     rocket

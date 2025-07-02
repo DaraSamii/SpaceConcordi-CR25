@@ -19,11 +19,43 @@ simulationType      RAS;
 
 RAS
 {
-    RASModel        kOmegaSST;
+    RASModel        kOmegaSSTSAS;
 
     turbulence      on;
 
     printCoeffs     on;
+
+
+    kOmegaSSTSASCoeffs
+    {
+        // Default SST coefficients
+        alphaK1     0.85;
+        alphaK2     1.0;
+        alphaOmega1 0.5;
+        alphaOmega2 0.856;
+        beta1       0.075;
+        beta2       0.0828;
+        betaStar    0.09;
+        gamma1      0.55;
+        gamma2      0.44;
+        a1          0.31;
+        b1          1.0;
+        c1          10.0;
+        F3          no;
+
+        // Default SAS coefficients
+        Cs          0.11;
+        kappa       0.41;
+        zeta2       3.51;
+        sigmaPhi    0.66;
+        C           2;
+
+        // Delta must be specified for SAS e.g.
+        delta cubeRootVol;
+
+        cubeRootVolCoeffs
+        {}
+    }
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
