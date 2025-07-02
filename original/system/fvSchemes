@@ -34,9 +34,9 @@ divSchemes
 {
     default         none;
 
-    div(phi,U)      bounded Gauss upwind;
+    div(phi,U)      bounded Gauss upwind;//bounded Gauss limitedLinearV 1;
 
-    energy          bounded Gauss upwind;
+    energy          bounded Gauss upwind;//bounded Gauss limitedLinear 1;
     div(phi,e)      $energy;
     div(phi,K)      $energy;
     div(phi,Ekp)    $energy;

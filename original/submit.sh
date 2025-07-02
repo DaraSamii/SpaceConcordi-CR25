@@ -11,5 +11,22 @@
 #SBATCH --output=submit.log
 
 
-./MeshPractice.sh
-./Allrun.sh
+#./MeshPractice.sh
+#./Allrun.sh
+
+
+echo "Loading OpenFOAM v2406 environment..."
+if module avail openfoam/v2406 &>/dev/null; then
+    module purge
+    source ~/v2406/OpenFOAM-v2406/etc/bashrc
+    source ~/OpenFOAM/OpenFOAM-v2406/etc/bashrc
+    numProcs=$SLURM_NTASKS
+    echo "OpenFOAM v2406 loaded via module with $numProcs processors."
+else
+    source /opt/openfoam2406/etc/bashrc
+    numProcs=4
+    echo "OpenFOAM v2406 loaded from /opt with $numProcs processors."
+fi
+
+
+mpirun -np $numProcs rhoSimpleFoam -parallel > logs/rhoSimpleFoam.log 2>&1
