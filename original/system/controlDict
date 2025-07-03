@@ -189,38 +189,73 @@ functions
     
 //=====================================================================================================//
 
-sliceCentre
-{ 
+//=====================================================================================================//
+
+sliceCentreY
+{
     type            surfaces;
-    libs
-    (
-        "libsampling.so"
-    );
+    libs            ("libsampling.so");
     writeControl    $writeControl;
     writeInterval   $writeInterval;
-    surfaceFormat  vtk;
+    surfaceFormat   vtk;
+    setFormat       raw;       // optional, but cleaner for VTK
+    interpolationScheme cellPointFace;  // best for slices :contentReference[oaicite:3]{index=3}
+
     fields
     (
-        U
-        T
-        p
-        Ma
-        rho
-        k
-        omega
+        U T p Ma rho k omega
     );
+
     surfaces
     (
-        sampleSurface
+        planeSlice
         {
-            type            faceZone;
-            zones           (sampleSurface);
+            type            cuttingPlane;
+            planeType       pointAndNormal;
+            pointAndNormalDict
+            {
+                basePoint     (0 0 0);
+                normalVector  (0 1 0);
+            }
             interpolate     true;
+            mergeTol        1e-8;   // tolerance to clean tiny gaps :contentReference[oaicite:4]{index=4}
         }
     );
-    interpolationScheme cell;
 }
 
+//=====================================================================================================//
+
+sliceCentreZ
+{
+    type            surfaces;
+    libs            ("libsampling.so");
+    writeControl    $writeControl;
+    writeInterval   $writeInterval;
+    surfaceFormat   vtk;
+    setFormat       raw;       // optional, but cleaner for VTK
+    interpolationScheme cellPointFace;  // best for slices :contentReference[oaicite:3]{index=3}
+
+    fields
+    (
+        U T p Ma rho k omega
+    );
+
+    surfaces
+    (
+        planeSlice
+        {
+            type            cuttingPlane;
+            planeType       pointAndNormal;
+            pointAndNormalDict
+            {
+                basePoint     (0 0 0);
+                normalVector  (0 0 1);
+            }
+            interpolate     true;
+            mergeTol        1e-8;   // tolerance to clean tiny gaps :contentReference[oaicite:4]{index=4}
+        }
+    );
+}
 
 rocketVTK
 {
