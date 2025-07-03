@@ -93,7 +93,7 @@ for d in processor*; do touch "$d/foam.foam"; done
 
 
 #----------------------------------------
-cp ./system/fvSchemes.stable ./systemfvSchemes 
+cp ./system/fvSchemes.stable ./system/fvSchemes 
 
 #----------------------------------------
 # Step 10: Solver

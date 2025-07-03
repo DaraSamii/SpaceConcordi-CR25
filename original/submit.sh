@@ -12,7 +12,8 @@
 
 
 #./MeshPractice.sh
-#./Allrun.sh
+./Allrun.sh
+
 
 
 echo "Loading OpenFOAM v2406 environment..."

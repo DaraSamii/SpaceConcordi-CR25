@@ -26,6 +26,7 @@ gradSchemes
     limited         cellLimited Gauss linear 1;
     grad(U)         $limited;
     grad(k)         $limited;
+    grad(e)         $limited; 
     grad(omega)     $limited;
     grad(subsetU)   $limited;
 }
@@ -34,16 +35,14 @@ divSchemes
 {
     default         none;
 
-    div(phi,U)      bounded Gauss vanLeerV;//pwind;//bounded Gauss limitedLinearV 1;
-
-    //energy          bounded Gauss linearUpwind grad(e);
-    energy          bounded Gauss vanLeer;//limitedLinear 1;//bounded Gauss upwind;//bounded Gauss limitedLinear 1;
+    div(phi,U)      bounded Gauss upwind;
+    
+    energy          bounded Gauss upwind;
     div(phi,e)      $energy;
     div(phi,K)      $energy;
     div(phi,Ekp)    $energy;
 
-    //turbulence      bounded Gauss linearUpwind default; 
-    turbulence      bounded Gauss limitedLinear 1;//bounded Gauss upwind;
+    turbulence      bounded Gauss upwind;
     div(phi,k)      $turbulence;
     div(phi,omega)  $turbulence;
 
@@ -52,15 +51,14 @@ divSchemes
 
     div(((rho*nuEff)*dev2(T(grad(U)))))    Gauss linear;
 }
+interpolationSchemes
+{
+    default         linear;
+}
 
 laplacianSchemes
 {
     default         Gauss linear corrected;
-}
-
-interpolationSchemes
-{
-    default         linear;
 }
 
 snGradSchemes
