@@ -14,7 +14,7 @@
 #./MeshPractice.sh
 ./Allrun.sh
 
-
+#cp ./system/fvSchemes.stable ./system/fvSchemes 
 
 echo "Loading OpenFOAM v2406 environment..."
 if module avail openfoam/v2406 &>/dev/null; then
@@ -30,4 +30,4 @@ else
 fi
 
 
-mpirun -np $numProcs rhoSimpleFoam -parallel > logs/rhoSimpleFoam.log 2>&1
+#mpirun -np $numProcs rhoSimpleFoam -parallel > logs/rhoSimpleFoam.log 2>&1

@@ -28,8 +28,8 @@ solvers
         solver          PBiCGStab;         // Bi-Conjugate Gradient Stabilized
         preconditioner  DILU;//DIC             // Diagonal Incomplete LU (DILU)
         tolerance       1e-08;
-        relTol          0.1;
-        minIter        $minIter;
+        relTol          0.01;
+        minIter        20;//$minIter;
         maxIter        $maxIter;
     }
     
