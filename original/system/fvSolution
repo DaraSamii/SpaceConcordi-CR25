@@ -14,8 +14,6 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-minIter 10;
-maxIter 100;
 solvers
 {
     "rho.*"
@@ -23,14 +21,13 @@ solvers
         solver          diagonal;
     }
 
-    p
+    "(p|pCorr).*"
     {
         solver          PBiCGStab;         // Bi-Conjugate Gradient Stabilized
         preconditioner  DILU;//DIC             // Diagonal Incomplete LU (DILU)
         tolerance       1e-08;
-        relTol          0.01;
-        minIter        20;//$minIter;
-        maxIter        $maxIter;
+        relTol          0.1;
+        minIter        4;
     }
     
 
@@ -38,33 +35,25 @@ solvers
     {
         solver          PBiCG;
         preconditioner  DILU;
-        tolerance       1e-15;
+        tolerance       1e-08;
         relTol          0;
-        minIter        $minIter;
-        maxIter        $maxIter;
-
     }
 
     "U.*"
     {
         solver          PBiCGStab;
         preconditioner  diagonal;
-        tolerance       1e-12;
-        relTol          1e-04;
-        minIter        $minIter;
-        maxIter        $maxIter;
-
+        tolerance       1e-7;
+        relTol          0.001;
+        minIter        4;
     }
 
     "(k|epsilon||nuTilda|omega|h).*"
     {
         solver          GAMG;
         smoother        GaussSeidel;
-        tolerance       1e-15;
+        tolerance       1e-10;
         relTol          0;
-        minIter        $minIter;
-        maxIter        $maxIter;
-
     }
 }
 
@@ -81,6 +70,17 @@ SIMPLE
     nNonOrthogonalCorrectors 3;
     consistent yes;
     transonic yes;
+}
+
+
+PIMPLE
+{
+    nCorrectors      3;
+    nOuterCorrectors 2;
+    nNonOrthogonalCorrectors 0;
+    
+    consistent	yes;
+    transonic       yes;
 }
 
 
