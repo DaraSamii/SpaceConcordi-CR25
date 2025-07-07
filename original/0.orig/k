@@ -7,6 +7,7 @@
 \*---------------------------------------------------------------------------*/
 FoamFile
 {
+    version     2.0;
     format      ascii;
     class       volScalarField;
     location    "0";
@@ -26,13 +27,7 @@ internalField   uniform $k;
 boundaryField
 {
 
-    inlet
-    {
-         type            fixedValue;
-        value           uniform $k;
-    }
-
-    "(sides|outlet)"
+    "(sides|outlet|inlet)"
     {
         //type            freestream;
         type            inletOutlet;

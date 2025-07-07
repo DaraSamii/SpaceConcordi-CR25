@@ -28,7 +28,7 @@ endTime         3000;
 
 deltaT         1;
 
-maxDeltaT       1;
+maxDeltaT      1;
 
 writeControl    timeStep;
 
@@ -298,13 +298,30 @@ rocketVTK
         
         codeExecute
         #{
-            if (mesh().time().timeIndex() == 200)
+            if (mesh().time().timeIndex() == 500)
             {
-                Info << "Switching to accurate schemes at iteration 200" << endl;
+                Info << "Switching to accurate schemes at iteration 500" << endl;
                 system("cp system/fvSchemes.accurate system/fvSchemes");
             }
         #};
     }
+/*
+    copySchemesAccurate1
+    {
+        type            coded;
+        libs            ("libutilityFunctionObjects.so");
+        name            copySchemes;
+        
+        codeExecute
+        #{
+            if (mesh().time().timeIndex() == 1500)
+            {
+                Info << "Switching to accurate schemes at iteration 500" << endl;
+                system("cp system/fvSchemes.accurate1 system/fvSchemes");
+            }
+        #};
+    }
+*/
 }
 
 // ************************************************************************* //

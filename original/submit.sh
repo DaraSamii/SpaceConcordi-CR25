@@ -1,10 +1,10 @@
 #!/bin/bash
 #SBATCH --job-name=CR25
-#SBATCH --mem=48G
+#SBATCH --mem=68G
 #SBATCH --nodes=1
 #SBATCH --ntasks=64
 #SBATCH --cpus-per-task=1
-#SBATCH --time=12:0:0    
+#SBATCH --time=4:0:0    
 #SBATCH --mail-user=darasamii@gmail.com
 #SBATCH --mail-type=ALL
 #SBATCH --account=def-tembelym
@@ -12,7 +12,7 @@
 
 
 #./MeshPractice.sh
-./Allrun.sh
+#./Allrun.sh
 
 #cp ./system/fvSchemes.stable ./system/fvSchemes 
 
@@ -30,4 +30,4 @@ else
 fi
 
 
-#mpirun -np $numProcs rhoSimpleFoam -parallel > logs/rhoSimpleFoam.log 2>&1
+mpirun -np $numProcs rhoSimpleFoam -parallel > logs/rhoSimpleFoam.log 2>&1

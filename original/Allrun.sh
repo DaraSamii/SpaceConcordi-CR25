@@ -66,8 +66,8 @@ touch foam.foam
 
 #----------------------------------------
 # Step 5: topoSet (after reconstructed mesh)
-echo "Running topoSet on reconstructed mesh..."
-topoSet > logs/topoSet.log 2>&1
+#echo "Running topoSet on reconstructed mesh..."
+#topoSet > logs/topoSet.log 2>&1
 
 #----------------------------------------
 # Step 6: Renumber
@@ -77,7 +77,9 @@ renumberMesh -overwrite > logs/renumberMesh.log 2>&1
 #----------------------------------------
 # Step 7: Decompose final mesh
 echo "Decomposing final mesh..."
+subdiv_x=$((numProcs / 4))
 foamDictionary system/decomposeParDict -entry "numberOfSubdomains" -set "$numProcs"
+foamDictionary system/decomposeParDict -entry "n" -set "($subdiv_x 2 2)"
 decomposePar > logs/decomposePar.log 2>&1
 
 #----------------------------------------

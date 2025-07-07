@@ -22,7 +22,7 @@ limitTemperature
     limitTemperatureCoeffs
     {
         selectionMode   all;          // Applies to all cells
-        min            50;          // Minimum temperature in Kelvin
-        max            20000;          // Maximum temperature in Kelvin
+        min            100;          // Minimum temperature in Kelvin
+        max            6000;          // Maximum temperature in Kelvin
     }
 }

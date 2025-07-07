@@ -29,12 +29,13 @@ thermoType
 thermoType
 {
     type            hePsiThermo;
+    //type            heRhoThermo;
     mixture         pureMixture;
-    transport       const;//sutherland;
-    thermo          eConst;
+    transport       const;//const;//sutherland;
+    thermo          eConst;//eConst;
     equationOfState perfectGas;
     specie          specie;
-    energy          sensibleInternalEnergy;
+    energy          sensibleInternalEnergy;//sensibleEnthalpy;//sensibleInternalEnergy;
 }
 /*
 thermoType

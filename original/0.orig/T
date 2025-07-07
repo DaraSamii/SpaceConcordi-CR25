@@ -7,6 +7,8 @@
 \*---------------------------------------------------------------------------*/
 FoamFile
 {
+    version     2.0;
+    location    "0";
     format      ascii;
     class       volScalarField;
     object      T;
@@ -23,13 +25,7 @@ boundaryField
 {
 
 
-    inlet
-    {
-        type            fixedValue;
-        value           uniform $T;
-    }
-
-    "(sides|outlet)"
+    "(sides|outlet|inlet)"
     {
         type            inletOutlet;
         gamma           1.4;

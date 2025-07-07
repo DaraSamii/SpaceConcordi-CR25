@@ -28,7 +28,7 @@ surfaceFile "constant/triSurface/combined.fms";
 maxCellSize $maxCellSize;
 symmetryPlaneLayerTopology	0;
 meshMultipleDomainsAndBaffles	0;
-//nCellsBetweenLevels	7;
+nCellsBetweenLevels	4;
 domainDefinition
 {
     convertAllPatchesToFaceZones	1;
@@ -54,7 +54,7 @@ localRefinement
     {
         additionalRefinementLevels	7;
         //cellSize #calc "$firstLayerThickness * 10.0";
-        refinementThickness 0.05;
+        refinementThickness 0.1;
     }
 
 }
@@ -68,7 +68,7 @@ objectRefinements
         //cellSize #calc "$maxCellSize / 2.0";
         additionalRefinementLevels	1;
         centre (4.5 0 0);
-        lengthX 13;
+        lengthX 16;
         lengthY 4;
         lengthZ 4;
     }
@@ -78,7 +78,7 @@ objectRefinements
         //cellSize #calc "$maxCellSize / 2.0";
         additionalRefinementLevels	2;
         centre (3.5 0 0);
-        lengthX 10;
+        lengthX 13;
         lengthY 3;
         lengthZ 3;
     }
@@ -90,7 +90,7 @@ objectRefinements
         additionalRefinementLevels	3;
 
         centre (2.5 0 0);
-        lengthX 7;
+        lengthX 10;
         lengthY 2;
         lengthZ 2;
     }
@@ -100,7 +100,7 @@ objectRefinements
         //cellSize #calc "$maxCellSize / 8.0";
         additionalRefinementLevels	4;
         centre (1.5 0 0);
-        lengthX 4;
+        lengthX 7;
         lengthY 1;
         lengthZ 1;
     }
@@ -110,7 +110,7 @@ objectRefinements
         //cellSize #calc "$maxCellSize / 8.0";
         additionalRefinementLevels	5;
         centre (1.4 0 0);
-        lengthX 3.4;
+        lengthX 5.4;
         lengthY 0.6;
         lengthZ 0.6;
     }

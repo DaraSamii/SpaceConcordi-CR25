@@ -7,6 +7,7 @@
 \*---------------------------------------------------------------------------*/
 FoamFile
 {
+    version     2.0;
     format      ascii;
     class       volVectorField;
     object      U;
@@ -26,8 +27,8 @@ a       #calc "sqrt($gamma * $R * $T)";
 U       #calc "$Ma * $a";
 
 Ux      409;//#calc "$U * cos($alpha * 1.0)";
-Uy      0;//#calc "$U * sin($alpha * 1.0)";
-Uz      0;
+Uy      5;//#calc "$U * sin($alpha * 1.0)";
+Uz      5;
 
 
 
