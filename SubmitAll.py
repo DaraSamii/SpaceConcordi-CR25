@@ -85,21 +85,35 @@ def copy_and_modify_case(original_dir, data_dir, copied_folder, modifications, j
 
 #===================================================================================================
 
-
+# Configuration
 original_dir = "./original"
-data_dir = "./Data1"
+data_dir = "./Data/Mesh"
 
-# Define the parameter sets explicitly
-parameter_sets = [
-    {"Ux": 273.25, "Uy": 6.94, "Uz": 0.0, "P": 99066.1, "T": 289.367},
-    {"Ux": 342, "Uy": 6.943344, "Uz": 0.0, "P": 97708.9, "T": 288.608},
-    {"Ux": 408, "Uy": 12.5, "Uz": 0.0, "P": 96115.5, "T": 287.7},
-    {"Ux": 721, "Uy": 26.66, "Uz": 0.0, "P": 78764.1, "T": 277.01},
-]
+# Define mesh size variations for parametric study
+mesh_sizes = [0.8, 0.6, 0.5,0.4, 0.3, 0.2,]
 
-# Loop over parameter sets
-for params in parameter_sets:
-    copied_folder = f"Ux{params['Ux']}Uy{params['Uy']}"
-    job_name = copied_folder
-    copy_and_modify_case(original_dir, data_dir, copied_folder, params, job_name)
+# Loop over mesh sizes
+for mesh_size in mesh_sizes:
+    # Create folder name based on mesh size
+    copied_folder = f"mesh_{str(mesh_size).replace('.', 'p')}"
+    job_name = f"mesh_{str(mesh_size).replace('.', 'p')}"
+    
+    # Only modify the maxCellSize parameter
+    modifications = {"maxCellSize": mesh_size}
+    
+    print(f"\n{'='*50}")
+    print(f"Creating case with mesh size: {mesh_size}")
+    print(f"Folder name: {copied_folder}")
+    print(f"{'='*50}")
+    
+    copy_and_modify_case(original_dir, data_dir, copied_folder, modifications, job_name)
+    
+print(f"\n{'='*50}")
+print("All mesh size variations created and submitted!")
+print(f"{'='*50}")
 
+# Summary of created cases
+print("\nSummary of created cases:")
+for mesh_size in mesh_sizes:
+    folder_name = f"mesh_{str(mesh_size).replace('.', 'p')}"
+    print(f"  - {folder_name}: maxCellSize = {mesh_size}")

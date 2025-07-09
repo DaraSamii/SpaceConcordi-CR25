@@ -69,8 +69,8 @@ objectRefinements
         additionalRefinementLevels	1;
         centre (4.5 0 0);
         lengthX 16;
-        lengthY 4;
-        lengthZ 4;
+        lengthY 5;
+        lengthZ 5;
     }
     box1
     {
@@ -79,8 +79,8 @@ objectRefinements
         additionalRefinementLevels	2;
         centre (3.5 0 0);
         lengthX 13;
-        lengthY 3;
-        lengthZ 3;
+        lengthY 4;
+        lengthZ 4;
     }
     
     box2
@@ -91,8 +91,8 @@ objectRefinements
 
         centre (2.5 0 0);
         lengthX 10;
-        lengthY 2;
-        lengthZ 2;
+        lengthY 3;
+        lengthZ 3;
     }
     box3
     {
@@ -101,8 +101,8 @@ objectRefinements
         additionalRefinementLevels	4;
         centre (1.5 0 0);
         lengthX 7;
-        lengthY 1;
-        lengthZ 1;
+        lengthY 2;
+        lengthZ 2;
     }
     box4
     {
@@ -111,8 +111,8 @@ objectRefinements
         additionalRefinementLevels	5;
         centre (1.4 0 0);
         lengthX 5.4;
-        lengthY 0.6;
-        lengthZ 0.6;
+        lengthY 1;
+        lengthZ 1;
     }
 
 

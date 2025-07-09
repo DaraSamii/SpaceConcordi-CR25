@@ -11,8 +11,6 @@ zMax  10;
 
 // **Define Number of Cells**
 maxCellSize 0.5;
-rocketCellSize 0.001;  
-firstLayerThickness 0.0001;
 
 P 69681;
 T 268;
@@ -25,4 +23,4 @@ R       287.05;
 
 AoA 0.0;
 
-WriteInterval 50;
+WriteInterval 100;
