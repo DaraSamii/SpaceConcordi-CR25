@@ -4,7 +4,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=64
 #SBATCH --cpus-per-task=1
-#SBATCH --time=4:0:0    
+#SBATCH --time=10:0:0    
 #SBATCH --mail-user=darasamii@gmail.com
 #SBATCH --mail-type=ALL
 #SBATCH --account=def-tembelym

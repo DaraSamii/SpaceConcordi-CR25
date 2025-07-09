@@ -17,14 +17,14 @@ FoamFile
 
 application     rhoSimpleFoam;
 
-startFrom       startTime;
-//startFrom       latestTime;
+//startFrom       startTime;
+startFrom       latestTime;
 
 startTime       0;
 
 stopAt          endTime;
 
-endTime         3000;  
+endTime         10000;  
 
 deltaT         1;
 
@@ -75,7 +75,15 @@ functions
 {
 
     //#includeFunc residuals
-
+    minMax
+    {
+        enabled	true;
+        fields	(Ma U p rho T k omega);
+        libs	("libfieldFunctionObjects.so" );
+        log	true;
+        type	fieldMinMax;
+        write	true;
+    }
     
     forceCoeffs
     {
@@ -298,14 +306,16 @@ rocketVTK
         
         codeExecute
         #{
-            if (mesh().time().timeIndex() == 500)
+            if (mesh().time().timeIndex() == 300)
             {
-                Info << "Switching to accurate schemes at iteration 500" << endl;
+                Info << "Switching to accurate schemes at iteration 300" << endl;
                 system("cp system/fvSchemes.accurate system/fvSchemes");
             }
         #};
     }
+
 /*
+
     copySchemesAccurate1
     {
         type            coded;

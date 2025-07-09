@@ -37,7 +37,6 @@ boundaryField
     rocket
     {
         type        zeroGradient;
-        value           uniform $T;
 
     }
 }

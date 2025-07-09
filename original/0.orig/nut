@@ -22,7 +22,7 @@ dimensions      [0 2 -1 0 0 0 0];
 nut 0.0;
 
 
-internalField   uniform 0.0;
+internalField   uniform $nut;
 
 boundaryField
 {
@@ -34,6 +34,9 @@ boundaryField
     rocket
     {
         type            nutkWallFunction;
+        Cmu             0.09;
+        kappa           0.41;
+        E               9.8;
         value           uniform $nut;
     }
 }

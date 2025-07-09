@@ -28,15 +28,16 @@ boundaryField
 {
     "(sides|outlet|inlet)"
     {
-        //type                    freestream;
         type                    inletOutlet;
         inletValue              uniform $omega;
-        freestreamValue         uniform $omega;
         value                   uniform $omega;
     }
     rocket
     {
         type            omegaWallFunction;
+        Cmu             0.09;
+        kappa           0.41;
+        E               9.8;
         value           uniform $omega;
 
     }

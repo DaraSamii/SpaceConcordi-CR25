@@ -96,9 +96,9 @@ for d in processor*; do touch "$d/foam.foam"; done
 
 #----------------------------------------
 cp ./system/fvSchemes.stable ./system/fvSchemes 
-
 #----------------------------------------
-# Step 10: Solver
+
+
 echo "Running rhoSimpleFoam in parallel..."
 mpirun -np $numProcs rhoSimpleFoam -parallel > logs/rhoSimpleFoam.log 2>&1
 

@@ -26,14 +26,17 @@ boundaryField
 {
     "(sides|outlet|inlet)"
     {
+    type            inletOutlet;
+    
     type            freestreamPressure;
-    freestreamValue uniform $P;
+    freestreamValue $internalField;
+    inletValue      $internalField;
+    value           $internalField;
     }
 
     rocket
     {
         type            zeroGradient;
-	value           uniform $P;
     }
     
 }

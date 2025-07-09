@@ -29,10 +29,8 @@ boundaryField
 
     "(sides|outlet|inlet)"
     {
-        //type            freestream;
         type            inletOutlet;
         inletValue      uniform $k;
-        freestreamValue      uniform $k;
         value           uniform $k;
 
     }

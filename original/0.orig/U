@@ -21,14 +21,14 @@ dimensions      [0 1 -1 0 0 0 0];
 
 
 
-alpha   #calc "$AoA * 3.14159265358979323846 / 180.0"; // 10 degrees in radians
+//alpha   #calc "$AoA * 3.14159265358979323846 / 180.0"; // 10 degrees in radians
 
-a       #calc "sqrt($gamma * $R * $T)";
-U       #calc "$Ma * $a";
+//a       #calc "sqrt($gamma * $R * $T)";
+//U       #calc "$Ma * $a";
 
-Ux      409;//#calc "$U * cos($alpha * 1.0)";
-Uy      5;//#calc "$U * sin($alpha * 1.0)";
-Uz      5;
+Ux      540;//#calc "$U * cos($alpha * 1.0)";
+Uy      0;//#calc "$U * sin($alpha * 1.0)";
+Uz      0;
 
 
 
@@ -39,13 +39,11 @@ boundaryField
 {
     "(sides|outlet|inlet)"
     {
-        type            freestreamVelocity;
-        pInf            $P;
-        TInf            $T;
-        UInf            ($Ux $Uy $Uz);
-        gamma           1.4;
-        value           uniform ($Ux $Uy $Uz);
-        freestreamValue           uniform ($Ux $Uy $Uz);
+       //type            freestreamVelocity;
+        type             inletOutlet;
+        //freestreamValue $internalField;
+        inletValue       $internalField;
+        value           $internalField;
     }
 
     rocket
