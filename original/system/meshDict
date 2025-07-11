@@ -41,8 +41,8 @@ edgeMeshRefinement
 {
     edges
     {
-        edgeFile "constant/triSurface/rocketPractice.eMesh";
-        //edgeFile "constant/triSurface/rocket.eMesh";
+        //edgeFile "constant/triSurface/rocketPractice.eMesh";
+        edgeFile "constant/triSurface/rocket.eMesh";
 
 
         additionalRefinementLevels    9;

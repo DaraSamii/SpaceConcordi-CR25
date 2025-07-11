@@ -16,7 +16,7 @@ def copy_and_modify_case(original_dir, data_dir, copied_folder, modifications, j
     """
     # Define paths
     destination_path = os.path.join(data_dir, copied_folder)
-    parameters_file = os.path.join(destination_path, "system", "parameters.cs")
+    parameters_file = os.path.join(destination_path, "parameters.cs")
     submit_script = os.path.join(destination_path, "submit.sh")
     initial_dir = os.getcwd()
 
