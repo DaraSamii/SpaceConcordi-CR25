@@ -67,7 +67,7 @@ objectRefinements
         type box;
         //cellSize #calc "$maxCellSize / 2.0";
         additionalRefinementLevels	1;
-        centre (4.5 0 0);
+        centre (5.5 0 0);
         lengthX 16;
         lengthY 5;
         lengthZ 5;
@@ -77,7 +77,7 @@ objectRefinements
         type box;
         //cellSize #calc "$maxCellSize / 2.0";
         additionalRefinementLevels	2;
-        centre (3.5 0 0);
+        centre (4.5 0 0);
         lengthX 13;
         lengthY 4;
         lengthZ 4;
@@ -89,7 +89,7 @@ objectRefinements
         //cellSize #calc "$maxCellSize / 4.0";
         additionalRefinementLevels	3;
 
-        centre (2.5 0 0);
+        centre (3.5 0 0);
         lengthX 10;
         lengthY 3;
         lengthZ 3;
@@ -99,7 +99,7 @@ objectRefinements
         type box;
         //cellSize #calc "$maxCellSize / 8.0";
         additionalRefinementLevels	4;
-        centre (1.5 0 0);
+        centre (2.5 0 0);
         lengthX 7;
         lengthY 2;
         lengthZ 2;
@@ -109,7 +109,7 @@ objectRefinements
         type box;
         //cellSize #calc "$maxCellSize / 8.0";
         additionalRefinementLevels	5;
-        centre (1.4 0 0);
+        centre (2.4 0 0);
         lengthX 5.4;
         lengthY 1;
         lengthZ 1;
