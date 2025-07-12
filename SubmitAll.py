@@ -85,6 +85,7 @@ def copy_and_modify_case(original_dir, data_dir, copied_folder, modifications, j
 
 #===================================================================================================
 
+'''
 # Configuration
 original_dir = "./original"
 data_dir = "./Data/Mesh"
@@ -117,3 +118,42 @@ print("\nSummary of created cases:")
 for mesh_size in mesh_sizes:
     folder_name = f"mesh_{str(mesh_size).replace('.', 'p')}"
     print(f"  - {folder_name}: maxCellSize = {mesh_size}")
+    
+'''
+
+original_dir = "./original"
+data_dir = "./Data/AoA_Mach_Study"
+
+# Define parametric study ranges
+AoA_values = [0.0, 1.0, 2.0, 3.0]  # Angle of Attack in degrees
+Ma_values = [0.8, 1.2, 1.6, 2.0]  # Mach number values
+
+
+# Create summary list
+case_summary = []
+
+# Nested loop over AoA and Mach number
+for AoA in AoA_values:
+    for Ma in Ma_values:
+        case_counter += 1
+        
+        # Create folder name based on both parameters
+        # Convert decimals to avoid dots in folder names
+        AoA_str = f"{AoA:.1f}".replace('.', 'p')
+        Ma_str = f"{Ma:.1f}".replace('.', 'p')
+        copied_folder = f"AoA_{AoA_str}_Ma_{Ma_str}"
+        job_name = f"AoA{AoA_str}_Ma{Ma_str}"
+        
+        # Define modifications for both parameters
+        modifications = {
+            "AoA": AoA,
+            "Ma": Ma
+        }
+        
+        print(f"\n{'='*60}")
+        print(f"Creating case: AoA = {AoA}°, Ma = {Ma:.1f}")
+        print(f"Folder name: {copied_folder}")
+        print(f"Job name: {job_name}")
+        print(f"{'='*60}")
+        
+        copy_and_modify_case(original_dir, data_dir, copied_folder, modifications, job_name)
