@@ -9,6 +9,7 @@ Aether was SpaceConcordia's non-ordinary transition rocket launched on Monday, A
 I have endeavored to make this report as detailed as possible because the intended audience consists primarily of 2nd or 3rd-year undergraduates with limited experience in CFD and specifically OpenFOAM. Therefore, the first chapters describe the governing physics and theory behind each decision. In the appendix, actual OpenFOAM codes and a guide for submitting jobs to HPC systems are provided. Recognizing that undergraduate mechanical engineering students typically lack Linux experience, one full chapter is dedicated to teaching basic Linux bash commands.
 It is the author's hope that readers will develop a passion for CFD and, upon discovering new methods and techniques to improve this report or the CFD codes, will document these improvements and pass them on to future generations.
 
+**For more detail read [full report](CFD_spaceConcordia.pdf)**
 
 # Repository Structure
 ```
