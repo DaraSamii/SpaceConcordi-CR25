@@ -2,6 +2,8 @@
 
 A comprehensive CFD study of a model rocket in supersonic flow using OpenFOAM and cfMesh. This repository contains simulation setup, analysis tools, and results for aerodynamic coefficients, flow visualization, and structural loads across various Mach numbers and angles of attack.
 
+![Aether](readme_imgs/Aether.jpg)
+
 # Abstract 
 Aether was SpaceConcordia's non-ordinary transition rocket launched on Monday, August 18th, 2025, in Timmins, Ontario, for Launch Canada. Due to its novel design and the team's limited experience with this configuration, Computational Fluid Dynamics (CFD) was utilized to provide the design team with better understanding of the forces and aerodynamic loads acting on the rocket. We hope that computer-aided techniques such as CFD become more common in student teams, and we have demonstrated that it can be a powerful tool to assess aerodynamic forces and flight performance during different stages of flight. Launch Canada safety officials generally do not accept undergraduate CFD simulations, believing that without proper knowledge, CFD is merely "CAD in, fancy contours out." This report serves as a guide to help future practitioners perform proper mesh analysis, select appropriate solvers and boundary conditions, and configure cases to obtain verified, stable, and valid outputs that meaningfully assist other team members in designing better rockets.
 I have endeavored to make this report as detailed as possible because the intended audience consists primarily of 2nd or 3rd-year undergraduates with limited experience in CFD and specifically OpenFOAM. Therefore, the first chapters describe the governing physics and theory behind each decision. In the appendix, actual OpenFOAM codes and a guide for submitting jobs to HPC systems are provided. Recognizing that undergraduate mechanical engineering students typically lack Linux experience, one full chapter is dedicated to teaching basic Linux bash commands.
@@ -116,18 +118,46 @@ Where:
 # Mesh
 cfMesh was utilised to create the mesh
 
+**Schematic levels of refinement of the mesh:**
+![Diagram Mesh](readme_imgs/meshDiag.pdf)
+
+**Standard Mesh Overview:**
+![Standard Mesh](readme_imgs/meshStandard.png)
+
+**Detailed Mesh Zoom:**
+![Zoom Mesh](readme_imgs/zoomMesh.png)
+
+## Nose Cone Analysis
+![Nose Cone Inflation 1](readme_imgs/NoseConeInflation1.png)
+![Nose Cone Inflation](readme_imgs/NoseConeInflation.png)
+
+## Launch Log Analysis
+![Launch Log Inflation](readme_imgs/LaunchLogInflation.png)
+![Launch Log Zoom](readme_imgs/launchLogZoom.png)
 
 # Results
 
 ## Verification
+![solver_residuals](readme_imgs/solver_residuals.pdf)
+![mean_Cd_diff_vs_Time](readme_imgs/mean_Cd_diff_vs_Time.pdf)
+
 
 ## Validation
+![Cd_comparison_CFD_vs_RASAero](readme_imgs/Cd_comparison_CFD_vs_RASAero.pdf)
+![Cp_comparison_CFD_vs_RASAero](readme_imgs/Cp_comparison_CFD_vs_RASAero.pdf)
 
 ## Contours
 
-## Force Coefficients
+### Pressure contoures
+![AoA30Ma10](readme_imgs/AoA30Ma10.pdf)
+![AoA30Ma12](readme_imgs/AoA30Ma12.pdf)
+
+### Mach contoures
+![AoA30Ma10](readme_imgs/AoA30Ma10Ma.pdf)
+![AoA30Ma12](readme_imgs/AoA30Ma12Ma.pdf)
 
 ## Force loads
 
+![forces_Ma2](readme_imgs/forces_Ma2.0.pdf)
 
 
