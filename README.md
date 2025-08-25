@@ -119,7 +119,7 @@ Where:
 cfMesh was utilised to create the mesh
 
 **Schematic levels of refinement of the mesh:**
-![Diagram Mesh](readme_imgs/meshDiag.pdf)
+![Diagram Mesh](readme_imgs/meshDiag.png)
 
 **Standard Mesh Overview:**
 ![Standard Mesh](readme_imgs/meshStandard.png)
@@ -138,26 +138,26 @@ cfMesh was utilised to create the mesh
 # Results
 
 ## Verification
-![solver_residuals](readme_imgs/solver_residuals.pdf)
-![mean_Cd_diff_vs_Time](readme_imgs/mean_Cd_diff_vs_Time.pdf)
+![solver_residuals](readme_imgs/solver_residuals.png)
+![mean_Cd_diff_vs_Time](readme_imgs/mean_Cd_diff_vs_Time.png)
 
 
 ## Validation
-![Cd_comparison_CFD_vs_RASAero](readme_imgs/Cd_comparison_CFD_vs_RASAero.pdf)
-![Cp_comparison_CFD_vs_RASAero](readme_imgs/Cp_comparison_CFD_vs_RASAero.pdf)
+![Cd_comparison_CFD_vs_RASAero](readme_imgs/Cd_comparison_CFD_vs_RASAero.png)
+![Cp_comparison_CFD_vs_RASAero](readme_imgs/Cp_comparison_CFD_vs_RASAero.png)
 
 ## Contours
 
 ### Pressure contoures
-![AoA30Ma10](readme_imgs/AoA30Ma10.pdf)
-![AoA30Ma12](readme_imgs/AoA30Ma12.pdf)
+![AoA30Ma10](readme_imgs/AoA30Ma10.png)
+![AoA30Ma12](readme_imgs/AoA30Ma12.png)
 
 ### Mach contoures
-![AoA30Ma10](readme_imgs/AoA30Ma10Ma.pdf)
-![AoA30Ma12](readme_imgs/AoA30Ma12Ma.pdf)
+![AoA30Ma10](readme_imgs/AoA30Ma10Ma.png)
+![AoA30Ma12](readme_imgs/AoA30Ma12Ma.png)
 
 ## Force loads
 
-![forces_Ma2](readme_imgs/forces_Ma2.0.pdf)
+![forces_Ma2](readme_imgs/forces_Ma2.0.png)
 
 
